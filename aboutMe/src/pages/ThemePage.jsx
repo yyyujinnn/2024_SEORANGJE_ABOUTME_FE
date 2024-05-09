@@ -2,7 +2,7 @@
 
 const ThemePage = () => {
   return (
-    <div>ThemePage</div>
+    <main>ThemePage</main>
   )
 }
 
