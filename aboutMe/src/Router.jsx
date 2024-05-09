@@ -5,6 +5,8 @@ import {
   SigninPage,
   SignupPage,
   ThemePage,
+  MakingPage,
+  HomePage,
 } from './pages';
 
 
@@ -14,6 +16,12 @@ const Router = () => {
       <Routes>
         <Route
           path='/'
+          element={
+              <HomePage />
+          }
+        />
+        <Route
+          path='/diary'
           element={
               <DiaryPage />
           }
@@ -31,15 +39,15 @@ const Router = () => {
           }
         />
         <Route
-          path='/mypage'
-          element={
-              <MyPage />
-          }
-        />
-        <Route
           path='/theme'
           element={
               <ThemePage />
+          }
+        />
+        <Route
+          path='/making'
+          element={
+              <MakingPage />
           }
         />
       </Routes>
