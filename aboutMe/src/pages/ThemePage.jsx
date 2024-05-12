@@ -61,6 +61,12 @@ const Button = styled.button`
 `;
 
 const ThemePage = () => {
+
+  const navigate = useNavigate();
+  
+  const handleHomeClick = () => {
+    navigate(`/`);
+  };
   return (
     <MainBody>
 
@@ -84,7 +90,7 @@ const ThemePage = () => {
       </ThemeContainer>
 
       <ButtonContainer>
-        <Button> 다이어리 이동 </Button>
+        <Button  onClick={handleHomeClick}> 다이어리 이동 </Button>
       </ButtonContainer>
 
     </MainBody>

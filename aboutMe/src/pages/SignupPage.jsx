@@ -56,6 +56,12 @@ const Button = styled.button`
 `;
 
 const SignupPage = () => {
+  
+  const navigate = useNavigate();
+  
+  const handleThemeClick = () => {
+    navigate(`/theme`);
+  };
   return (
     <MainBody>
 
@@ -73,7 +79,7 @@ const SignupPage = () => {
       </InputContainer>
 
       <ButtonContainer>
-        <Button> 다음 ... </Button>
+        <Button onClick={handleThemeClick}> 다음 ... </Button>
       </ButtonContainer>
 
     </MainBody>

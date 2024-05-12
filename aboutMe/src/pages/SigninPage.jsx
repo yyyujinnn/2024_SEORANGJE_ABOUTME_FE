@@ -65,6 +65,10 @@ const SignupText = styled.div`
 const SigninPage = () => {
   const navigate = useNavigate();
   
+  const handleSigninClick = () => {
+    navigate(`/theme`);
+  };
+
   const handleSignupClick = () => {
     navigate(`/sign-up`);
   };
@@ -82,7 +86,7 @@ const SigninPage = () => {
       </InputContainer>
 
       <ButtonContainer>
-        <Button className='btnlogin'> 입장하기 </Button>
+        <Button onClick={handleSigninClick}> 입장하기 </Button>
         <SignupText onClick={handleSignupClick}>회원가입 하기</SignupText>
       </ButtonContainer>
       
