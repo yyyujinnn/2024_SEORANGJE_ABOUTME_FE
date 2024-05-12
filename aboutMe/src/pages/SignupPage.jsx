@@ -32,10 +32,22 @@ const Input = styled.input`
   font-size: 15px;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center; 
+  flex-direction: column;
+  
+  // 밑에서부터 20vh만큼은 버튼
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20vh;
+`;
+
 const Button = styled.button`
   width: 370px;
   height: 65px;
-  margin-top: 200px;
   background-color: #000000;
   color: #ffffff;
   border-radius: 0px;
@@ -60,7 +72,9 @@ const SignupPage = () => {
         <Input placeholder='다이어리 주인 이름' />
       </InputContainer>
 
-      <Button> 다음 ... </Button>
+      <ButtonContainer>
+        <Button> 다음 ... </Button>
+      </ButtonContainer>
 
     </MainBody>
   )

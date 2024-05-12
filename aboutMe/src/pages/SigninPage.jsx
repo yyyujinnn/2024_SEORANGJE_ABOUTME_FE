@@ -31,14 +31,20 @@ const Input = styled.input`
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center; 
+  flex-direction: column;
+  
+  // 밑에서부터 20vh만큼은 버튼
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20vh;
 `;
 
 const Button = styled.button`
   width: 370px;
   height: 65px;
-  margin-top: 40px;
   background-color: #000000;
   color: #ffffff;
   border-radius: 0px;
@@ -77,8 +83,8 @@ const SigninPage = () => {
 
       <ButtonContainer>
         <Button className='btnlogin'> 입장하기 </Button>
+        <SignupText onClick={handleSignupClick}>회원가입 하기</SignupText>
       </ButtonContainer>
-      <SignupText onClick={handleSignupClick}>회원가입 하기</SignupText>
       
     </MainBody>
   )
