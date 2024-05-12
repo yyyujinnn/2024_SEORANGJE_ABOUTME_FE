@@ -36,10 +36,6 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   width: 370px;
   height: 65px;
   margin-top: 40px;
