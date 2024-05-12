@@ -2,21 +2,25 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const MainBody = styled.div`
-  width: 390px;
-  height: 844px;
+  // width: 390px;
+  // height: 844px;
 `;
 
 const Title = styled.div`
   font-size: 24px;
-  margin-top: 100px;
+  margin: 100px 0 0 30px;
 `;
 
 const Sub_Title = styled.div`
   font-size: 14px;
-  margin-top: 20px;
+  margin: 20px 0 0 30px;
 `;
 
-const InputWrapper = styled.div`
+const InputContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin-top: 50px;
 `;
 
@@ -42,6 +46,7 @@ const Button = styled.button`
 const SignupPage = () => {
   return (
     <MainBody>
+
       <Title> 나만의 다이어리 만들기</Title>
       <Sub_Title> 
         나의 이미지를 모으는 다이어리를 만들어보자
@@ -49,12 +54,14 @@ const SignupPage = () => {
         아래 빈칸을 너의 정보로 채워줘~        
       </Sub_Title>
 
-      <InputWrapper>
+      <InputContainer>
         <Input placeholder='아이디' />
         <Input placeholder='비밀번호' type='password' />        
         <Input placeholder='다이어리 주인 이름' />
-      </InputWrapper>
+      </InputContainer>
+
       <Button> 다음 ... </Button>
+
     </MainBody>
   )
 }
