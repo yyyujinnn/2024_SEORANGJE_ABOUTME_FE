@@ -8,14 +8,19 @@ const MainBody = styled.div`
 
 const TitleContainer = styled.div`
   padding-top: 100px;
+  
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center; 
 `;
 
 const Title = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center; 
   font-size: 24px;
-  margin-left: 30%;
   width: 164px;
   height: 44px;
   border-radius: 28px;
