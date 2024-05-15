@@ -2,15 +2,14 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const MainBody = styled.div`
-  // background: linear-gradient(180deg, rgba(126, 246, 255, 0.40) 0%, rgba(255, 255, 255, 0.40) 85.29%);
-  // background-position: top;
+  background: linear-gradient(180deg, rgba(126, 246, 255, 0.40) 0%, rgba(255, 255, 255, 0.40) 85.29%); 
 `;
 
 const TitleContainer = styled.div`
   display : flex;
   align-items: center;
   font-size: 24px;
-  margin: 100px 0 0 30px;
+  padding: 100px 0 0 30px;
   gap: 10px;
 `;
 

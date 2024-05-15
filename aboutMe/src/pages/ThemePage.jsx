@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const MainBody = styled.div`
-  // background: linear-gradient(180deg, rgba(126, 246, 255, 0.40) 0%, rgba(255, 255, 255, 0.40) 85.29%);
-  // background-position: top;
+  background: linear-gradient(180deg, rgba(126, 246, 255, 0.40) 0%, rgba(255, 255, 255, 0.40) 85.29%);
+`;
+
+const TitleContainer = styled.div`
+  padding-top: 100px;
 `;
 
 const Title = styled.div`
@@ -12,7 +15,6 @@ const Title = styled.div`
   justify-content: center;
   align-items: center; 
   font-size: 24px;
-  margin-top: 100px;
   margin-left: 30%;
   width: 164px;
   height: 44px;
@@ -100,12 +102,14 @@ const ThemePage = () => {
   return (
     <MainBody>
 
-      <Title> 주제 고르기 </Title>
-      <Sub_Title> 
-        다른 사람들에게 나는 어떤 이미지일까?
-        <br/>
-        알고 싶은 주제 5개를 정해보자!     
-      </Sub_Title>
+      <TitleContainer>
+        <Title> 주제 고르기 </Title>
+        <Sub_Title> 
+          다른 사람들에게 나는 어떤 이미지일까?
+          <br/>
+          알고 싶은 주제 5개를 정해보자!     
+        </Sub_Title>
+      </TitleContainer>
 
       <ThemeContainer>
         <ThemeItem
