@@ -2,14 +2,29 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const MainBody = styled.div`
-  // width: 390px;
-  // height: 844px;
+  // background: linear-gradient(180deg, rgba(126, 246, 255, 0.40) 0%, rgba(255, 255, 255, 0.40) 85.29%);
+  // background-position: top;
+`;
+
+const TitleContainer = styled.div`
+  display : flex;
+  align-items: center;
+  font-size: 24px;
+  margin: 100px 0 0 30px;
+  gap: 10px;
 `;
 
 const Title = styled.div`
-  font-size: 24px;
-  margin: 100px 0 0 30px;
-`;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  font-size: 20px;
+  width: 81px;
+  height: 34px;
+  border-radius: 28px;
+  border: 1px solid #000;
+  background: linear-gradient(180deg, #FF8CAF 0%, #FFF 100%);
+`
 
 const Sub_Title = styled.div`
   font-size: 14px;
@@ -71,7 +86,10 @@ const SignupPage = () => {
   return (
     <MainBody>
 
-      <Title> 나만의 다이어리 만들기</Title>
+      <TitleContainer>
+      <Title> 나만의</Title>
+      <div> 미니홈피 만들기</div>
+      </TitleContainer>
       <Sub_Title> 
         나의 이미지를 모으는 다이어리를 만들어보자
         <br/>
@@ -81,11 +99,11 @@ const SignupPage = () => {
       <InputContainer>
         <Input placeholder='아이디' />
         <Input placeholder='비밀번호' type='password' />        
-        <Input placeholder='다이어리 주인 이름' />
+        <Input placeholder='미니홈피 주인 이름' />
       </InputContainer>
 
       <ButtonContainer>
-        <Button onClick={handleThemeClick}> 다음 ... </Button>
+        <Button onClick={handleThemeClick}> 다음 </Button>
       </ButtonContainer>
 
     </MainBody>

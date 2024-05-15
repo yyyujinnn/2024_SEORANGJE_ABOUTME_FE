@@ -2,9 +2,8 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import AboutMeLogo from '../assets/AboutMeLogo.png';
 
-const MainBody = styled.div`  
-  // width: 390px;
-  // height: 844px;
+const MainBody = styled.div`
+  background: linear-gradient(180deg, #FF8CAF 0%, #FFF 85.29%);
 `;
 
 const LogoContainer = styled.div`
@@ -26,7 +25,7 @@ const Input = styled.input`
   height: 60px;
   margin-top: 15px;
   padding-left: 30px;
-  font-size: 16px;
+  font-size: 20px;
   font-family: "DungGeunMo";
 
   &::placeholder {

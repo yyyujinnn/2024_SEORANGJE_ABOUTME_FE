@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const MainBody = styled.div`
-width: 100%;
+  // background: linear-gradient(180deg, rgba(126, 246, 255, 0.40) 0%, rgba(255, 255, 255, 0.40) 85.29%);
+  // background-position: top;
 `;
 
 const Title = styled.div`
@@ -12,6 +13,7 @@ const Title = styled.div`
   align-items: center; 
   font-size: 24px;
   margin-top: 100px;
+  margin-left: 30%;
   width: 164px;
   height: 44px;
   border-radius: 28px;
@@ -163,7 +165,7 @@ const ThemePage = () => {
       </ThemeContainer>
 
       <ButtonContainer>
-        <Button onClick={handleHomeClick} active={activeThemes.length === 5}> 다이어리 이동 </Button>
+        <Button onClick={handleHomeClick} active={activeThemes.length === 5}> 홈으로 이동 </Button>
       </ButtonContainer>
 
     </MainBody>
