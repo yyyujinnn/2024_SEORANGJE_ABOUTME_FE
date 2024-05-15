@@ -1,9 +1,9 @@
+import React,{ useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const MainBody = styled.div`
-  // width: 390px;
-  // height: 844px;
+width: 100%;
 `;
 
 const Title = styled.div`
@@ -12,6 +12,11 @@ const Title = styled.div`
   align-items: center; 
   font-size: 24px;
   margin-top: 100px;
+  width: 164px;
+  height: 44px;
+  border-radius: 28px;
+  border: 1px solid #000;
+  background: linear-gradient(180deg, #FF8CAF 0%, #FFF 100%);
 `;
 
 const Sub_Title = styled.div`
@@ -35,6 +40,8 @@ const ThemeItem = styled.div`
   text-align: center;
   line-height: 48px;
   font-size: 18px;
+  cursor: pointer;
+  background-image: ${({ active }) => (active ? 'linear-gradient(180deg, #C0EE41 0%, #FFF 100%)' : '#FFF')};
 `
 
 const ButtonContainer = styled.div`
@@ -53,20 +60,41 @@ const ButtonContainer = styled.div`
 const Button = styled.button`
   width: 370px;
   height: 65px;
-  background-color: #000000;
+  
+  background-color: ${({ active }) => (active ? '#000' : '#D9D9D9')};
   color: #ffffff;
   border-radius: 0px;
+  border: none;
   font-size: 20px;
   cursor: pointer; 
+  font-family: "DungGeunMo";
 `;
+
 
 const ThemePage = () => {
 
+  const [activeThemes, setActiveThemes] = useState([]);
+
   const navigate = useNavigate();
-  
+
+  const handleThemeClick = (theme) => {
+    if (activeThemes.includes(theme)) {
+      // 이미 선택된 테마일 경우 선택 해제
+      setActiveThemes((prev) => prev.filter((item) => item !== theme));
+    } else {
+      // 선택되지 않은 테마일 경우 추가
+      if (activeThemes.length < 5) {
+        setActiveThemes((prev) => [...prev, theme]);
+      }
+    }
+  };
+ 
+
   const handleHomeClick = () => {
     navigate(`/`);
   };
+
+
   return (
     <MainBody>
 
@@ -78,19 +106,64 @@ const ThemePage = () => {
       </Sub_Title>
 
       <ThemeContainer>
-        <ThemeItem id='flower'> 꽃 </ThemeItem>
-        <ThemeItem id='animal'> 동물 </ThemeItem>
-        <ThemeItem id='season'> 계절 </ThemeItem>
-        <ThemeItem id='clor'> 색깔 </ThemeItem>
-        <ThemeItem id='character'> 캐릭터 </ThemeItem>
-        <ThemeItem id='place'> 장소 </ThemeItem>
-        <ThemeItem id='food'> 음식 </ThemeItem>
-        <ThemeItem id='hobby'> 취미 </ThemeItem>
-        <ThemeItem id='job'> 직업 </ThemeItem>
+        <ThemeItem
+          active={activeThemes.includes('flower')}
+          onClick={() => handleThemeClick('flower')}
+        >
+          꽃
+        </ThemeItem>
+        <ThemeItem
+          active={activeThemes.includes('animal')}
+          onClick={() => handleThemeClick('animal')}
+        >
+          동물
+        </ThemeItem>
+        <ThemeItem
+          active={activeThemes.includes('season')}
+          onClick={() => handleThemeClick('season')}
+        >
+          계절
+        </ThemeItem>
+        <ThemeItem
+          active={activeThemes.includes('color')}
+          onClick={() => handleThemeClick('color')}
+        >
+          색깔
+        </ThemeItem>
+        <ThemeItem
+          active={activeThemes.includes('character')}
+          onClick={() => handleThemeClick('character')}
+        >
+          캐릭터
+        </ThemeItem>
+        <ThemeItem
+          active={activeThemes.includes('place')}
+          onClick={() => handleThemeClick('place')}
+        >
+          장소
+        </ThemeItem>
+        <ThemeItem
+          active={activeThemes.includes('food')}
+          onClick={() => handleThemeClick('food')}
+        >
+          음식
+        </ThemeItem>
+        <ThemeItem
+          active={activeThemes.includes('hobby')}
+          onClick={() => handleThemeClick('hobby')}
+        >
+          취미
+        </ThemeItem>
+        <ThemeItem
+          active={activeThemes.includes('job')}
+          onClick={() => handleThemeClick('job')}
+        >
+          직업
+        </ThemeItem>
       </ThemeContainer>
 
       <ButtonContainer>
-        <Button  onClick={handleHomeClick}> 다이어리 이동 </Button>
+        <Button onClick={handleHomeClick} active={activeThemes.length === 5}> 다이어리 이동 </Button>
       </ButtonContainer>
 
     </MainBody>
