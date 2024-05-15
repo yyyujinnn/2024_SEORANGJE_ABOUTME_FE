@@ -19,20 +19,21 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: center;  
   flex-direction: column;
+  height: 82px;
   font-size: 24px;
   margin-top: 70px;
   gap: 5px;
 `;
 
 const NameImg = styled.img`
-  position: absolute;
-  top: 12%;
-  left: 21%;
-  transform: translateY(-50%);
+  display: flex;
+  align-items: center;  
+  margin-top: -22px;
   z-index: 1;
 `;
 
 const Title = styled.div`
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center; 
@@ -46,6 +47,8 @@ const Title = styled.div`
 `
 
 const Sub_Title = styled.div`
+  position: fixed;
+  margin-top: 40px;
   font-size: 40px;
   color: #FFF;
   text-shadow:
@@ -61,11 +64,13 @@ const FolderContainer = styled.div`
   align-items: center;
   position: relative;
   width: 100%; /* Folder의 너비를 100%로 설정 */
-  height: 100%;
+  height: 600px;
 `;
 
 const Img = styled.img`
   margin-top: 35px;
+  position: fixed;
+  z-index: 1;
 `;
 
 const BtnPre = styled.button`
@@ -73,9 +78,13 @@ const BtnPre = styled.button`
   top: 50%;
   left: 7%;
   transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   background: none;
   cursor: pointer;
+  z-index: 3;
 `;
 
 const BtnNext= styled.button`
@@ -83,9 +92,13 @@ const BtnNext= styled.button`
   top: 50%;
   right: 7%;
   transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   background: none;
-  cursor: pointer;
+  cursor: pointer;  
+  z-index: 3;
 `;
 
 

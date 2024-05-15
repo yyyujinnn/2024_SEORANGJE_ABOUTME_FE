@@ -10,13 +10,15 @@ import Music from '../../assets/Folder/Music.svg';
 
 const FolderGrid = styled.div`
   position: absolute;
-  top: 15%;
-  left: 10%;
-  width: 80%;
-  height: 80%;
+  top: 17%;    
+  gap: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  z-index : 2;
 `;
 
 const FolderItem = styled.div`
