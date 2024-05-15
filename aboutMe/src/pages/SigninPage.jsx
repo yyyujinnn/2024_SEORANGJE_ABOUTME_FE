@@ -26,7 +26,12 @@ const Input = styled.input`
   height: 60px;
   margin-top: 15px;
   padding-left: 30px;
-  font-size: 15px;
+  font-size: 16px;
+  font-family: "DungGeunMo";
+
+  &::placeholder {
+    font-family: "DungGeunMo"; 
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -50,6 +55,7 @@ const Button = styled.button`
   border-radius: 0px;
   font-size: 20px;
   cursor: pointer; 
+  font-family: "DungGeunMo";
 `;
 
 const SignupText = styled.div`
@@ -60,6 +66,7 @@ const SignupText = styled.div`
   color: #A5A5A5;
   text-decoration: underline;
   margin-top: 15px;
+  cursor: pointer;
   `
 
 const SigninPage = () => {

@@ -29,7 +29,12 @@ const Input = styled.input`
   height: 68px;
   margin-top: 20px;
   padding-left: 30px;
-  font-size: 15px;
+  font-size: 16px;
+  font-family: "DungGeunMo";
+
+  &::placeholder {
+    font-family: "DungGeunMo"; 
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -53,6 +58,7 @@ const Button = styled.button`
   border-radius: 0px;
   font-size: 20px;
   cursor: pointer; 
+  font-family: "DungGeunMo";
 `;
 
 const SignupPage = () => {
