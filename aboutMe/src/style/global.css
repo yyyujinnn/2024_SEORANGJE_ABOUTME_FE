@@ -1,0 +1,12 @@
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  position: relative;
+  margin: 0 auto;
+  height: calc(var(--vh, 1vh) * 100);
+}
