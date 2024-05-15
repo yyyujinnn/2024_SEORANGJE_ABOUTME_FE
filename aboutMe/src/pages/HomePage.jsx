@@ -1,16 +1,18 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import IntWin from '../assets/IntWin.png';
-import pre from '../assets/HomePre.svg';
-import next from '../assets/HomeNext.svg';
-import Share from '../assets/Share.svg';
+import IntWin from '../assets/HomePage/IntWin.png';
+import DiaryName from '../assets/HomePage/DiaryName.png'
+import pre from '../assets/HomePage/HomePre.svg';
+import next from '../assets/HomePage/HomeNext.svg';
+import Share from '../assets/HomePage/Share.svg';
+import { Folder } from '../Components/HomePage/Folder';
 
 const MainBody = styled.div`
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 100%);
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
 `;
 
 const TitleContainer = styled.div`
@@ -19,7 +21,15 @@ const TitleContainer = styled.div`
   flex-direction: column;
   font-size: 24px;
   margin-top: 70px;
-  gap: 10px;
+  gap: 5px;
+`;
+
+const NameImg = styled.img`
+  position: absolute;
+  top: 12%;
+  left: 21%;
+  transform: translateY(-50%);
+  z-index: 1;
 `;
 
 const Title = styled.div`
@@ -32,6 +42,7 @@ const Title = styled.div`
   border-radius: 28px;
   border: 1px solid #000;
   background: linear-gradient(180deg, #7EF6FF 0%, #FFF 100%);
+  z-index: 2;
 `
 
 const Sub_Title = styled.div`
@@ -44,12 +55,21 @@ const Sub_Title = styled.div`
     1px 1px 0 #000;
 `;
 
+const FolderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%; /* Folder의 너비를 100%로 설정 */
+  height: 100%;
+`;
+
 const Img = styled.img`
-  margin-top: 20px;
+  margin-top: 35px;
 `;
 
 const BtnPre = styled.button`
-position: absolute;
+  position: absolute;
   top: 50%;
   left: 7%;
   transform: translateY(-50%);
@@ -133,14 +153,17 @@ const HomePage = () => {
     <MainBody>
 
       <TitleContainer>
-      <Title> 주희의 </Title>
-      <Sub_Title> 미니홈피 </Sub_Title>
+        <NameImg src={DiaryName}/>
+        <Title> 주희의 </Title>
+        <Sub_Title> 미니홈피 </Sub_Title>
       </TitleContainer>
 
-      <Img src={IntWin} alt='InternetWindow'/>
+      <FolderContainer>
+        <Img src={IntWin} alt='InternetWindow'/>
         <BtnPre> <img src={pre}/> </BtnPre>
         <BtnNext> <img src={next}/> </BtnNext>
-      
+        <Folder/>
+      </FolderContainer>
 
     {/* 호스트.ver */}
     <ButtonContainer>
