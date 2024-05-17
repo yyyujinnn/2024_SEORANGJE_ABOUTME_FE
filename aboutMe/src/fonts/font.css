@@ -52,3 +52,10 @@
   font-weight: 800;
   font-style: normal;
 }
+@font-face {
+  font-family: "PFStardust";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/PFStardust.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
