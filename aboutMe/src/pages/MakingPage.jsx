@@ -246,40 +246,34 @@ const ModalUploadBtn = styled(ModalBtn)`
 `;
 
 // 이미지 더미데이터 예시
-const categories = [
+const categoriesData = [
   {
     name: "음식을",
     images: [img1, img2],
-    uploadedImages: [],
   },
   {
     name: "장소를",
     images: [img3, img4],
-    uploadedImages: [],
   },
   {
     name: "동물을",
     images: [img5, img1],
-    uploadedImages: [],
   },
   {
     name: "장소를",
     images: [img4, img4],
-    uploadedImages: [],
   },
   {
     name: "캐릭터를",
     images: [img5, img5],
-    uploadedImages: [],
   },
 ];
 
 const MakingPage = () => {
+  const [categories, setCategories] = useState(categoriesData);
   const [currentCategory, setCurrentCategory] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
-  const [image, setImage] = useState(categories[currentCategory].images);
   const [showWriting, setWriting] = useState(false);
-  const [uploadedImages, setUploadedImages] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleImageChange = (e) => {
@@ -290,10 +284,8 @@ const MakingPage = () => {
       if (reader.readyState === 2) {
         const newImage = reader.result;
         const updatedCategories = [...categories];
-        updatedCategories[currentCategory].uploadedImages.unshift(newImage);
-        setUploadedImages([newImage, ...uploadedImages]);
-        setImage([newImage, ...image]);
-        console.log(categories[currentCategory].images);
+        updatedCategories[currentCategory].images.unshift(newImage);
+        setCategories(updatedCategories);
         setCurrentImage(0);
       }
     };
