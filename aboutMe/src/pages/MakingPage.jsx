@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoCameraOutline } from "react-icons/io5";
@@ -332,6 +333,23 @@ const MakingPage = () => {
       setCurrentImage(currentImage + 1);
     }
   };
+  const [inputValue, setInputValue] = useState("");
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    if (value.length <= 60) {
+      setInputValue(value);
+    }
+  };
+
+  const openModal = () => setModalVisible(true);
+  const closeModal = () => setModalVisible(false);
+
+  const navigate = useNavigate();
+  const handleHomeClick = () => {
+    navigate(`/`);
+  };
+
   return (
     <ScreenContainer>
       <SmallTextBox>너의</SmallTextBox>
@@ -377,7 +395,12 @@ const MakingPage = () => {
       ) : (
         <>
           <WritingContainer>
-            <TextArea placeholder="여기에 하고싶은 말을 적어봐!"></TextArea>
+            <TextArea
+              placeholder="여기에 하고싶은 말을 적어봐! (60자)"
+              value={inputValue}
+              onChange={handleChange}
+              maxLength={60}
+            />
           </WritingContainer>
           <SenderContainer>
             <SenderLabel>From: </SenderLabel>
