@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoCameraOutline } from "react-icons/io5";
+import HeartFolder from "../assets/MakingPage/HeartFolder.svg";
+import Modal from "../Components/Modal";
 import img1 from "../assets/image1.jpg";
 import img2 from "../assets/image2.jpg";
 import img3 from "../assets/image3.jpg";
@@ -211,6 +213,36 @@ const SenderInput = styled.input`
   border: transparent;
   outline: none;
 `;
+const ModalImg = styled.img`
+  height: auto;
+  padding: 0 80px;
+`;
+const ModalText = styled.div`
+  color: #000;
+  text-align: center;
+  font-family: NeoDunggeunmo;
+  font-size: 22px;
+  line-height: 28px; /* 127.273% */
+  white-space: pre;
+`;
+const ModalBtn = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 95px;
+  height: 44px;
+  margin: 25px 12.5px;
+  border-radius: 26.5px;
+  border: 1px solid #000;
+  color: #000;
+  text-align: center;
+  font-family: "PFStardust";
+  font-size: 16px;
+  background: #fff;
+`;
+const ModalUploadBtn = styled(ModalBtn)`
+  background: linear-gradient(180deg, #ff8caf 0%, #fff 100%);
+`;
 
 // 이미지 더미데이터 예시
 const categories = [
@@ -247,6 +279,7 @@ const MakingPage = () => {
   const [image, setImage] = useState(categories[currentCategory].images);
   const [showWriting, setWriting] = useState(false);
   const [uploadedImages, setUploadedImages] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -363,8 +396,16 @@ const MakingPage = () => {
           <ProgressBar isActive={showWriting} />
         </ProgressBarWrapper>
         <Text>다음</Text>
-        <CircleRightArrow onClick={nextCategory} />
+        <CircleRightArrow onClick={showWriting ? openModal : nextCategory} />
       </ProgressContainer>
+      <Modal show={modalVisible} handleClose={closeModal}>
+        <ModalImg src={HeartFolder} />
+        <ModalText>전송 준비가{"\n"} 완료되었습니다!</ModalText>
+        <RowWrapper>
+          <ModalBtn onClick={closeModal}>수정</ModalBtn>
+          <ModalUploadBtn onClick={handleHomeClick}>업로드</ModalUploadBtn>
+        </RowWrapper>
+      </Modal>
     </ScreenContainer>
   );
 };
