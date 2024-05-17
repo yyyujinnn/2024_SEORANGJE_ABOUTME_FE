@@ -15,7 +15,14 @@ const ScreenContainer = styled.div`
   align-items: center;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
-  //background: #ff8caf;
+  background: linear-gradient(
+    180deg,
+    #ff8caf 0%,
+    #fff 64.14%,
+    #fff 83.13%,
+    #ffbcd1 95.5%,
+    #ff8caf 100.58%
+  );
 `;
 const RowWrapper = styled.div`
   display: flex;
@@ -163,6 +170,7 @@ const WritingContainer = styled.div`
   height: 347px;
   margin: 10px 0;
   background: linear-gradient(transparent 39px, #ccc 24px);
+  background-color: white;
   background-size: 100% 40px;
   //padding: 20px;
   border: 1px solid #000;
