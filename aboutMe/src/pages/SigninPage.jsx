@@ -1,6 +1,8 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import AboutMeLogo from '../assets/AboutMeLogo.png';
+import { login } from './Auth/AuthAPI';
 
 const MainBody = styled.div`
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 85.29%);
@@ -13,7 +15,7 @@ const LogoContainer = styled.div`
   height: 58vh;
 `;
 
-const InputContainer = styled.div`
+const InputContainer = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,15 +71,45 @@ const SignupText = styled.div`
   `
 
 const SigninPage = () => {
-  const navigate = useNavigate();
-  
-  const handleSigninClick = () => {
-    navigate(`/theme`);
-  };
 
-  const handleSignupClick = () => {
+  const navigate = useNavigate();
+
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSignup = () => {
     navigate(`/sign-up`);
   };
+
+  const handleChange = //async : api 배포 시 함수 실행
+  (e) => {
+    setValues({...values,
+        [e.target.id]: e.target.value,
+    });
+}
+
+const handleSignin = //async : api 배포 시 함수 실행
+(e) => {
+  e.preventDefault(); // 기본 제출 행동 방지
+      if (values.email && values.password) {
+        console.log('Submitted:', values);
+        navigate(`/`); 
+      } else {
+        console.log("아이디 또는 비밀번호가 틀립니다.");
+      }
+
+    // login(values)
+    // .then((response) => {
+    //     localStorage.clear();
+    //     localStorage.setItem('tokenType', response.tokenType);
+    //     localStorage.setItem('accessToken', response.accessToken);
+    //     navigate(`/`);
+    // }).catch((error) => {
+    //     console.log(error);
+    // });
+}
 
   return (
     <MainBody>
@@ -87,13 +119,13 @@ const SigninPage = () => {
       </LogoContainer>
 
       <InputContainer className='loginBox'>
-        <Input placeholder='이메일' />
-        <Input placeholder='비밀번호' type='password' />
+        <Input value={values.email} onChange={handleChange} id='email' placeholder='이메일' />
+        <Input value={values.password} onChange={handleChange} id="password" placeholder='비밀번호' type='password' />
       </InputContainer>
 
       <ButtonContainer>
-        <Button onClick={handleSigninClick}> 입장하기 </Button>
-        <SignupText onClick={handleSignupClick}>회원가입 하기</SignupText>
+        <Button onClick={handleSignin}> 입장하기 </Button>
+        <SignupText onClick={handleSignup}>회원가입 하기</SignupText>
       </ButtonContainer>
       
     </MainBody>
