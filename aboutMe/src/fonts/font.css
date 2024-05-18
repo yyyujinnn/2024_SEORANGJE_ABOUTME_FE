@@ -1,0 +1,61 @@
+@font-face {
+  font-family: "NeoDunggeunmo";
+  src: url("./neodgm.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "S-CoreDreams";
+  src: url("./SCDream1.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: "S-CoreDreams";
+  src: url("./SCDream2.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "S-CoreDreams";
+  src: url("./SCDream3.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "S-CoreDreams";
+  src: url("./SCDream4.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "S-CoreDreams";
+  src: url("./SCDream5.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "S-CoreDreams";
+  src: url("./SCDream6.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "S-CoreDreams";
+  src: url("./SCDream7.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "S-CoreDreams";
+  src: url("./SCDream8.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "PFStardust";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/PFStardust.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}

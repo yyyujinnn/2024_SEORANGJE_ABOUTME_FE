@@ -2,21 +2,39 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const MainBody = styled.div`
-  width: 390px;
-  height: 844px;
+  background: linear-gradient(180deg, rgba(126, 246, 255, 0.40) 0%, rgba(255, 255, 255, 0.40) 85.29%); 
+`;
+
+const TitleContainer = styled.div`
+  display : flex;
+  align-items: center;
+  font-size: 24px;
+  padding: 100px 0 0 30px;
+  gap: 10px;
 `;
 
 const Title = styled.div`
-  font-size: 24px;
-  margin-top: 100px;
-`;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  font-size: 20px;
+  width: 81px;
+  height: 34px;
+  border-radius: 28px;
+  border: 1px solid #000;
+  background: linear-gradient(180deg, #FF8CAF 0%, #FFF 100%);
+`
 
 const Sub_Title = styled.div`
   font-size: 14px;
-  margin-top: 20px;
+  margin: 20px 0 0 30px;
 `;
 
-const InputWrapper = styled.div`
+const InputContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin-top: 50px;
 `;
 
@@ -25,36 +43,68 @@ const Input = styled.input`
   height: 68px;
   margin-top: 20px;
   padding-left: 30px;
-  font-size: 15px;
+  font-size: 16px;
+  font-family: "DungGeunMo";
+
+  &::placeholder {
+    font-family: "DungGeunMo"; 
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center; 
+  flex-direction: column;
+  
+  // 밑에서부터 20vh만큼은 버튼
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20vh;
 `;
 
 const Button = styled.button`
   width: 370px;
   height: 65px;
-  margin-top: 200px;
   background-color: #000000;
   color: #ffffff;
   border-radius: 0px;
   font-size: 20px;
   cursor: pointer; 
+  font-family: "DungGeunMo";
 `;
 
 const SignupPage = () => {
+  
+  const navigate = useNavigate();
+  
+  const handleThemeClick = () => {
+    navigate(`/theme`);
+  };
   return (
     <MainBody>
-      <Title> 나만의 다이어리 만들기</Title>
+
+      <TitleContainer>
+      <Title> 나만의</Title>
+      <div> 미니홈피 만들기</div>
+      </TitleContainer>
       <Sub_Title> 
         나의 이미지를 모으는 다이어리를 만들어보자
         <br/>
         아래 빈칸을 너의 정보로 채워줘~        
       </Sub_Title>
 
-      <InputWrapper>
+      <InputContainer>
         <Input placeholder='아이디' />
         <Input placeholder='비밀번호' type='password' />        
-        <Input placeholder='다이어리 주인 이름' />
-      </InputWrapper>
-      <Button> 다음 ... </Button>
+        <Input placeholder='미니홈피 주인 이름' />
+      </InputContainer>
+
+      <ButtonContainer>
+        <Button onClick={handleThemeClick}> 다음 </Button>
+      </ButtonContainer>
+
     </MainBody>
   )
 }
