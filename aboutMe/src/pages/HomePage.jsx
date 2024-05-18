@@ -148,7 +148,7 @@ const BtnDiary = styled.button`
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
-const BtnFolder = styled.button`
+const BtnIcon2 = styled.button`
   width: 152px; 
   height: 46px;
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 85.29%);
@@ -186,17 +186,17 @@ const HomePage = () => {
         <Folder/>
       </FolderContainer>
 
-    {/* 호스트.ver */}
+    {/* 호스트.ver -> 토큰이 있을 때 */}
     {/* <ButtonContainer>
       <BtnLogout> 로그아웃 </BtnLogout>
-      <BtnIcon> 아이콘 남기기 </BtnIcon>
+      <BtnIcon onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon>
       <BtnShare> <img src={Share}/> </BtnShare>
     </ButtonContainer> */}
 
-    {/* 게스트.ver */}
+    {/* 게스트.ver -> 토큰이 없을 때*/}
     <ButtonContainer>
       <BtnDiary onClick={handleSignupClick}> 내 미니홈피 만들러 가기</BtnDiary>
-      <BtnFolder onClick={handleMakingClick}> 폴더 만들기 </BtnFolder>
+      <BtnIcon2 onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon2>
     </ButtonContainer>
     
     </MainBody>
