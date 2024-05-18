@@ -161,6 +161,14 @@ const BtnFolder = styled.button`
 const HomePage = () => {
   
   const navigate = useNavigate();
+
+  const handleSignupClick = () => {
+    navigate(`/sign-up`);
+  };
+  
+  const handleMakingClick = () => {
+    navigate(`/making`);
+  };
   
   return (
     <MainBody>
@@ -179,17 +187,17 @@ const HomePage = () => {
       </FolderContainer>
 
     {/* 호스트.ver */}
-    <ButtonContainer>
+    {/* <ButtonContainer>
       <BtnLogout> 로그아웃 </BtnLogout>
       <BtnIcon> 아이콘 남기기 </BtnIcon>
       <BtnShare> <img src={Share}/> </BtnShare>
-    </ButtonContainer>
+    </ButtonContainer> */}
 
     {/* 게스트.ver */}
-    {/* <ButtonContainer>
-      <BtnDiary> 내 미니홈피 만들러 가기</BtnDiary>
-      <BtnFolder> 폴더 만들기 </BtnFolder>
-    </ButtonContainer> */}
+    <ButtonContainer>
+      <BtnDiary onClick={handleSignupClick}> 내 미니홈피 만들러 가기</BtnDiary>
+      <BtnFolder onClick={handleMakingClick}> 폴더 만들기 </BtnFolder>
+    </ButtonContainer>
     
     </MainBody>
   )
