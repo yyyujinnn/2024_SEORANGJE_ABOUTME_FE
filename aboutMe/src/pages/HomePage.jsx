@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import IntWin from '../assets/HomePage/IntWin.png';
@@ -159,7 +160,24 @@ const BtnIcon2 = styled.button`
 `;
 
 const HomePage = () => {
+
+  //페이지네이션
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6; 
+  const totalItems = 9 ; 
   
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(totalItems / itemsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   const navigate = useNavigate();
 
   const handleSignupClick = () => {
@@ -181,9 +199,9 @@ const HomePage = () => {
 
       <FolderContainer>
         <Img src={IntWin} alt='InternetWindow'/>
-        <BtnPre> <img src={pre}/> </BtnPre>
-        <BtnNext> <img src={next}/> </BtnNext>
-        <Folder/>
+        <BtnPre onClick={handlePrevPage}> <img src={pre}/> </BtnPre>
+        <BtnNext onClick={handleNextPage}> <img src={next}/> </BtnNext>
+        <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} />
       </FolderContainer>
 
     {/* 호스트.ver -> 토큰이 있을 때 */}
