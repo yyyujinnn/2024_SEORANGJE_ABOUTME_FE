@@ -87,7 +87,7 @@ const SigninPage = () => {
       </LogoContainer>
 
       <InputContainer className='loginBox'>
-        <Input placeholder='아이디' />
+        <Input placeholder='이메일' />
         <Input placeholder='비밀번호' type='password' />
       </InputContainer>
 

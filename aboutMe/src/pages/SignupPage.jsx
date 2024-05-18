@@ -1,5 +1,7 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { signUp } from "./Auth/AuthAPI";
 
 const MainBody = styled.div`
   background: linear-gradient(180deg, rgba(126, 246, 255, 0.40) 0%, rgba(255, 255, 255, 0.40) 85.29%); 
@@ -30,7 +32,7 @@ const Sub_Title = styled.div`
   margin: 20px 0 0 30px;
 `;
 
-const InputContainer = styled.div`
+const InputContainer = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,10 +80,39 @@ const Button = styled.button`
 const SignupPage = () => {
   
   const navigate = useNavigate();
-  
-  const handleThemeClick = () => {
-    navigate(`/theme`);
-  };
+
+  const [values, setValues] = useState({
+        email: "",
+        password: "",
+        username: ""
+    });
+
+    const handleChange = //async 
+    (e) => {
+        setValues({...values,
+            [e.target.id]: e.target.value,
+        });
+    }
+
+    const handleSubmit = //async
+    (e) => {
+      e.preventDefault(); // 기본 제출 행동 방지
+      if (values.email && values.password && values.username) {
+        console.log('Submitted:', values);
+        navigate(`/theme`); 
+      } else {
+        console.log("모두 입력해주세요.");
+      }
+
+        // signUp(values)
+        // .then((response) => {  
+        //    navigate(`/theme`);   
+        //        
+        // }).catch((error) => {
+        //     console.log(error);
+        // });
+    }
+
   return (
     <MainBody>
 
@@ -95,14 +126,14 @@ const SignupPage = () => {
         아래 빈칸을 너의 정보로 채워줘~        
       </Sub_Title>
 
-      <InputContainer>
-        <Input placeholder='아이디' />
-        <Input placeholder='비밀번호' type='password' />        
-        <Input placeholder='미니홈피 주인 이름' />
+      <InputContainer onSubmit={handleSubmit}>
+        <Input value={values.email} onChange={handleChange} id="email" placeholder='이메일' />
+        <Input value={values.password} onChange={handleChange} id="password" placeholder='비밀번호' type='password' />        
+        <Input value={values.username} onChange={handleChange} id="username" placeholder='미니홈피 주인 이름' />
       </InputContainer>
 
       <ButtonContainer>
-        <Button onClick={handleThemeClick}> 다음 </Button>
+        <Button onClick={handleSubmit}> 다음 </Button>
       </ButtonContainer>
 
     </MainBody>
