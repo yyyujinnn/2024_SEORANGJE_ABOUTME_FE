@@ -87,31 +87,22 @@ const SignupPage = () => {
         username: ""
     });
 
-    const handleChange = //async 
-    (e) => {
+    const handleChange = async (e) => {
         setValues({...values,
             [e.target.id]: e.target.value,
         });
     }
 
-    const handleSubmit = //async
-    (e) => {
-      e.preventDefault(); // 기본 제출 행동 방지
+    const handleSubmit = (e) => {
+      e.preventDefault(); // 폼 제출 방지
       if (values.email && values.password && values.username) {
         console.log('Submitted:', values);
-        navigate(`/theme`); 
+        alert('주제 선택 페이지로 이동합니다.')
+        navigate(`/theme`, { state: { ...values } });
       } else {
         console.log("모두 입력해주세요.");
       }
-
-        // signUp(values)
-        // .then((response) => {  
-        //    navigate(`/theme`);   
-        //        
-        // }).catch((error) => {
-        //     console.log(error);
-        // });
-    }
+    };
 
   return (
     <MainBody>

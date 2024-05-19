@@ -83,33 +83,31 @@ const SigninPage = () => {
     navigate(`/sign-up`);
   };
 
-  const handleChange = //async : api 배포 시 함수 실행
-  (e) => {
+  const handleChange = async (e) => {
     setValues({...values,
         [e.target.id]: e.target.value,
     });
 }
 
-const handleSignin = //async : api 배포 시 함수 실행
-(e) => {
-  e.preventDefault(); // 기본 제출 행동 방지
-      if (values.email && values.password) {
-        console.log('Submitted:', values);
-        navigate(`/`); 
-      } else {
-        console.log("아이디 또는 비밀번호가 틀립니다.");
-      }
+const handleSignin = async () => {
+  if (!values.email || !values.password) {
+    alert('이메일 또는 비밀번호를 틀립니다.');
+    return;
+  }
 
-    // login(values)
-    // .then((response) => {
-    //     localStorage.clear();
-    //     localStorage.setItem('tokenType', response.tokenType);
-    //     localStorage.setItem('accessToken', response.accessToken);
-    //     navigate(`/`);
-    // }).catch((error) => {
-    //     console.log(error);
-    // });
-}
+  login(values)
+    .then((response) => {
+      console.log('Submitted:', values);
+      alert('로그인 성공');
+      navigate(`/`);
+      localStorage.clear();
+      localStorage.setItem('token', response.token);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 
   return (
     <MainBody>

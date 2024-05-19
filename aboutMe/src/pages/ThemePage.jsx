@@ -1,6 +1,6 @@
 import React,{ useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const MainBody = styled.div`
   background: linear-gradient(180deg, rgba(126, 246, 255, 0.40) 0%, rgba(255, 255, 255, 0.40) 85.29%);
@@ -82,21 +82,30 @@ const Button = styled.button`
 
 const ThemePage = () => {
 
+  
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const initialValues = location.state || {
+    email: "",
+    password: "",
+    username: ""
+  };
+
   const [values, setValues] = useState({
-    flower: "false", 
-    animal: "false", 
-    season: "false", 
-    color: "false", 
-    charac: "false", 
-    place: "false", 
-    food: "false", 
-    hobby: "false", 
+    ...initialValues,
+    flower: "false",
+    animal: "false",
+    season: "false",
+    color: "false",
+    charac: "false",
+    place: "false",
+    food: "false",
+    hobby: "false",
     job: "false"
 });
 
   const [activeThemes, setActiveThemes] = useState([]);
-
-  const navigate = useNavigate();
 
   const handleThemeClick = (theme) => {
     if (activeThemes.includes(theme)) {
@@ -111,24 +120,23 @@ const ThemePage = () => {
       }
     }
   };
- 
-  const handleSubmit = //async
-  (e) => {
-    if (activeThemes.length === 5 ) {
 
-    e.preventDefault(); // 기본 제출 행동 방지
-    console.log('회원가입 완료:', values);
-    navigate(`/theme`); 
-
-      // signUp(values)
-      // .then((response) => {  
-      //    navigate(`/`);   
-      //        
-      // }).catch((error) => {
-      //     console.log(error);
-      // });
+  const handleSubmit = (e) => {
+    e.preventDefault(); // 폼 제출 방지
+    if (activeThemes.length === 5) {
+      signUp(values)
+        .then((response) => {
+          alert('회원가입 성공');
+          console.log('회원가입 완료:', values);
+          navigate(`/`);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      alert("5개의 주제를 선택하세요.");
     }
-  }
+  };
   
   return (
     <MainBody>
