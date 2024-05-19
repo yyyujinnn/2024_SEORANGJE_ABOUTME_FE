@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import IntWin from '../assets/HomePage/IntWin.png';
@@ -161,6 +162,30 @@ const BtnIcon2 = styled.button`
 
 const HomePage = () => {
 
+  const [data, setData] = useState([]);
+
+  // 로그인한 사용자와 토큰 비교
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
+
+  const baseUrl = `https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app`;
+
+  useEffect(() => {
+    axios.get(`${baseUrl}/api/info`) 
+    .then(response => {
+      setData(response.data);
+    })
+      .catch(error => console.error('Error:', error));
+  }, [])
+
   //페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6; 
@@ -204,18 +229,20 @@ const HomePage = () => {
         <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} />
       </FolderContainer>
 
-    {/* 호스트.ver -> 토큰이 있을 때 */}
-    {/* <ButtonContainer>
-      <BtnLogout> 로그아웃 </BtnLogout>
-      <BtnIcon onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon>
-      <BtnShare> <img src={Share}/> </BtnShare>
-    </ButtonContainer> */}
-
-    {/* 게스트.ver -> 토큰이 없을 때*/}
-    <ButtonContainer>
-      <BtnDiary onClick={handleSignupClick}> 내 미니홈피 만들러 가기</BtnDiary>
-      <BtnIcon2 onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon2>
-    </ButtonContainer>
+      {isAuthenticated ? (
+        // 호스트.ver
+        <ButtonContainer>
+          <BtnLogout> 로그아웃 </BtnLogout>
+          <BtnIcon onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon>
+          <BtnShare> <img src={Share}/> </BtnShare>
+      </ButtonContainer>
+      ) : (
+        // 게스트.ver
+        <ButtonContainer>
+          <BtnDiary onClick={handleSignupClick}> 내 미니홈피 만들러 가기</BtnDiary>
+          <BtnIcon2 onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon2>
+        </ButtonContainer>
+      )}
     
     </MainBody>
   )
