@@ -1,5 +1,5 @@
 import Masonry from 'react-masonry-css';
-import DiaryFrame from '../src/assets/diary.svg';
+import DiaryFrame from '../src/assets/DiaryPage/diary.svg';
 import { dummyData } from '../src/api/diary/diaryDummy';
 
 import styled from 'styled-components';
@@ -34,7 +34,7 @@ const Title = styled.p`
 `;
 
 const breakpointColumnsObj = {
-  default: 3,
+  default: 2,
   1100: 2,
   700: 1,
 };
