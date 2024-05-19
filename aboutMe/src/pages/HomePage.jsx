@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import IntWin from '../assets/HomePage/IntWin.png';
@@ -148,7 +149,7 @@ const BtnDiary = styled.button`
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
-const BtnFolder = styled.button`
+const BtnIcon2 = styled.button`
   width: 152px; 
   height: 46px;
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 85.29%);
@@ -159,8 +160,33 @@ const BtnFolder = styled.button`
 `;
 
 const HomePage = () => {
+
+  //페이지네이션
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6; 
+  const totalItems = 9 ; 
   
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(totalItems / itemsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   const navigate = useNavigate();
+
+  const handleSignupClick = () => {
+    navigate(`/sign-up`);
+  };
+  
+  const handleMakingClick = () => {
+    navigate(`/making`);
+  };
   
   return (
     <MainBody>
@@ -173,23 +199,23 @@ const HomePage = () => {
 
       <FolderContainer>
         <Img src={IntWin} alt='InternetWindow'/>
-        <BtnPre> <img src={pre}/> </BtnPre>
-        <BtnNext> <img src={next}/> </BtnNext>
-        <Folder/>
+        <BtnPre onClick={handlePrevPage}> <img src={pre}/> </BtnPre>
+        <BtnNext onClick={handleNextPage}> <img src={next}/> </BtnNext>
+        <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} />
       </FolderContainer>
 
-    {/* 호스트.ver */}
-    <ButtonContainer>
-      <BtnLogout> 로그아웃 </BtnLogout>
-      <BtnIcon> 아이콘 남기기 </BtnIcon>
-      <BtnShare> <img src={Share}/> </BtnShare>
-    </ButtonContainer>
-
-    {/* 게스트.ver */}
+    {/* 호스트.ver -> 토큰이 있을 때 */}
     {/* <ButtonContainer>
-      <BtnDiary> 내 미니홈피 만들러 가기</BtnDiary>
-      <BtnFolder> 폴더 만들기 </BtnFolder>
+      <BtnLogout> 로그아웃 </BtnLogout>
+      <BtnIcon onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon>
+      <BtnShare> <img src={Share}/> </BtnShare>
     </ButtonContainer> */}
+
+    {/* 게스트.ver -> 토큰이 없을 때*/}
+    <ButtonContainer>
+      <BtnDiary onClick={handleSignupClick}> 내 미니홈피 만들러 가기</BtnDiary>
+      <BtnIcon2 onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon2>
+    </ButtonContainer>
     
     </MainBody>
   )

@@ -37,35 +37,37 @@ const Visitor = styled.text`
   margin-top: 15px;
 `
 
-export const Folder = () => {
+export const Folder = ({ currentPage, itemsPerPage }) => {
+
+  const folderItems = [
+    { img: HardDisk, name: '주희' },
+    { img: Paper, name: '쿨냥이' },
+    { img: Computer, name: '지윤' },
+    { img: Letter, name: '유진' },
+    { img: Music, name: '민지' },
+    { img: Default, name: '소현' },
+    { img: Letter, name: '유진' },
+    { img: Music, name: '민지' },
+    { img: Default, name: '소현' },
+  ];
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = folderItems.slice(startIndex, startIndex + itemsPerPage);
+
+  const handleIconClick = {
+    // icon 클릭하면 해당하는 diary로 이동
+
+  };
 
     return(    
         <FolderGrid>
 
-          <FolderItem> 
-            <img src={HardDisk}/> 
-            <Visitor> 주희 </Visitor>
-          </FolderItem>
-
-          <FolderItem> <img src={Paper}/> 
-            <Visitor> 쿨냥이 </Visitor> 
-          </FolderItem>
-
-          <FolderItem> <img src={Computer}/> 
-            <Visitor> 지윤 </Visitor> 
-          </FolderItem>
-
-          <FolderItem> <img src={Letter}/> 
-            <Visitor> 유진 </Visitor> 
-          </FolderItem>
-
-          <FolderItem> <img src={Music}/> 
-            <Visitor> 민지 </Visitor> 
-          </FolderItem>
-
-          <FolderItem> <img src={Default}/> 
-            <Visitor> 소현 </Visitor>
-          </FolderItem>
+          {currentItems.map((item, index) => (
+            <FolderItem key={index} onClick={handleIconClick}>
+             <img src={item.img} alt={item.name} />
+             <Visitor> {item.name} </Visitor>
+            </FolderItem>
+          ))}
 
         </FolderGrid>
     )

@@ -82,6 +82,18 @@ const Button = styled.button`
 
 const ThemePage = () => {
 
+  const [values, setValues] = useState({
+    flower: "false", 
+    animal: "false", 
+    season: "false", 
+    color: "false", 
+    charac: "false", 
+    place: "false", 
+    food: "false", 
+    hobby: "false", 
+    job: "false"
+});
+
   const [activeThemes, setActiveThemes] = useState([]);
 
   const navigate = useNavigate();
@@ -94,16 +106,30 @@ const ThemePage = () => {
       // 선택되지 않은 테마일 경우 추가
       if (activeThemes.length < 5) {
         setActiveThemes((prev) => [...prev, theme]);
+        // 선택 값 변경
+        setValues((prevValues) => ({ ...prevValues, [theme]: "true" }))
       }
     }
   };
  
+  const handleSubmit = //async
+  (e) => {
+    if (activeThemes.length === 5 ) {
 
-  const handleHomeClick = () => {
-    navigate(`/`);
-  };
+    e.preventDefault(); // 기본 제출 행동 방지
+    console.log('회원가입 완료:', values);
+    navigate(`/theme`); 
 
-
+      // signUp(values)
+      // .then((response) => {  
+      //    navigate(`/`);   
+      //        
+      // }).catch((error) => {
+      //     console.log(error);
+      // });
+    }
+  }
+  
   return (
     <MainBody>
 
@@ -142,8 +168,8 @@ const ThemePage = () => {
           색깔
         </ThemeItem>
         <ThemeItem
-          active={activeThemes.includes('character')}
-          onClick={() => handleThemeClick('character')}
+          active={activeThemes.includes('charac')}
+          onClick={() => handleThemeClick('charac')}
         >
           캐릭터
         </ThemeItem>
@@ -174,7 +200,8 @@ const ThemePage = () => {
       </ThemeContainer>
 
       <ButtonContainer>
-        <Button onClick={handleHomeClick} active={activeThemes.length === 5}> 홈으로 이동 </Button>
+        {/* <Button onClick={handleHomeClick} active={activeThemes.length === 5}> 홈으로 이동 </Button> */}
+        <Button onClick={handleSubmit} active={activeThemes.length === 5}> 홈으로 이동 </Button>
       </ButtonContainer>
 
     </MainBody>
