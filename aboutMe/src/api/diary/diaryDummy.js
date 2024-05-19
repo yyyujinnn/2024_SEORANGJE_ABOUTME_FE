@@ -1,7 +1,7 @@
 export const dummyData = [
-  { imageUrl: 'DummyImage1', title: '너랑 어울리는 과일' },
-  { imageUrl: 'DummyImage2', title: '너랑 어울리는 꽃' },
-  { imageUrl: 'DummyImage3', title: '너랑 어울리는 장소' },
-  { imageUrl: 'DummyImage4', title: '너랑 어울리는 동물' },
-  { imageUrl: 'DummyImage5', title: '너랑 어울리는 계절' },
+  { imageUrl: 'https://via.placeholder.com/150', title: '너랑 어울리는 과일' },
+  { imageUrl: 'https://via.placeholder.com/150', title: '너랑 어울리는 꽃' },
+  { imageUrl: 'https://via.placeholder.com/160', title: '너랑 어울리는 장소' },
+  { imageUrl: 'https://via.placeholder.com/157', title: '너랑 어울리는 동물' },
+  { imageUrl: 'https://via.placeholder.com/136', title: '너랑 어울리는 계절' },
 ];
