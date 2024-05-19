@@ -35,8 +35,6 @@ const Title = styled.p`
 
 const breakpointColumnsObj = {
   default: 2,
-  1100: 2,
-  700: 1,
 };
 
 const getImageCardStyle = (index) => {
