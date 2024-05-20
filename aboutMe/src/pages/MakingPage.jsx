@@ -357,6 +357,8 @@ const MakingPage = () => {
     if (currentCategory < categories.length - 1) {
       setCurrentCategory(currentCategory + 1);
       setCurrentImage(0);
+    } else {
+      setWriting(true);
     }
   };
 
@@ -394,6 +396,7 @@ const MakingPage = () => {
   const navigate = useNavigate();
   const handleHomeClick = () => {
     navigate(`/`);
+    //이때 api post 보내기
   };
 
   return (
