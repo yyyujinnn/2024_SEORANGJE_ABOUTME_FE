@@ -68,3 +68,8 @@ export const fetchUserInfo = async () => {
   const response = await AuthApi.get(`/api/info`);
   return response.data;
 };
+/** FETCH DEFAULT IMAGE API */
+export const fetchImages = async (userId) => {
+  const response = await AuthApi.get(`/api/DefaultImage/${userId}`);
+  return response.data;
+};
