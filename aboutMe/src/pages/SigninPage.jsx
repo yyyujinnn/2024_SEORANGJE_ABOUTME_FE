@@ -31,7 +31,7 @@ const InputContainer = styled.form`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 120px;
+  margin-top: 100px;
 `;
 
 const Input = styled.input`
