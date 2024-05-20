@@ -1,0 +1,32 @@
+{
+  "name": "어바웃미",
+  "short_name": "어바웃미",
+  "start_url": "",
+  "display": "standalone",
+  "background_color": "#FFF",
+  "theme_color": "#FFF",
+  "description": "2024 서랑제 프로젝트",
+  "icons": [
+    {
+      "src": "logo-512x512.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo-512x512.png",
+      "type": "image/png",
+      "sizes": "196x196"
+    },
+    {
+      "src": "logo-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "logo-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}
