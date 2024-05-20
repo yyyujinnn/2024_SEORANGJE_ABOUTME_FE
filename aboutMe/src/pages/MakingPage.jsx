@@ -5,7 +5,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoCameraOutline } from "react-icons/io5";
 import HeartFolder from "../assets/MakingPage/HeartFolder.svg";
 import axios from "axios";
-import { AuthApi } from "./Auth/AuthAPI";
+import { fetchUserInfo } from "./Auth/AuthAPI";
 import Modal from "../Components/Modal";
 import img1 from "../assets/image1.jpg";
 import img2 from "../assets/image2.jpg";
@@ -280,17 +280,17 @@ const MakingPage = () => {
   const [username, setUsername] = useState("");
 
   useEffect(() => {
-    AuthApi.get("/api/info")
-      .then((response) => {
-        const data = response.data;
+    fetchUserInfo()
+      .then((data) => {
         console.log("API response data:", data); // Debugging: log the response data
-        if (
-          data.principalDetails &&
-          data.principalDetails.principal &&
-          data.principalDetails.principal.user &&
-          data.principalDetails.principal.user.username
-        ) {
-          setUsername(data.principalDetails.principal.user.username);
+
+        if (data.principalDetails && data.principalDetails.principal) {
+          const user = data.principalDetails.principal.user;
+
+          // 유저네임 불러오기
+          if (user && user.username) {
+            setUsername(user.username);
+          }
         }
       })
       .catch((error) => {

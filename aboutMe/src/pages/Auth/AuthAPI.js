@@ -62,3 +62,9 @@ AuthApi.interceptors.request.use(
     return Promise.reject(error);
   },
 );
+
+/** FETCH USER INFO API */
+export const fetchUserInfo = async () => {
+  const response = await AuthApi.get(`/api/info`);
+  return response.data;
+};
