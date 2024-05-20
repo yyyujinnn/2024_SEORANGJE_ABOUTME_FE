@@ -31,7 +31,7 @@ const InputContainer = styled.form`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 150px;
+  margin-top: 120px;
 `;
 
 const Input = styled.input`
@@ -55,12 +55,12 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center; 
   flex-direction: column;
-  margin-top: 28px;
+  margin-top: 42px;
 `;
 
 const Button = styled.button`
   width: 81%;
-  height: 55px;
+  height: 60px;
   background-color: #000000;
   color: #ffffff;
   border-radius: 0px;

@@ -81,12 +81,12 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center; 
   flex-direction: column;
-  margin-top: 56px;
+  margin-top: 84px;
 `;
 
 const Button = styled.button`
   width: 81%;
-  height: 55px;
+  height: 60px;
   background-color: #000000;
   color: #ffffff;
   border-radius: 0px;
