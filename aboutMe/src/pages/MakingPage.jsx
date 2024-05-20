@@ -326,11 +326,19 @@ const MakingPage = () => {
     }
   };
   const [inputValue, setInputValue] = useState("");
+const [inputValue2, setInputValue2] = useState("");
 
   const handleChange = (e) => {
     const { value } = e.target;
     if (value.length <= 60) {
       setInputValue(value);
+    }
+  };
+
+  const handleChange2 = (e) => {
+    const { value } = e.target;
+    if (value.length <= 5) {
+      setInputValue2(value);
     }
   };
 
@@ -396,7 +404,12 @@ const MakingPage = () => {
           </WritingContainer>
           <SenderContainer>
             <SenderLabel>From: </SenderLabel>
-            <SenderInput type="text" placeholder="발신자 이름" />
+            <SenderInput
+              type="text"
+              placeholder="발신자 이름 (5자)"
+              value={inputValue2}
+              onChange={handleChange2}
+            />
           </SenderContainer>
         </>
       )}
