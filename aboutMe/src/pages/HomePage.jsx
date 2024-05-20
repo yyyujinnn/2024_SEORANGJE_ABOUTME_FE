@@ -55,7 +55,7 @@ const NameImg = styled.img`
 `;
 
 const Title = styled.div`
-  position: fixed;
+  // position: fixed;
   display: flex;
   justify-content: center;
   align-items: center; 
@@ -69,7 +69,7 @@ const Title = styled.div`
 `
 
 const Sub_Title = styled.div`
-  position: fixed;
+  // position: fixed;
   margin-top: 40px;
   font-size: 40px;
   color: #FFF;
@@ -91,7 +91,7 @@ const FolderContainer = styled.div`
 
 const Img = styled.img`
   margin-top: 35px;
-  position: fixed;
+  // position: fixed;
   z-index: 1;
 `;
 
