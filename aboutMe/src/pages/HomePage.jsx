@@ -50,7 +50,7 @@ const TitleContainer = styled.div`
 const NameImg = styled.img`
   display: flex;
   align-items: center;  
-  margin-top: -22px;
+  margin-top: -100px;
   z-index: 1;
 `;
 
