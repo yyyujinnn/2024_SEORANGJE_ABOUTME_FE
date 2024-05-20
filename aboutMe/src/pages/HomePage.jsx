@@ -18,12 +18,12 @@ const MainBody = styled.div`
 `;
 const Version = styled.div`
 
-transform: scale(0.8);
+transform: scale(0.9);
 
-// @media (max-width: 380px) {
-//   height: 700px;
-//   transform: scale(0.8);
-// }
+@media (max-width: 380px) {
+  height: 700px;
+  transform: scale(0.8);
+}
 
 @media (min-width: 800px) {
   height: 1150px;
@@ -174,6 +174,9 @@ const Share = styled.div`
 `;
 // 게스트.ver
 const BtnDiary = styled.div`
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
   width: 172px;
   height: 46px;
   background: #FFF;
@@ -185,6 +188,9 @@ const BtnDiary = styled.div`
   font-family: "DungGeunMo";
 `;
 const BtnIcon2 = styled.div`
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
   width: 152px; 
   height: 46px;
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 85.29%);
@@ -265,7 +271,7 @@ const HomePage = () => {
         <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} />
       </FolderContainer>
 
-      {isAuthenticated ? (
+      {/* {isAuthenticated ? (
         // 호스트.ver
         <ButtonContainer>
           <Logout> 로그아웃 </Logout>
@@ -273,12 +279,12 @@ const HomePage = () => {
           <Share> <img src={share}/> </Share>
       </ButtonContainer>
       ) : (
-        // 게스트.ver
+        // 게스트.ver */}
         <ButtonContainer>
           <BtnDiary onClick={handleSignupClick}> 내 미니홈피 만들러 가기</BtnDiary>
           <BtnIcon2 onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon2>
         </ButtonContainer>
-      )}
+      {/* )} */}
     </Version>
 
     </MainBody>

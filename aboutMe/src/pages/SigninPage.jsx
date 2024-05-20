@@ -10,6 +10,8 @@ const MainBody = styled.div`
 
 const Version = styled.div`
 
+transform: scale(0.9);
+
 @media (max-width: 380px) {
   transform: scale(0.8);
 }
