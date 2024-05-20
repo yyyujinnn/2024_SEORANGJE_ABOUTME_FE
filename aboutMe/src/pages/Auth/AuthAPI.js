@@ -31,7 +31,7 @@ export const signUp = async ({
     return response.data;
 }
 
-/** LOGOut */ 
+/** LOGOUT */ 
 export const logout = () => {
     localStorage.removeItem("token");
 };

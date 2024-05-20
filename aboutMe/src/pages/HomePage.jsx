@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { CopyToClipboard } from "react-copy-to-clipboard/src";
+
 import IntWin from '../assets/HomePage/IntWin.svg';
 import DiaryName from '../assets/HomePage/DiaryName.svg'
 import pre from '../assets/HomePage/HomePre.svg';
@@ -17,6 +19,7 @@ const MainBody = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 const Version = styled.div`
 
 transform: scale(0.9);
@@ -159,7 +162,6 @@ const Icon = styled.div`
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
-
 const Share = styled.div`
   display: flex; 
   justify-content: center;
@@ -205,13 +207,13 @@ const BtnIcon2 = styled.div`
 
 const HomePage = () => {
 
-  const [data, setData] = useState([]);
+  const [url, setUrl] = useState();
 
   // 로그인한 사용자와 토큰 비교
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
     if (token) {
       setIsAuthenticated(true);
     } else {
@@ -222,12 +224,17 @@ const HomePage = () => {
   const baseUrl = `https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app`;
 
   useEffect(() => {
-    axios.get(`${baseUrl}/api/info`) 
-    .then(response => {
-      setData(response.data);
+    axios.get(`${baseUrl}/api/info`, {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` }
     })
-      .catch(error => console.error('Error:', error));
-  }, [])
+    .then(response => {
+      setUrl(response.data.principalDetails.principal.user.url);
+      console.log(url);
+    })
+    .catch(error => console.error('Error:', error));
+
+  }, [url])
 
   //페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
@@ -249,6 +256,13 @@ const HomePage = () => {
   const handleLogout = () => {
     logout();
     navigate(`/sign-in`);
+  };
+
+  const handleCopy = () => {
+    if (url) {
+      console.log(url)
+      alert('URL이 클립보드에 복사되었습니다.');
+    }
   };
 
   const navigate = useNavigate();
@@ -282,8 +296,12 @@ const HomePage = () => {
         <ButtonContainer>
           <Logout onClick={handleLogout}> 로그아웃 </Logout>
           <Icon onClick={handleMakingClick}> 아이콘 남기기 </Icon>
-          <Share> <img src={share}/> </Share>
-      </ButtonContainer>
+          <CopyToClipboard text={url} onCopy={handleCopy}>
+            <Share>
+              <img src={share} alt="Share" />
+            </Share>
+          </CopyToClipboard>
+        </ButtonContainer>
       ) : (
         // 게스트.ver
         <ButtonContainer>
