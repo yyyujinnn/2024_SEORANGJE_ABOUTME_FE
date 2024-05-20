@@ -1,28 +1,49 @@
-import DiaryFrame from '../../src/assets/diary.svg';
-import { dummyData } from '../api/diary/diaryDummy';
+import Diary from '../../components/Diary';
+import styled from 'styled-components';
+import folderIcon  from '../assets/DiaryPage/folderIcon.svg';
+
+const Title = styled.div`
+  margin: 23px 0;
+  color: #000;
+  text-align: center;
+  font-family: NeoDunggeunmo;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: 20px 170px 20px;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Container = styled.div`
+  background: linear-gradient(180deg, rgba(126, 246, 255, 0.40) 0.01%, rgba(255, 255, 255, 0.40) 21.42%, rgba(255, 255, 255, 0.40) 89.33%, rgba(126, 246, 255, 0.40) 99.99%);
+  position: absolute;
+  z-index: -1;
+  width: 100%
+`
+
+const FolderIcon= styled.img`
+  justify-self: end;
+`;
 
 const DiaryPage = () => {
-  const firstDummyData = dummyData[0];
-  const secondDummyData = dummyData[1];
-  const thirdDummyData = dummyData[2];
-  const fourthDummyData = dummyData[3];
-  const fifthDummyData = dummyData[4];
+
   return (
-    <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div style={{justifyContent:'center'}}>
-      <div style={{margin: '23px 0', fontSize: '20px', width:'200px'}}>주희의 교환일기</div>
-      <img src={DiaryFrame} alt='DiaryFrame'/>
-      <div style={{ backgroundColor: 'gray', width: '149px', height:'149px', position:'absolute', top: '77px', left: '30px' }}>{firstDummyData.imageUrl}</div>
-      <p style={{position:'absolute', top: '230px', left: '59px'}}>{firstDummyData.title}</p>
-      <div style={{ backgroundColor: 'gray', width: '150px', height:'153px', position:'absolute', top: '111px', left: '214px' }}>{secondDummyData.imageUrl}</div>
-      <p style={{position:'absolute', top: '270px', left: '241px'}}>{secondDummyData.title}</p>
-      <div style={{ backgroundColor: 'gray', width: '162px', height:'164px', position:'absolute', top: '309px', left: '51px' }}>{thirdDummyData.imageUrl}</div>
-      <p style={{position:'absolute', top: '487px', left: '86px'}}>{thirdDummyData.title}</p>
-      <div style={{ backgroundColor: 'gray', width: '136px', height:'136px', position:'absolute', top: '556px', left: '28px' }}>{fourthDummyData.imageUrl}</div>
-      <p style={{position:'absolute', top: '694px', left: '61px'}}>{fourthDummyData.title}</p>
-      <div style={{ backgroundColor: 'gray', width: '157px', height:'157px', position:'absolute', top: '555.77px', left: '208.69px' }}>{fifthDummyData.imageUrl}</div>
-      <p style={{position:'absolute', top: '716px', left: '224px'}}>{fifthDummyData.title}</p>
-      </div>
+    <main style={{ display: 'flex', flexDirection: 'column',alignItems:'center'}}>
+      <Container>
+      <GridContainer>
+        <FolderIcon src={folderIcon} alt='folderIcon'/>
+        <Title>주희의 첫 번째 아이콘</Title>
+        <img src={folderIcon} alt='folderIcon'/>
+      </GridContainer>
+      <Diary />
+      </Container>
     </main>
     
   )
