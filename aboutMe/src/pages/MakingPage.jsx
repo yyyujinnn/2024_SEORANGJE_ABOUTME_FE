@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoCameraOutline } from "react-icons/io5";
 import HeartFolder from "../assets/MakingPage/HeartFolder.svg";
+import axios from "axios";
+import { AuthApi } from "./Auth/AuthAPI";
 import Modal from "../Components/Modal";
 import img1 from "../assets/image1.jpg";
 import img2 from "../assets/image2.jpg";
@@ -275,6 +277,26 @@ const MakingPage = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [showWriting, setWriting] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    AuthApi.get("/api/info")
+      .then((response) => {
+        const data = response.data;
+        console.log("API response data:", data); // Debugging: log the response data
+        if (
+          data.principalDetails &&
+          data.principalDetails.principal &&
+          data.principalDetails.principal.user &&
+          data.principalDetails.principal.user.username
+        ) {
+          setUsername(data.principalDetails.principal.user.username);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user info:", error);
+      });
+  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -326,7 +348,7 @@ const MakingPage = () => {
     }
   };
   const [inputValue, setInputValue] = useState("");
-const [inputValue2, setInputValue2] = useState("");
+  const [inputValue2, setInputValue2] = useState("");
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -362,7 +384,7 @@ const [inputValue2, setInputValue2] = useState("");
       <QuestionContainer>
         Q{!showWriting ? currentCategory + 1 : "6"}. {"\n"}
         {!showWriting
-          ? `주희와 어울리는 ${categories[currentCategory].name} 골라줘!`
+          ? `${username}와 어울리는 ${categories[currentCategory].name} 골라줘!`
           : "마지막으로 한마디를 남겨줘!"}
       </QuestionContainer>
       {!showWriting ? (
