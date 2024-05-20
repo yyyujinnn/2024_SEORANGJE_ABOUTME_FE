@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import AboutMeLogo from '../assets/AboutMeLogo.png';
+import AboutMeLogo from '../assets/AboutMeLogo.svg';
 import { login } from './Auth/AuthAPI';
 
 const MainBody = styled.div`
@@ -46,8 +46,8 @@ const InputContainer = styled.form`
 `;
 
 const Input = styled.input`
-  width: 334px;
-  height: 60px;
+  width: 284px;
+  height: 48px;
   margin-top: 15px;
   padding-left: 30px;
   font-size: 20px;

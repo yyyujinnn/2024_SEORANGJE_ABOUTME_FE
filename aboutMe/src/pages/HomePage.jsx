@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import IntWin from '../assets/HomePage/IntWin.png';
-import DiaryName from '../assets/HomePage/DiaryName.png'
+import DiaryName from '../assets/HomePage/DiaryName.svg'
 import pre from '../assets/HomePage/HomePre.svg';
 import next from '../assets/HomePage/HomeNext.svg';
 import Share from '../assets/HomePage/Share.svg';
@@ -55,7 +55,7 @@ const NameImg = styled.img`
 `;
 
 const Title = styled.div`
-  // position: fixed;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center; 
@@ -69,7 +69,7 @@ const Title = styled.div`
 `
 
 const Sub_Title = styled.div`
-  // position: fixed;
+  position: fixed;
   margin-top: 40px;
   font-size: 40px;
   color: #FFF;
