@@ -4,7 +4,7 @@ import axiosInstance from '..';
 
 const MyImage = async (userId) => {
   try {
-    const response = await axiosInstance.get(`/MyImage/${userId}`);
+    const response = await axiosInstance.get(`/MyImage/List/${userId}`);
 
     return response.data;
   } catch (err) {

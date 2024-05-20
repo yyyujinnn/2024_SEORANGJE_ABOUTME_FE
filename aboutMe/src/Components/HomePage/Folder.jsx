@@ -10,6 +10,7 @@ import Letter from '../../assets/Folder/Letter.svg';
 import Default from '../../assets/Folder/Default.svg';
 import Music from '../../assets/Folder/Music.svg';
 import MyImage from '../../api/home/MyImage';
+import UserUnfo from '../../api/home/UserInfo';
 
 const FolderGrid = styled.div`
   position: absolute;
@@ -67,21 +68,23 @@ export const Folder = ({ currentPage, itemsPerPage }) => {
   useEffect(() => {
     const fetchUserId = async () => {
       try {
-        const userData = await MyImage();
+        const userData = await UserUnfo();
         const userId = userData?.principalDetails?.principal?.user?.id;
         setUserId(userId);
+        console.log('userData', userData);
+        console.log('userId', userId);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
-
+  
     fetchUserId();
   }, []);
 
   useEffect(() => {
     const fetchFolderItems = async () => {
       try {
-        const data = await MyImage();
+        const data = await MyImage(userId);
         if (!data) {
           console.log('데이터가 없습니다.');
           return;

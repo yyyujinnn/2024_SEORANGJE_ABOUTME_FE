@@ -1,9 +1,16 @@
 
 import axiosInstance from '..';
 
-const MyImage = async () => {
+const UserUnfo = async () => {
   try {
-    const response = await axiosInstance.get(`/info`);
+
+    const token = localStorage.getItem('token');
+
+    const response = await axiosInstance.get(`/info`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (err) {
@@ -12,4 +19,4 @@ const MyImage = async () => {
   }
 };
 
-export default MyImage;
+export default UserUnfo;
