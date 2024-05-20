@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Outlet } from "react-router-dom";
 
 const TOKEN = localStorage.getItem("token");
 
@@ -29,3 +30,8 @@ export const signUp = async ({
     const response = await AuthApi.post(`/api/join`, data);
     return response.data;
 }
+
+/** LOGOut */ 
+export const logout = () => {
+    localStorage.removeItem("token");
+};

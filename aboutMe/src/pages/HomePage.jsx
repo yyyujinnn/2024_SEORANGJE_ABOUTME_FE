@@ -8,6 +8,7 @@ import pre from '../assets/HomePage/HomePre.svg';
 import next from '../assets/HomePage/HomeNext.svg';
 import share from '../assets/HomePage/Share.svg';
 import { Folder } from '../Components/HomePage/Folder';
+import { logout } from './Auth/AuthAPI';
 
 const MainBody = styled.div`
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 100%);
@@ -245,6 +246,11 @@ const HomePage = () => {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate(`/sign-in`);
+  };
+
   const navigate = useNavigate();
 
   const handleSignupClick = () => {
@@ -271,20 +277,20 @@ const HomePage = () => {
         <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} />
       </FolderContainer>
 
-      {/* {isAuthenticated ? (
+      {isAuthenticated ? (
         // 호스트.ver
         <ButtonContainer>
-          <Logout> 로그아웃 </Logout>
+          <Logout onClick={handleLogout}> 로그아웃 </Logout>
           <Icon onClick={handleMakingClick}> 아이콘 남기기 </Icon>
           <Share> <img src={share}/> </Share>
       </ButtonContainer>
       ) : (
-        // 게스트.ver */}
+        // 게스트.ver
         <ButtonContainer>
           <BtnDiary onClick={handleSignupClick}> 내 미니홈피 만들러 가기</BtnDiary>
           <BtnIcon2 onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon2>
         </ButtonContainer>
-      {/* )} */}
+      )}
     </Version>
 
     </MainBody>
