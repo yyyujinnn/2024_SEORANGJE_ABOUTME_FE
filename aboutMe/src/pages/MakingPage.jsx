@@ -264,15 +264,13 @@ const MakingPage = () => {
   const [username, setUsername] = useState("");
 
   useEffect(() => {
-    fetchUserInfo()
-      .then((data) => {
-        console.log("API response data:", data); // Debugging: log the response data
+    const fetchData = async () => {
+      try {
+        // Fetch user info
+        const userInfo = await fetchUserInfo();
+        console.log("User Info API response data:", userInfo);
 
-        if (data.principalDetails && data.principalDetails.principal) {
-          const user = data.principalDetails.principal.user;
-
-          // 유저네임 불러오기
-          if (user && user.username) {
+        const user = userInfo.principalDetails.principal.user;
             setUsername(user.username);
           }
         }
