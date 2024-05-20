@@ -207,6 +207,7 @@ const BtnIcon2 = styled.div`
 
 const HomePage = () => {
 
+  const [username, setUsername] = useState();
   const [url, setUrl] = useState();
 
   // 로그인한 사용자와 토큰 비교
@@ -229,6 +230,7 @@ const HomePage = () => {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => {
+      setUsername(response.data.principalDetails.principal.user.username);
       setUrl(response.data.principalDetails.principal.user.url);
       console.log(url);
     })
@@ -279,7 +281,7 @@ const HomePage = () => {
     <MainBody>
     <Version>
       <TitleContainer>
-        <Title> 주희의 </Title>
+        <Title> {username}의 </Title>
         <Sub_Title> 미니홈피 </Sub_Title>
         <NameImg src={DiaryName}/>
       </TitleContainer>
