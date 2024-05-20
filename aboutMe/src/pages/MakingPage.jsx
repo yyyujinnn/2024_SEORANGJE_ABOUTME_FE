@@ -5,7 +5,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoCameraOutline } from "react-icons/io5";
 import HeartFolder from "../assets/MakingPage/HeartFolder.svg";
 import axios from "axios";
-import { fetchUserInfo } from "./Auth/AuthAPI";
+import { fetchUserInfo, fetchImages } from "./Auth/AuthAPI";
 import Modal from "../Components/Modal";
 
 const ScreenContainer = styled.div`
@@ -256,12 +256,13 @@ const categoryNameMap = {
 };
 
 const MakingPage = () => {
-  const [categories, setCategories] = useState(categoriesData);
+  const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
   const [showWriting, setWriting] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [username, setUsername] = useState("");
+  const [imageFiles, setImageFiles] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -271,13 +272,45 @@ const MakingPage = () => {
         console.log("User Info API response data:", userInfo);
 
         const user = userInfo.principalDetails.principal.user;
-            setUsername(user.username);
-          }
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching user info:", error);
-      });
+        setUsername(user.username);
+
+        // Fetch images and categories for the user
+        const imagesDB = await fetchImages(user.id);
+        console.log("Images API response data:", imagesDB);
+
+        // 유저가 추가한 카테고리 가져오기
+        const userCategories = [];
+        if (user.food) userCategories.push("food");
+        if (user.place) userCategories.push("place");
+        if (user.animal) userCategories.push("animal");
+        if (user.charac) userCategories.push("charac");
+        if (user.flower) userCategories.push("flower");
+        if (user.season) userCategories.push("season");
+        if (user.color) userCategories.push("color");
+        if (user.hobby) userCategories.push("hobby");
+        if (user.job) userCategories.push("job");
+
+        const combinedData = userCategories.map((categoryKey) => {
+          const categoryData = imagesDB
+            .filter((item) => item.category === categoryKey)
+            .map((item) => ({
+              id: item.id,
+              filePath: item.filePath,
+            }));
+          return {
+            name: categoryNameMap[categoryKey],
+            categoryKey,
+            images: categoryData,
+          };
+        });
+
+        setCategories(combinedData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleImageChange = (e) => {
@@ -286,7 +319,7 @@ const MakingPage = () => {
 
     reader.onload = () => {
       if (reader.readyState === 2) {
-        const newImage = reader.result;
+        const newImage = { id: Date.now(), filePath: reader.result };
         const updatedCategories = [...categories];
         updatedCategories[currentCategory].images.unshift(newImage);
         setCategories(updatedCategories);
@@ -298,7 +331,6 @@ const MakingPage = () => {
       reader.readAsDataURL(file);
     }
   };
-
   const prevCategory = () => {
     if (showWriting) {
       setCurrentCategory(currentCategory);
@@ -308,13 +340,23 @@ const MakingPage = () => {
       setCurrentImage(0); // 새로운 카테고리로 넘어갈 때 이미지 인덱스 초기화
     }
   };
+  const nextCategory = async () => {
+    // 현재 이미지 URL을 임시 저장
+    const currentCategoryKey = categories[currentCategory]?.categoryKey;
+    const currentCategoryImages = categories[currentCategory]?.images;
+    if (currentCategoryImages && currentCategoryImages[currentImage]) {
+      const currentImageURL = currentCategoryImages[currentImage].filePath;
+      setImageFiles((prevFiles) => ({
+        ...prevFiles,
+        [currentCategoryKey]: currentImageURL,
+      }));
+      console.log(currentCategoryKey);
+      console.log({ imageFiles });
+    }
 
-  const nextCategory = () => {
     if (currentCategory < categories.length - 1) {
       setCurrentCategory(currentCategory + 1);
-      setCurrentImage(0); // 새로운 카테고리로 넘어갈 때 이미지 인덱스 초기화
-    } else {
-      setWriting(true);
+      setCurrentImage(0);
     }
   };
 
@@ -366,7 +408,7 @@ const MakingPage = () => {
       <QuestionContainer>
         Q{!showWriting ? currentCategory + 1 : "6"}. {"\n"}
         {!showWriting
-          ? `${username}와 어울리는 ${categories[currentCategory].name} 골라줘!`
+          ? `${username}와 어울리는 ${categories[currentCategory]?.name} 골라줘!`
           : "마지막으로 한마디를 남겨줘!"}
       </QuestionContainer>
       {!showWriting ? (
@@ -375,10 +417,10 @@ const MakingPage = () => {
             <PictureText>토마토</PictureText>
             <ArrowWrapper>
               <LeftArrow onClick={prevImage} />
-              <Image src={categories[currentCategory].images[currentImage]} alt="img" />
-              {/* {image.map((image, index) => (
-                <Image key={index} src={image} alt={`Image ${index}`} />
-              ))} */}
+              <Image
+                src={categories[currentCategory]?.images[currentImage]?.filePath}
+                alt={`${categories[currentCategory]?.name}`}
+              />
               <RightArrow onClick={nextImage} />
             </ArrowWrapper>
             <PictureText>동글동글 달짝지근, 여름을 닮은 토마토</PictureText>
