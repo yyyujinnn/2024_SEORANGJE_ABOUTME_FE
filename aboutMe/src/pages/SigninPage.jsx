@@ -55,7 +55,7 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center; 
   flex-direction: column;
-  margin-top: 42px;
+  margin: 42px;
 `;
 
 const Button = styled.button`

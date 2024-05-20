@@ -6,7 +6,7 @@ import IntWin from '../assets/HomePage/IntWin.png';
 import DiaryName from '../assets/HomePage/DiaryName.svg'
 import pre from '../assets/HomePage/HomePre.svg';
 import next from '../assets/HomePage/HomeNext.svg';
-import Share from '../assets/HomePage/Share.svg';
+import share from '../assets/HomePage/Share.svg';
 import { Folder } from '../Components/HomePage/Folder';
 
 const MainBody = styled.div`
@@ -18,10 +18,12 @@ const MainBody = styled.div`
 `;
 const Version = styled.div`
 
-@media (max-width: 380px) {
-  height: 700px;
-  transform: scale(0.8);
-}
+transform: scale(0.8);
+
+// @media (max-width: 380px) {
+//   height: 700px;
+//   transform: scale(0.8);
+// }
 
 @media (min-width: 800px) {
   height: 1150px;
@@ -119,59 +121,77 @@ const BtnNext= styled.button`
   z-index: 3;
 `;
 
-
 const ButtonContainer = styled.div`
   display: flex; 
   justify-content: center;
   align-items: center; 
-  margin: 10px 30px;
+  margin: 10px 30px 30px;
   gap: 6px;
 `;
+
 // 호스트.ver
-const BtnLogout = styled.button`
+const Logout = styled.div`
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
   width: 98px;
   height: 46px;
   background: #FFF;
   border-radius: 0px;
+  border: 1px solid #000;
+  color: #000;
   font-size: 13px;
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
-const BtnIcon = styled.button`
+const Icon = styled.div`
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
   width: 152px; 
   height: 46px;
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 85.29%);
   border-radius: 0px;
+  border: 1px solid #000;
   font-size: 13px;
+  color: #000;
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
 
-const BtnShare = styled.button`
+const Share = styled.div`
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
   width: 66px;
   height: 46px;
   background: #FFF;
   border-radius: 0px;
+  border: 1px solid #000;
   font-size: 13px;
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
 // 게스트.ver
-const BtnDiary = styled.button`
+const BtnDiary = styled.div`
   width: 172px;
   height: 46px;
   background: #FFF;
   border-radius: 0px;
+  border: 1px solid #000;
   font-size: 13px;
+  color: #000;
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
-const BtnIcon2 = styled.button`
+const BtnIcon2 = styled.div`
   width: 152px; 
   height: 46px;
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 85.29%);
   border-radius: 0px;
+  border: 1px solid #000;
   font-size: 13px;
+  color: #000;
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
@@ -248,9 +268,9 @@ const HomePage = () => {
       {isAuthenticated ? (
         // 호스트.ver
         <ButtonContainer>
-          <BtnLogout> 로그아웃 </BtnLogout>
-          <BtnIcon onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon>
-          <BtnShare> <img src={Share}/> </BtnShare>
+          <Logout> 로그아웃 </Logout>
+          <Icon onClick={handleMakingClick}> 아이콘 남기기 </Icon>
+          <Share> <img src={share}/> </Share>
       </ButtonContainer>
       ) : (
         // 게스트.ver
