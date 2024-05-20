@@ -12,11 +12,7 @@ export const AuthApi = axios.create({
 /** LOGIN API */
 export const login = async ({ email, password }) => {
     const data = { email, password };
-    const response = await AuthApi.post(`/api/login`, data, {
-        headers: {
-            'Authorization': `Bearer ${TOKEN}`
-        }
-    });
+    const response = await AuthApi.post(`/api/login`, data);
     return response.data;
 }
   

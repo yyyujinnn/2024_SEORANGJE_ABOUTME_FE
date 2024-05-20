@@ -8,11 +8,34 @@ const MainBody = styled.div`
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 85.29%);
 `;
 
+const Version = styled.div`
+
+@media (max-width: 380px) {
+  height: 700px;
+  transform: scale(0.8);
+}
+
+@media (min-width: 800px) {
+  height: 1150px;
+  transform: scale(1.5);
+}
+`;
+
 const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center; 
   height: 58vh;
+
+  @media (max-width: 380px) {
+    padding-top: 20px;
+    height: 52vh;
+  }
+
+  @media (min-width: 800px) {
+    padding-top: 190px;
+    height: 36vh;
+  }
 `;
 
 const InputContainer = styled.form`
@@ -46,6 +69,14 @@ const ButtonContainer = styled.div`
   left: 0;
   width: 100%;
   height: 20vh;
+
+  @media (max-width: 380px) {
+    height: 15vh;
+  }
+
+  @media (min-width: 800px) {
+    height: 15vh;
+  }
 `;
 
 const Button = styled.button`
@@ -111,7 +142,7 @@ const handleSignin = async () => {
 
   return (
     <MainBody>
-
+      <Version>
       <LogoContainer className='logo'>
         <img src={AboutMeLogo} alt='logo'/>
       </LogoContainer>
@@ -126,6 +157,7 @@ const handleSignin = async () => {
         <SignupText onClick={handleSignup}>회원가입 하기</SignupText>
       </ButtonContainer>
       
+      </Version>
     </MainBody>
   )
 }

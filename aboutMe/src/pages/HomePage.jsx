@@ -16,6 +16,18 @@ const MainBody = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+const Version = styled.div`
+
+@media (max-width: 380px) {
+  height: 700px;
+  transform: scale(0.8);
+}
+
+@media (min-width: 800px) {
+  height: 1150px;
+  transform: scale(1.5);
+}
+`;
 
 const TitleContainer = styled.div`
   display: flex;
@@ -25,6 +37,14 @@ const TitleContainer = styled.div`
   font-size: 24px;
   margin-top: 70px;
   gap: 5px;
+
+  @media (max-width: 380px) {
+    margin-top: -30px;
+  }
+  
+  @media (min-width: 800px) {
+    margin-top: 300px;
+  }
 `;
 
 const NameImg = styled.img`
@@ -78,7 +98,7 @@ const Img = styled.img`
 const BtnPre = styled.button`
   position: absolute;
   top: 50%;
-  left: 7%;
+  left: 2%;
   transform: translateY(-50%);
   display: flex;
   justify-content: center;
@@ -92,7 +112,7 @@ const BtnPre = styled.button`
 const BtnNext= styled.button`
   position: absolute;
   top: 50%;
-  right: 7%;
+  right: 2%;
   transform: translateY(-50%);
   display: flex;
   justify-content: center;
@@ -215,7 +235,7 @@ const HomePage = () => {
   
   return (
     <MainBody>
-
+    <Version>
       <TitleContainer>
         <NameImg src={DiaryName}/>
         <Title> 주희의 </Title>
@@ -243,7 +263,8 @@ const HomePage = () => {
           <BtnIcon2 onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon2>
         </ButtonContainer>
       )}
-    
+    </Version>
+
     </MainBody>
   )
 }

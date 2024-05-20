@@ -1,18 +1,38 @@
 import React,{ useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { signUp } from './Auth/AuthAPI';
 
 const MainBody = styled.div`
   background: linear-gradient(180deg, rgba(126, 246, 255, 0.40) 0%, rgba(255, 255, 255, 0.40) 85.29%);
 `;
 
+const Version = styled.div`
+@media (max-width: 380px) {
+  height: 700px;
+  transform: scale(0.8);
+}
+
+@media (min-width: 800px) {
+  height: 1150px;
+}
+`;
+
 const TitleContainer = styled.div`
   padding-top: 100px;
-  
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center; 
+
+  @media (max-width: 380px) {
+    padding: 40px 0 0 0;
+  }
+
+  @media (min-width: 800px) {
+    padding-top: 180px;
+    transform: scale(1.5);
+  }
 `;
 
 const Title = styled.div`
@@ -42,6 +62,11 @@ const ThemeContainer = styled.div`
   grid-template-rows: repeat(3, 48px);
   margin: 90px 33px;
   gap: 20px;
+  
+@media (min-width: 800px) {
+  margin: 135px 75px;
+  transform: scaleY(1.4);
+}
 `
 
 const ThemeItem = styled.div`
@@ -51,6 +76,10 @@ const ThemeItem = styled.div`
   font-size: 18px;
   cursor: pointer;
   background-image: ${({ active }) => (active ? 'linear-gradient(180deg, #C0EE41 0%, #FFF 100%)' : '#FFF')};
+  
+  @media (min-width: 800px) {
+    font-size: 20px;
+  }
 `
 
 const ButtonContainer = styled.div`
@@ -64,6 +93,14 @@ const ButtonContainer = styled.div`
   left: 0;
   width: 100%;
   height: 20vh;
+  
+  @media (max-width: 380px) {
+    height: 15vh;
+  }
+
+  @media (min-width: 800px) {
+    height: 21vh;
+  }
 `;
 
 const Button = styled.button`
@@ -77,6 +114,10 @@ const Button = styled.button`
   font-size: 20px;
   cursor: pointer; 
   font-family: "DungGeunMo";
+
+  @media (min-width: 800px) {
+    transform: scale(1.5);
+  }
 `;
 
 
@@ -140,7 +181,7 @@ const ThemePage = () => {
   
   return (
     <MainBody>
-
+      <Version>
       <TitleContainer>
         <Title> 주제 고르기 </Title>
         <Sub_Title> 
@@ -212,6 +253,7 @@ const ThemePage = () => {
         <Button onClick={handleSubmit} active={activeThemes.length === 5}> 홈으로 이동 </Button>
       </ButtonContainer>
 
+      </Version>
     </MainBody>
 
   )
