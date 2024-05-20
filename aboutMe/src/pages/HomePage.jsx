@@ -30,6 +30,7 @@ const Version = styled.div`
 `;
 
 const TitleContainer = styled.div`
+  position: fixed;
   display: flex;
   align-items: center;  
   flex-direction: column;
@@ -55,7 +56,6 @@ const NameImg = styled.img`
 `;
 
 const Title = styled.div`
-  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center; 
@@ -69,8 +69,6 @@ const Title = styled.div`
 `
 
 const Sub_Title = styled.div`
-  position: fixed;
-  margin-top: 40px;
   font-size: 40px;
   color: #FFF;
   text-shadow:
@@ -237,9 +235,9 @@ const HomePage = () => {
     <MainBody>
     <Version>
       <TitleContainer>
-        <NameImg src={DiaryName}/>
         <Title> 주희의 </Title>
         <Sub_Title> 미니홈피 </Sub_Title>
+        <NameImg src={DiaryName}/>
       </TitleContainer>
 
       <FolderContainer>
