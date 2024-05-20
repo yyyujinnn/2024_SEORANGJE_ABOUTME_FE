@@ -7,11 +7,6 @@ import HeartFolder from "../assets/MakingPage/HeartFolder.svg";
 import axios from "axios";
 import { fetchUserInfo } from "./Auth/AuthAPI";
 import Modal from "../Components/Modal";
-import img1 from "../assets/image1.jpg";
-import img2 from "../assets/image2.jpg";
-import img3 from "../assets/image3.jpg";
-import img4 from "../assets/image4.jpg";
-import img5 from "../assets/image5.jpg";
 
 const ScreenContainer = styled.div`
   overflow-x: hidden;
