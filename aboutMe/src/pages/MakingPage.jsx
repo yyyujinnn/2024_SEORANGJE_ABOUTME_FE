@@ -242,29 +242,18 @@ const ModalUploadBtn = styled(ModalBtn)`
   background: linear-gradient(180deg, #ff8caf 0%, #fff 100%);
 `;
 
-// 이미지 더미데이터 예시
-const categoriesData = [
-  {
-    name: "음식을",
-    images: [img1, img2],
-  },
-  {
-    name: "장소를",
-    images: [img3, img4],
-  },
-  {
-    name: "동물을",
-    images: [img5, img1],
-  },
-  {
-    name: "장소를",
-    images: [img4, img4],
-  },
-  {
-    name: "캐릭터를",
-    images: [img5, img5],
-  },
-];
+//카테고리 이름 매핑
+const categoryNameMap = {
+  food: "음식을",
+  place: "장소를",
+  animal: "동물을",
+  charac: "캐릭터를",
+  flower: "꽃을",
+  season: "계절을",
+  color: "색깔을",
+  hobby: "취미를",
+  job: "직업을",
+};
 
 const MakingPage = () => {
   const [categories, setCategories] = useState(categoriesData);
