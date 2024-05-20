@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import IntWin from '../assets/HomePage/IntWin.png';
@@ -15,6 +16,18 @@ const MainBody = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+const Version = styled.div`
+
+@media (max-width: 380px) {
+  height: 700px;
+  transform: scale(0.8);
+}
+
+@media (min-width: 800px) {
+  height: 1150px;
+  transform: scale(1.5);
+}
+`;
 
 const TitleContainer = styled.div`
   display: flex;
@@ -24,6 +37,14 @@ const TitleContainer = styled.div`
   font-size: 24px;
   margin-top: 70px;
   gap: 5px;
+
+  @media (max-width: 380px) {
+    margin-top: -30px;
+  }
+  
+  @media (min-width: 800px) {
+    margin-top: 300px;
+  }
 `;
 
 const NameImg = styled.img`
@@ -77,7 +98,7 @@ const Img = styled.img`
 const BtnPre = styled.button`
   position: absolute;
   top: 50%;
-  left: 7%;
+  left: 2%;
   transform: translateY(-50%);
   display: flex;
   justify-content: center;
@@ -91,7 +112,7 @@ const BtnPre = styled.button`
 const BtnNext= styled.button`
   position: absolute;
   top: 50%;
-  right: 7%;
+  right: 2%;
   transform: translateY(-50%);
   display: flex;
   justify-content: center;
@@ -161,6 +182,30 @@ const BtnIcon2 = styled.button`
 
 const HomePage = () => {
 
+  const [data, setData] = useState([]);
+
+  // 로그인한 사용자와 토큰 비교
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
+
+  const baseUrl = `https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app`;
+
+  useEffect(() => {
+    axios.get(`${baseUrl}/api/info`) 
+    .then(response => {
+      setData(response.data);
+    })
+      .catch(error => console.error('Error:', error));
+  }, [])
+
   //페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6; 
@@ -190,7 +235,7 @@ const HomePage = () => {
   
   return (
     <MainBody>
-
+    <Version>
       <TitleContainer>
         <NameImg src={DiaryName}/>
         <Title> 주희의 </Title>
@@ -204,19 +249,22 @@ const HomePage = () => {
         <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} />
       </FolderContainer>
 
-    {/* 호스트.ver -> 토큰이 있을 때 */}
-    {/* <ButtonContainer>
-      <BtnLogout> 로그아웃 </BtnLogout>
-      <BtnIcon onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon>
-      <BtnShare> <img src={Share}/> </BtnShare>
-    </ButtonContainer> */}
+      {isAuthenticated ? (
+        // 호스트.ver
+        <ButtonContainer>
+          <BtnLogout> 로그아웃 </BtnLogout>
+          <BtnIcon onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon>
+          <BtnShare> <img src={Share}/> </BtnShare>
+      </ButtonContainer>
+      ) : (
+        // 게스트.ver
+        <ButtonContainer>
+          <BtnDiary onClick={handleSignupClick}> 내 미니홈피 만들러 가기</BtnDiary>
+          <BtnIcon2 onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon2>
+        </ButtonContainer>
+      )}
+    </Version>
 
-    {/* 게스트.ver -> 토큰이 없을 때*/}
-    <ButtonContainer>
-      <BtnDiary onClick={handleSignupClick}> 내 미니홈피 만들러 가기</BtnDiary>
-      <BtnIcon2 onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon2>
-    </ButtonContainer>
-    
     </MainBody>
   )
 }

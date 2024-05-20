@@ -1,18 +1,38 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { signUp } from "./Auth/AuthAPI";
 
 const MainBody = styled.div`
   background: linear-gradient(180deg, rgba(126, 246, 255, 0.40) 0%, rgba(255, 255, 255, 0.40) 85.29%); 
 `;
 
+const Version = styled.div`
+
+@media (max-width: 380px) {
+  height: 700px;
+  transform: scale(0.8);
+}
+
+@media (min-width: 800px) {
+  height: 1150px;
+  transform: scale(1.5);
+}
+`;
 const TitleContainer = styled.div`
   display : flex;
+  justify-content: center;
   align-items: center;
   font-size: 24px;
-  padding: 100px 0 0 30px;
+  padding: 100px 0 0 0;
   gap: 10px;
+
+  @media (max-width: 380px) {
+    padding: 40px 0 0 0;
+  }
+
+  @media (min-width: 800px) {
+    padding-top: 350px;
+  }
 `;
 
 const Title = styled.div`
@@ -28,8 +48,11 @@ const Title = styled.div`
 `
 
 const Sub_Title = styled.div`
+  display : flex;
+  justify-content: center;
+  align-items: center;
   font-size: 14px;
-  margin: 20px 0 0 30px;
+  margin: 20px 0 0 0;
 `;
 
 const InputContainer = styled.form`
@@ -63,7 +86,15 @@ const ButtonContainer = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 20vh;
+  height: 20vh;  
+
+  @media (max-width: 380px) {
+    height: 15vh;
+  }
+
+  @media (min-width: 800px) {
+    height: 15vh;
+  }
 `;
 
 const Button = styled.button`
@@ -87,34 +118,26 @@ const SignupPage = () => {
         username: ""
     });
 
-    const handleChange = //async 
-    (e) => {
+    const handleChange = async (e) => {
         setValues({...values,
             [e.target.id]: e.target.value,
         });
     }
 
-    const handleSubmit = //async
-    (e) => {
-      e.preventDefault(); // 기본 제출 행동 방지
+    const handleSubmit = (e) => {
+      e.preventDefault(); // 폼 제출 방지
       if (values.email && values.password && values.username) {
         console.log('Submitted:', values);
-        navigate(`/theme`); 
+        // alert('주제 선택 페이지로 이동합니다.')
+        navigate(`/theme`, { state: { ...values } });
       } else {
         console.log("모두 입력해주세요.");
       }
-
-        // signUp(values)
-        // .then((response) => {  
-        //    navigate(`/theme`);   
-        //        
-        // }).catch((error) => {
-        //     console.log(error);
-        // });
-    }
+    };
 
   return (
     <MainBody>
+      <Version>
 
       <TitleContainer>
       <Title> 나만의</Title>
@@ -135,7 +158,7 @@ const SignupPage = () => {
       <ButtonContainer>
         <Button onClick={handleSubmit}> 다음 </Button>
       </ButtonContainer>
-
+      </Version>
     </MainBody>
   )
 }

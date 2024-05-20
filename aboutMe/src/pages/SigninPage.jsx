@@ -8,11 +8,34 @@ const MainBody = styled.div`
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 85.29%);
 `;
 
+const Version = styled.div`
+
+@media (max-width: 380px) {
+  height: 700px;
+  transform: scale(0.8);
+}
+
+@media (min-width: 800px) {
+  height: 1150px;
+  transform: scale(1.5);
+}
+`;
+
 const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center; 
   height: 58vh;
+
+  @media (max-width: 380px) {
+    padding-top: 20px;
+    height: 52vh;
+  }
+
+  @media (min-width: 800px) {
+    padding-top: 190px;
+    height: 36vh;
+  }
 `;
 
 const InputContainer = styled.form`
@@ -46,6 +69,14 @@ const ButtonContainer = styled.div`
   left: 0;
   width: 100%;
   height: 20vh;
+
+  @media (max-width: 380px) {
+    height: 15vh;
+  }
+
+  @media (min-width: 800px) {
+    height: 15vh;
+  }
 `;
 
 const Button = styled.button`
@@ -83,37 +114,35 @@ const SigninPage = () => {
     navigate(`/sign-up`);
   };
 
-  const handleChange = //async : api 배포 시 함수 실행
-  (e) => {
+  const handleChange = async (e) => {
     setValues({...values,
         [e.target.id]: e.target.value,
     });
 }
 
-const handleSignin = //async : api 배포 시 함수 실행
-(e) => {
-  e.preventDefault(); // 기본 제출 행동 방지
-      if (values.email && values.password) {
-        console.log('Submitted:', values);
-        navigate(`/`); 
-      } else {
-        console.log("아이디 또는 비밀번호가 틀립니다.");
-      }
+const handleSignin = async () => {
+  if (!values.email || !values.password) {
+    alert('이메일 또는 비밀번호를 틀립니다.');
+    return;
+  }
 
-    // login(values)
-    // .then((response) => {
-    //     localStorage.clear();
-    //     localStorage.setItem('tokenType', response.tokenType);
-    //     localStorage.setItem('accessToken', response.accessToken);
-    //     navigate(`/`);
-    // }).catch((error) => {
-    //     console.log(error);
-    // });
-}
+  login(values)
+    .then((response) => {
+      console.log('Submitted:', values);
+      alert('로그인 성공');
+      navigate(`/`);
+      localStorage.clear();
+      localStorage.setItem('token', response.token);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 
   return (
     <MainBody>
-
+      <Version>
       <LogoContainer className='logo'>
         <img src={AboutMeLogo} alt='logo'/>
       </LogoContainer>
@@ -128,6 +157,7 @@ const handleSignin = //async : api 배포 시 함수 실행
         <SignupText onClick={handleSignup}>회원가입 하기</SignupText>
       </ButtonContainer>
       
+      </Version>
     </MainBody>
   )
 }
