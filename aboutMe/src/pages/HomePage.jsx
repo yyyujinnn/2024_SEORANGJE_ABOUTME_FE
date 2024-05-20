@@ -30,7 +30,6 @@ const Version = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  position: fixed;
   display: flex;
   align-items: center;  
   flex-direction: column;
@@ -60,8 +59,7 @@ const Title = styled.div`
   justify-content: center;
   align-items: center; 
   font-size: 20px;
-  width: 81px;
-  height: 34px;
+  padding: 4px 8px;
   border-radius: 28px;
   border: 1px solid #000;
   background: linear-gradient(180deg, #7EF6FF 0%, #FFF 100%);

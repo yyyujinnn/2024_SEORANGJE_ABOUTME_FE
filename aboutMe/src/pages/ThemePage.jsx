@@ -169,7 +169,7 @@ const ThemePage = () => {
         .then((response) => {
           alert('회원가입 성공');
           console.log('회원가입 완료:', values);
-          navigate(`/`);
+          navigate(`/sign-in`);
         })
         .catch((error) => {
           console.log(error);
