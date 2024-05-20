@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import IntWin from '../assets/HomePage/IntWin.png';
+import IntWin from '../assets/HomePage/IntWin.svg';
 import DiaryName from '../assets/HomePage/DiaryName.svg'
 import pre from '../assets/HomePage/HomePre.svg';
 import next from '../assets/HomePage/HomeNext.svg';
@@ -38,7 +38,7 @@ const TitleContainer = styled.div`
   flex-direction: column;
   height: 82px;
   font-size: 24px;
-  margin-top: 70px;
+  margin-top: 35px;
   gap: 5px;
 
   @media (max-width: 380px) {
