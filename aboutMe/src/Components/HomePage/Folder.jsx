@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import HardDisk from '../../assets/Folder/HardDisk.svg';
 import Paper from '../../assets/Folder/Paper.svg';
@@ -7,6 +9,7 @@ import Computer from '../../assets/Folder/Computer.svg';
 import Letter from '../../assets/Folder/Letter.svg';
 import Default from '../../assets/Folder/Default.svg';
 import Music from '../../assets/Folder/Music.svg';
+import MyImage from '../../api/home/MyImage';
 
 const FolderGrid = styled.div`
   position: absolute;
@@ -37,38 +40,89 @@ const Visitor = styled.text`
   margin-top: 15px;
 `
 
+const imageMap = {
+  HardDisk,
+  Paper,
+  Computer,
+  Letter,
+  Default,
+  Music,
+};
+
+const imageKeys = Object.keys(imageMap);
+
+const getRandomImage = () => {
+  const randomIndex = Math.floor(Math.random() * imageKeys.length);
+  return imageMap[imageKeys[randomIndex]];
+};
+
 export const Folder = ({ currentPage, itemsPerPage }) => {
 
-  const folderItems = [
-    { img: HardDisk, name: '주희' },
-    { img: Paper, name: '쿨냥이' },
-    { img: Computer, name: '지윤' },
-    { img: Letter, name: '유진' },
-    { img: Music, name: '민지' },
-    { img: Default, name: '소현' },
-    { img: Letter, name: '유진' },
-    { img: Music, name: '민지' },
-    { img: Default, name: '소현' },
-  ];
+  const navigate = useNavigate();
+
+  const [folderItems, setFolderItems] = useState([]);
+
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const userData = await MyImage();
+        const userId = userData?.principalDetails?.principal?.user?.id;
+        setUserId(userId);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserId();
+  }, []);
+
+  useEffect(() => {
+    const fetchFolderItems = async () => {
+      try {
+        const data = await MyImage();
+        if (!data) {
+          console.log('데이터가 없습니다.');
+          return;
+        }
+        const itemsWithRandomImages = data.map(item => ({
+          ...item,
+          img: getRandomImage(),
+        }));
+        setFolderItems(itemsWithRandomImages);
+      } catch (error) {
+        console.error('데이터 가져오기 오류:', error);
+      }
+    };
+
+    fetchFolderItems();
+  }, [userId]);
+
+
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = folderItems.slice(startIndex, startIndex + itemsPerPage);
 
-  const handleIconClick = {
-    // icon 클릭하면 해당하는 diary로 이동
-
+  const handleIconClick = (name) => {
+    navigate(`/diary/${name}`);
   };
 
     return(    
         <FolderGrid>
 
-          {currentItems.map((item, index) => (
-            <FolderItem key={index} onClick={handleIconClick}>
-             <img src={item.img} alt={item.name} />
-             <Visitor> {item.name} </Visitor>
+          {currentItems.map((item) => (
+            <FolderItem key={item.id} onClick={handleIconClick(item.guestNickname)}>
+              <img src={item.img} alt={item.guestNickname} />
+              <Visitor>{item.guestNickname}</Visitor>
             </FolderItem>
           ))}
 
         </FolderGrid>
     )
 }
+
+Folder.propTypes = {
+  currentPage: PropTypes.number.isRequired, 
+  itemsPerPage: PropTypes.number.isRequired,
+};

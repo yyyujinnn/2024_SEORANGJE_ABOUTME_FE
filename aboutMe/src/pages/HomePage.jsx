@@ -212,7 +212,7 @@ const HomePage = () => {
 
   // 로그인한 사용자와 토큰 비교
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const token = localStorage.getItem('token');
+  
 
   useEffect(() => {
     if (token) {
