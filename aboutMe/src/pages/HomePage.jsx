@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import IntWin from '../assets/HomePage/IntWin.png';
-import DiaryName from '../assets/HomePage/DiaryName.png'
+import { CopyToClipboard } from "react-copy-to-clipboard/src";
+
+import IntWin from '../assets/HomePage/IntWin.svg';
+import DiaryName from '../assets/HomePage/DiaryName.svg'
 import pre from '../assets/HomePage/HomePre.svg';
 import next from '../assets/HomePage/HomeNext.svg';
-import Share from '../assets/HomePage/Share.svg';
+import share from '../assets/HomePage/Share.svg';
 import { Folder } from '../Components/HomePage/Folder';
+import { logout } from './Auth/AuthAPI';
 
 const MainBody = styled.div`
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 100%);
@@ -16,7 +19,10 @@ const MainBody = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 const Version = styled.div`
+
+transform: scale(0.9);
 
 @media (max-width: 380px) {
   height: 700px;
@@ -35,7 +41,7 @@ const TitleContainer = styled.div`
   flex-direction: column;
   height: 82px;
   font-size: 24px;
-  margin-top: 70px;
+  margin-top: 35px;
   gap: 5px;
 
   @media (max-width: 380px) {
@@ -50,18 +56,16 @@ const TitleContainer = styled.div`
 const NameImg = styled.img`
   display: flex;
   align-items: center;  
-  margin-top: -22px;
+  margin-top: -100px;
   z-index: 1;
 `;
 
 const Title = styled.div`
-  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center; 
   font-size: 20px;
-  width: 81px;
-  height: 34px;
+  padding: 4px 8px;
   border-radius: 28px;
   border: 1px solid #000;
   background: linear-gradient(180deg, #7EF6FF 0%, #FFF 100%);
@@ -69,8 +73,6 @@ const Title = styled.div`
 `
 
 const Sub_Title = styled.div`
-  position: fixed;
-  margin-top: 40px;
   font-size: 40px;
   color: #FFF;
   text-shadow:
@@ -91,7 +93,7 @@ const FolderContainer = styled.div`
 
 const Img = styled.img`
   margin-top: 35px;
-  position: fixed;
+  // position: fixed;
   z-index: 1;
 `;
 
@@ -123,72 +125,96 @@ const BtnNext= styled.button`
   z-index: 3;
 `;
 
-
 const ButtonContainer = styled.div`
   display: flex; 
   justify-content: center;
   align-items: center; 
-  margin: 10px 30px;
+  margin: 10px 30px 30px;
   gap: 6px;
 `;
+
 // 호스트.ver
-const BtnLogout = styled.button`
+const Logout = styled.div`
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
   width: 98px;
   height: 46px;
   background: #FFF;
   border-radius: 0px;
+  border: 1px solid #000;
+  color: #000;
   font-size: 13px;
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
-const BtnIcon = styled.button`
+const Icon = styled.div`
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
   width: 152px; 
   height: 46px;
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 85.29%);
   border-radius: 0px;
+  border: 1px solid #000;
   font-size: 13px;
+  color: #000;
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
-
-const BtnShare = styled.button`
+const Share = styled.div`
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
   width: 66px;
   height: 46px;
   background: #FFF;
   border-radius: 0px;
+  border: 1px solid #000;
   font-size: 13px;
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
 // 게스트.ver
-const BtnDiary = styled.button`
+const BtnDiary = styled.div`
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
   width: 172px;
   height: 46px;
   background: #FFF;
   border-radius: 0px;
+  border: 1px solid #000;
   font-size: 13px;
+  color: #000;
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
-const BtnIcon2 = styled.button`
+const BtnIcon2 = styled.div`
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
   width: 152px; 
   height: 46px;
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 85.29%);
   border-radius: 0px;
+  border: 1px solid #000;
   font-size: 13px;
+  color: #000;
   cursor: pointer; 
   font-family: "DungGeunMo";
 `;
 
 const HomePage = () => {
 
-  const [data, setData] = useState([]);
+  const [username, setUsername] = useState();
+  const [url, setUrl] = useState();
 
   // 로그인한 사용자와 토큰 비교
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
     if (token) {
       setIsAuthenticated(true);
     } else {
@@ -199,12 +225,18 @@ const HomePage = () => {
   const baseUrl = `https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app`;
 
   useEffect(() => {
-    axios.get(`${baseUrl}/api/info`) 
-    .then(response => {
-      setData(response.data);
+    axios.get(`${baseUrl}/api/info`, {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` }
     })
-      .catch(error => console.error('Error:', error));
-  }, [])
+    .then(response => {
+      setUsername(response.data.principalDetails.principal.user.username);
+      setUrl(response.data.principalDetails.principal.user.url);
+      console.log(url);
+    })
+    .catch(error => console.error('Error:', error));
+
+  }, [url])
 
   //페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
@@ -223,6 +255,18 @@ const HomePage = () => {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate(`/sign-in`);
+  };
+
+  const handleCopy = () => {
+    if (url) {
+      console.log(url)
+      alert('URL이 클립보드에 복사되었습니다.');
+    }
+  };
+
   const navigate = useNavigate();
 
   const handleSignupClick = () => {
@@ -237,9 +281,9 @@ const HomePage = () => {
     <MainBody>
     <Version>
       <TitleContainer>
-        <NameImg src={DiaryName}/>
-        <Title> 주희의 </Title>
+        <Title> {username}의 </Title>
         <Sub_Title> 미니홈피 </Sub_Title>
+        <NameImg src={DiaryName}/>
       </TitleContainer>
 
       <FolderContainer>
@@ -252,10 +296,14 @@ const HomePage = () => {
       {isAuthenticated ? (
         // 호스트.ver
         <ButtonContainer>
-          <BtnLogout> 로그아웃 </BtnLogout>
-          <BtnIcon onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon>
-          <BtnShare> <img src={Share}/> </BtnShare>
-      </ButtonContainer>
+          <Logout onClick={handleLogout}> 로그아웃 </Logout>
+          <Icon onClick={handleMakingClick}> 아이콘 남기기 </Icon>
+          <CopyToClipboard text={url} onCopy={handleCopy}>
+            <Share>
+              <img src={share} alt="Share" />
+            </Share>
+          </CopyToClipboard>
+        </ButtonContainer>
       ) : (
         // 게스트.ver
         <ButtonContainer>

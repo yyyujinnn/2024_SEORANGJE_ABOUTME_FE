@@ -8,6 +8,9 @@ const MainBody = styled.div`
 `;
 
 const Version = styled.div`
+
+transform: scale(0.9);
+
 @media (max-width: 380px) {
   height: 700px;
   transform: scale(0.8);
@@ -86,26 +89,12 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center; 
   flex-direction: column;
-  
-  // 밑에서부터 20vh만큼은 버튼
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 20vh;
-  
-  @media (max-width: 380px) {
-    height: 15vh;
-  }
-
-  @media (min-width: 800px) {
-    height: 21vh;
-  }
+  margin-top: 84px;
 `;
 
 const Button = styled.button`
-  width: 370px;
-  height: 65px;
+  width: 81%;
+  height: 60px;
   
   background-color: ${({ active }) => (active ? '#000' : '#D9D9D9')};
   color: #ffffff;
@@ -169,7 +158,7 @@ const ThemePage = () => {
         .then((response) => {
           alert('회원가입 성공');
           console.log('회원가입 완료:', values);
-          navigate(`/`);
+          navigate(`/sign-in`);
         })
         .catch((error) => {
           console.log(error);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import AboutMeLogo from '../assets/AboutMeLogo.png';
+import AboutMeLogo from '../assets/AboutMeLogo.svg';
 import { login } from './Auth/AuthAPI';
 
 const MainBody = styled.div`
@@ -10,13 +10,13 @@ const MainBody = styled.div`
 
 const Version = styled.div`
 
+transform: scale(0.9);
+
 @media (max-width: 380px) {
-  height: 700px;
   transform: scale(0.8);
 }
 
 @media (min-width: 800px) {
-  height: 1150px;
   transform: scale(1.5);
 }
 `;
@@ -25,17 +25,7 @@ const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center; 
-  height: 58vh;
-
-  @media (max-width: 380px) {
-    padding-top: 20px;
-    height: 52vh;
-  }
-
-  @media (min-width: 800px) {
-    padding-top: 190px;
-    height: 36vh;
-  }
+  padding-top: 100px;
 `;
 
 const InputContainer = styled.form`
@@ -43,11 +33,12 @@ const InputContainer = styled.form`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 100px;
 `;
 
 const Input = styled.input`
-  width: 334px;
-  height: 60px;
+  width: 71.5%;
+  height: 52px;
   margin-top: 15px;
   padding-left: 30px;
   font-size: 20px;
@@ -56,38 +47,32 @@ const Input = styled.input`
   &::placeholder {
     font-family: "DungGeunMo"; 
   }
+
+  @media (min-width: 800px) {
+    width: 46.5%;
+  }
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center; 
   flex-direction: column;
-  
-  // 밑에서부터 20vh만큼은 버튼
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 20vh;
-
-  @media (max-width: 380px) {
-    height: 15vh;
-  }
-
-  @media (min-width: 800px) {
-    height: 15vh;
-  }
+  margin: 42px 0;
 `;
 
 const Button = styled.button`
-  width: 370px;
-  height: 65px;
+  width: 81%;
+  height: 60px;
   background-color: #000000;
   color: #ffffff;
   border-radius: 0px;
   font-size: 20px;
   cursor: pointer; 
   font-family: "DungGeunMo";
+
+  @media (min-width: 800px) {
+    width: 50%;
+  }
 `;
 
 const SignupText = styled.div`
