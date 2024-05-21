@@ -3,12 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import HardDisk from '../../assets/Folder/HardDisk.svg';
-import Paper from '../../assets/Folder/Paper.svg';
-import Computer from '../../assets/Folder/Computer.svg';
-import Letter from '../../assets/Folder/Letter.svg';
-import Default from '../../assets/Folder/Default.svg';
-import Music from '../../assets/Folder/Music.svg';
 import MyImage from '../../api/home/MyImage';
 
 const FolderGrid = styled.div`
@@ -40,21 +34,6 @@ const Visitor = styled.text`
   margin-top: 15px;
 `;
 
-const imageMap = {
-  HardDisk,
-  Paper,
-  Computer,
-  Letter,
-  Default,
-  Music,
-};
-
-const imageKeys = Object.keys(imageMap);
-
-const getRandomImage = () => {
-  const randomIndex = Math.floor(Math.random() * imageKeys.length);
-  return imageMap[imageKeys[randomIndex]];
-};
 
 export const Folder = ({ userId, currentPage, itemsPerPage }) => {
   const navigate = useNavigate();
@@ -65,21 +44,22 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
     const fetchFolderItems = async () => {
       try {
         const data = await MyImage(userId);
-        // console.log('UserId', userId);
-        // console.log('Data:', data);
+        console.log('UserId', userId);
+        console.log('Data:', data);
 
-        if (!data || data.length === 0) {
+        if (!data || data.length === 0 || data[0].id === null) {
           console.log('데이터가 없습니다.');
           setError('데이터가 없습니다.');
           return error;
         }
+        
 
         const MyImageData = data.map(item => ({
           guestNickname: item.guestNickname,
-          img: getRandomImage(),
+          folderImageUrl: item.folderImageUrl,
         }));
 
-        // console.log('MyImageData:', MyImageData);
+        console.log('MyImageData:', MyImageData);
         setFolderItems(MyImageData);
       } catch (error) {
         console.error('데이터 가져오기 오류:', error);
@@ -101,7 +81,7 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
     <FolderGrid>
       {currentItems.map((item) => (
         <FolderItem key={item.guestNickname} onClick={() => handleIconClick(item.guestNickname)}>
-          <img src={item.img} alt={item.guestNickname} />
+          <img src={item.folderImageUrl} alt={item.folderImageUrl} />
           <Visitor>{item.guestNickname}</Visitor>
         </FolderItem>
       ))}
