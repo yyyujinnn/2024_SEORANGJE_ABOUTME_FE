@@ -85,11 +85,12 @@ export const fetchUserCategories = async (userId) => {
   return response.data;
 };
 //생성된 다이어리
-export const submitImage = async (formData) => {
-  const response = await AuthApi.post("/api/MyImage", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-  return response.data;
+export const submitImage = async (formData, userId) => {
+  try {
+    const response = await AuthApi.post(`/api/MyImage/${userId}`, formData);
+    return response.data;
+  } catch (error) {
+    console.error("Axios 에러:", error);
+    throw error;
+  }
 };

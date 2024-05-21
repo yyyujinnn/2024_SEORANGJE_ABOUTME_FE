@@ -424,7 +424,7 @@ const MakingPage = () => {
       formData.append("imageComment", inputValue);
       formData.append("guestNickname", inputValue2);
 
-      // FormData를 JSON 형식으로 변환
+      // FormData를 JSON 형식으로 변환 (디버깅 용도)
       const formDataObj = {};
       formData.forEach((value, key) => {
         formDataObj[key] = value;
@@ -432,19 +432,11 @@ const MakingPage = () => {
 
       console.log("FormData as JSON:", JSON.stringify(formDataObj, null, 2));
 
+      // 서버에 FormData 전송
       const response = await submitImage(formData);
       console.log("Image URLs submission response data:", response);
-
-      // 요청이 성공적으로 처리되었는지 확인
-      if (response.status === 200) {
-        console.log("Image URLs submitted successfully.");
-      } else {
-        console.error("Error submitting image URLs:", response.statusText);
-      }
     } catch (error) {
-      // 에러 메시지 및 스택 트레이스 출력
-      console.error("Error submitting image URLs:", error.message);
-      console.error(error.stack);
+      console.error("Error submitting image URLs:", error);
     }
     navigate(`/home`);
   };
