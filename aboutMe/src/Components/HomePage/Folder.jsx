@@ -57,6 +57,7 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
         const MyImageData = data.map(item => ({
           guestNickname: item.guestNickname,
           folderImageUrl: item.folderImageUrl,
+          id: item.id,
         }));
 
         console.log('MyImageData:', MyImageData);
@@ -73,14 +74,15 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = folderItems.slice(startIndex, startIndex + itemsPerPage);
 
-  const handleIconClick = (name) => {
-    navigate(`/diary/${name}`);
+  const handleIconClick = (index, id) => {
+    navigate(`/diary/${index}/${id}`);
   };
+  
 
   return (
     <FolderGrid>
-      {currentItems.map((item) => (
-        <FolderItem key={item.guestNickname} onClick={() => handleIconClick(item.guestNickname)}>
+      {currentItems.map((item,index) => (
+        <FolderItem key={item.guestNickname} onClick={() => handleIconClick(index, item.id)}>
           <img src={item.folderImageUrl} alt={item.folderImageUrl} />
           <Visitor>{item.guestNickname}</Visitor>
         </FolderItem>
