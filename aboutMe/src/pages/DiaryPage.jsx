@@ -1,6 +1,7 @@
 import Diary from '../../components/Diary';
 import styled from 'styled-components';
 import folderIcon  from '../assets/DiaryPage/folderIcon.svg';
+import { useParams } from 'react-router-dom';
 
 const Title = styled.div`
   margin: 23px 0;
@@ -34,12 +35,15 @@ const FolderIcon= styled.img`
 
 const DiaryPage = () => {
 
+  const { index } = useParams();
+  const iconIndex = parseInt(index) + 1;
+
   return (
     <main style={{ display: 'flex', flexDirection: 'column',alignItems:'center'}}>
       <Container>
       <GridContainer>
         <FolderIcon src={folderIcon} alt='folderIcon'/>
-        <Title>주희의 첫 번째 아이콘</Title>
+        <Title>주희의 {iconIndex}번째 아이콘</Title>
         <img src={folderIcon} alt='folderIcon'/>
       </GridContainer>
       <Diary />

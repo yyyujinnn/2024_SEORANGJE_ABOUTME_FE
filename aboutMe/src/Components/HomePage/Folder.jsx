@@ -73,8 +73,8 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = folderItems.slice(startIndex, startIndex + itemsPerPage);
 
-  const handleIconClick = (name) => {
-    navigate(`/diary/${name}`);
+  const handleIconClick = (index) => {
+    navigate(`/diary/${index}`);
   };
 
   return (
