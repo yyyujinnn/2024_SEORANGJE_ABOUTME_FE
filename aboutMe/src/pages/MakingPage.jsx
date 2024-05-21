@@ -263,6 +263,7 @@ const MakingPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [imageFiles, setImageFiles] = useState({});
+  const [imageUrls, setImageUrls] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -305,6 +306,7 @@ const MakingPage = () => {
         });
 
         setCategories(combinedData);
+        console.log("합쳐진 데이터", categories);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -346,14 +348,30 @@ const MakingPage = () => {
     const currentCategoryImages = categories[currentCategory]?.images;
     if (currentCategoryImages && currentCategoryImages[currentImage]) {
       const currentImageURL = currentCategoryImages[currentImage].filePath;
-      setImageFiles((prevFiles) => ({
-        ...prevFiles,
-        [currentCategoryKey]: currentImageURL,
-      }));
-      console.log(currentCategoryKey);
-      console.log({ imageFiles });
-    }
 
+      if (currentImageURL.startsWith("data:image/")) {
+        // 사용자가 업로드한 이미지인 경우
+        setImageFiles((prevFiles) => {
+          const newFiles = {
+            ...prevFiles,
+            [currentCategoryKey]: currentImageURL,
+          };
+          console.log("Updated imageFiles in nextCategory:", newFiles); // 업데이트된 상태를 콘솔에 출력
+          return newFiles;
+        });
+      } else {
+        // 기본 이미지를 선택한 경우
+        setImageUrls((prevUrls) => {
+          const newUrls = {
+            ...prevUrls,
+            [currentCategoryKey]: currentImageURL,
+          };
+          console.log("Updated imageUrls in nextCategory:", newUrls); // 업데이트된 상태를 콘솔에 출력
+          return newUrls;
+        });
+      }
+    }
+    // 다음 카테고리로 이동 또는 모든 카테고리 완료 시 서버로 전송
     if (currentCategory < categories.length - 1) {
       setCurrentCategory(currentCategory + 1);
       setCurrentImage(0);
@@ -394,9 +412,32 @@ const MakingPage = () => {
   const closeModal = () => setModalVisible(false);
 
   const navigate = useNavigate();
-  const handleHomeClick = () => {
+  const handleHomeClick = async () => {
+    try {
+      const formData = new FormData();
+      for (const key in imageFiles) {
+        formData.append(`imageFiles[${key}]`, imageFiles[key]);
+      }
+      for (const key in imageUrls) {
+        formData.append(`imageUrls[${key}]`, imageUrls[key]);
+      }
+      formData.append("imageComment", inputValue);
+      formData.append("guestNickname", inputValue2);
+
+      // FormData를 JSON 형식으로 변환
+      const formDataObj = {};
+      formData.forEach((value, key) => {
+        formDataObj[key] = value;
+      });
+
+      console.log("FormData as JSON:", JSON.stringify(formDataObj, null, 2));
+
+      // const response = await submitImageUrls(formData);
+      // console.log("Image URLs submission response data:", response);
+    } catch (error) {
+      console.error("Error submitting image URLs:", error);
+    }
     navigate(`/`);
-    //이때 api post 보내기
   };
 
   return (
@@ -422,7 +463,7 @@ const MakingPage = () => {
               <LeftArrow onClick={prevImage} />
               <Image
                 src={categories[currentCategory]?.images[currentImage]?.filePath}
-                alt={`${categories[currentCategory]?.name}`}
+                alt={`${categories[currentCategory]?.images[currentImage]?.filePath}`}
               />
               <RightArrow onClick={nextImage} />
             </ArrowWrapper>
