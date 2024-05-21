@@ -64,7 +64,7 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
   useEffect(() => {
     const fetchFolderItems = async () => {
       try {
-        const data = await MyImage(7);
+        const data = await MyImage(userId);
         console.log('UserId', userId);
         console.log('Data:', data);
 
