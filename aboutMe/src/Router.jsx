@@ -17,7 +17,7 @@ const Router = () => {
         <Route
           path='/'
           element={
-              <HomePage />
+              <SigninPage />
           }
         />
         <Route
@@ -48,6 +48,12 @@ const Router = () => {
           path='/making'
           element={
               <MakingPage />
+          }
+        />
+        <Route
+          path='/home'
+          element={
+              <HomePage />
           }
         />
       </Routes>

@@ -8,6 +8,8 @@ const MainBody = styled.div`
 
 const Version = styled.div`
 
+transform: scale(0.9);
+
 @media (max-width: 380px) {
   height: 700px;
   transform: scale(0.8);
@@ -18,6 +20,7 @@ const Version = styled.div`
   transform: scale(1.5);
 }
 `;
+
 const TitleContainer = styled.div`
   display : flex;
   justify-content: center;
@@ -64,8 +67,8 @@ const InputContainer = styled.form`
 `;
 
 const Input = styled.input`
-  width: 334px;
-  height: 68px;
+  width: 71.5%;
+  height: 52px;
   margin-top: 20px;
   padding-left: 30px;
   font-size: 16px;
@@ -80,26 +83,12 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center; 
   flex-direction: column;
-  
-  // 밑에서부터 20vh만큼은 버튼
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 20vh;  
-
-  @media (max-width: 380px) {
-    height: 15vh;
-  }
-
-  @media (min-width: 800px) {
-    height: 15vh;
-  }
+  margin-top: 84px;
 `;
 
 const Button = styled.button`
-  width: 370px;
-  height: 65px;
+  width: 81%;
+  height: 60px;
   background-color: #000000;
   color: #ffffff;
   border-radius: 0px;

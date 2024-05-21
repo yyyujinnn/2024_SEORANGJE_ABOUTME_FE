@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Outlet } from "react-router-dom";
 
 const TOKEN = localStorage.getItem("token");
 
@@ -17,6 +18,43 @@ export const login = async ({ email, password }) => {
 };
 
 /** SIGNUP API */
+export const signUp = async ({
+  email,
+  password,
+  username,
+  // theme
+  flower,
+  animal,
+  season,
+  color,
+  charac,
+  place,
+  food,
+  hobby,
+  job,
+}) => {
+  const data = {
+    email,
+    password,
+    username,
+    flower,
+    animal,
+    season,
+    color,
+    charac,
+    place,
+    food,
+    hobby,
+    job,
+  };
+  const response = await AuthApi.post(`/api/join`, data);
+  return response.data;
+};
+
+/** LOGOUT */
+export const logout = () => {
+  localStorage.removeItem("token");
+};
 export const signUp = async ({
   email,
   password,
