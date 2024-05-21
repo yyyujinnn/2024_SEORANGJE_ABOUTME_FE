@@ -22,7 +22,7 @@ const Router = () => {
           }
         />
         <Route
-          path='/diary/:index'
+          path='/diary/:index/:id'
           element={
               <DiaryPage />
           }

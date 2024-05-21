@@ -73,9 +73,10 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = folderItems.slice(startIndex, startIndex + itemsPerPage);
 
-  const handleIconClick = (index) => {
-    navigate(`/diary/${index}`);
+  const handleIconClick = (index, item) => {
+    navigate(`/diary/${index}/${item.id}`);
   };
+  
 
   return (
     <FolderGrid>
