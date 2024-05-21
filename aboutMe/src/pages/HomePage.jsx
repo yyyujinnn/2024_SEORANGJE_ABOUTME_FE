@@ -9,7 +9,7 @@ import DiaryName from '../assets/HomePage/DiaryName.svg'
 import pre from '../assets/HomePage/HomePre.svg';
 import next from '../assets/HomePage/HomeNext.svg';
 import share from '../assets/HomePage/Share.svg';
-import { Folder } from '../Components/HomePage/Folder';
+import { Folder } from '../components/HomePage/Folder';
 import { logout } from './Auth/AuthAPI';
 
 const MainBody = styled.div`

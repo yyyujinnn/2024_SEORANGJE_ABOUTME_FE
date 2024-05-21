@@ -6,7 +6,7 @@ import IntWin from '../assets/HomePage/IntWin.svg';
 import DiaryName from '../assets/HomePage/DiaryName.svg'
 import pre from '../assets/HomePage/HomePre.svg';
 import next from '../assets/HomePage/HomeNext.svg';
-import { Folder } from '../Components/HomePage/Folder';
+import { Folder } from '../components/HomePage/Folder';
 
 const MainBody = styled.div`
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 100%);
