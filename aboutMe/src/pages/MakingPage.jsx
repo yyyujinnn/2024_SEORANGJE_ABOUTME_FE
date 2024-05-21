@@ -261,6 +261,7 @@ const MakingPage = () => {
   const [showWriting, setWriting] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState(null);
   const [imageFiles, setImageFiles] = useState({});
   const [imageUrls, setImageUrls] = useState({});
 
@@ -273,6 +274,7 @@ const MakingPage = () => {
 
         const user = userInfo.principalDetails.principal.user;
         setUsername(user.username);
+        setUserId(user.id);
 
         // Fetch user categories
         const userCategoriesResponse = await fetchUserCategories(user.id);
@@ -432,9 +434,12 @@ const MakingPage = () => {
 
       console.log("FormData as JSON:", JSON.stringify(formDataObj, null, 2));
 
-      // 서버에 FormData 전송
-      const response = await submitImage(formData);
-      console.log("Image URLs submission response data:", response);
+      if (userId) {
+        const response = await submitImage(formData, userId);
+        console.log("Image URLs submission response data:", response);
+      } else {
+        console.error("User ID is null");
+      }
     } catch (error) {
       console.error("Error submitting image URLs:", error);
     }
