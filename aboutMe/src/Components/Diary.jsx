@@ -2,7 +2,7 @@ import Masonry from 'react-masonry-css';
 import DiaryFrame from '../assets/DiaryPage/diary.svg';
 //import { dummyData } from '../api/diary/diaryDummy';
 import styled from 'styled-components';
-import getMyImage from '../api/diary/getMyImage';
+import getMyImage from '../api/diary/getMyImage';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
