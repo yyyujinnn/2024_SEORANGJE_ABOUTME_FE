@@ -1,5 +1,5 @@
 
-import axiosInstance from '..';
+import axiosInstance from '.';
 
 const UserUnfo = async () => {
   try {
