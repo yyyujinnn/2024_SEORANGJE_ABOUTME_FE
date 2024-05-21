@@ -11,6 +11,7 @@ import next from '../assets/HomePage/HomeNext.svg';
 import share from '../assets/HomePage/Share.svg';
 import { Folder } from '../Components/HomePage/Folder';
 import { logout } from './Auth/AuthAPI';
+import { GuestView } from '../Components/HomePage/GuestView';
 
 const MainBody = styled.div`
   background: linear-gradient(180deg, #FF8CAF 0%, #FFF 100%);
@@ -210,6 +211,7 @@ const HomePage = () => {
   const [username, setUsername] = useState();
   const [url, setUrl] = useState();
   const [userId, setUserId] = useState();
+  const [dataLength, setDataLength] = useState([]);
 
   // 로그인한 사용자와 토큰 비교
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -235,7 +237,19 @@ const HomePage = () => {
       setUsername(response.data.principalDetails.principal.user.username);
       setUrl(response.data.principalDetails.principal.user.url);
       setUserId(response.data.principalDetails.principal.user.id);
-      // console.log(url);
+    })
+    .catch(error => console.error('Error:', error));
+
+  }, [url])
+
+  useEffect(() => {
+    axios.get(`${baseUrl}/api/MyImage/List/${userId}`, {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(response => {
+      setDataLength(response.data.length);
+      console.log(response.data.length);
     })
     .catch(error => console.error('Error:', error));
 
@@ -245,7 +259,7 @@ const HomePage = () => {
   //페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6; 
-  const totalItems = 9 ; 
+  const totalItems = dataLength ; 
   
   const handlePrevPage = () => {
     if (currentPage > 1) {
