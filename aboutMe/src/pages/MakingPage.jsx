@@ -5,7 +5,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoCameraOutline } from "react-icons/io5";
 import HeartFolder from "../assets/MakingPage/HeartFolder.svg";
 import axios from "axios";
-import { fetchUserInfo, fetchImages } from "./Auth/AuthAPI";
+import { fetchUserInfo, fetchImages, fetchUserCategories, submitImage } from "./Auth/AuthAPI";
 import Modal from "../Components/Modal";
 
 const ScreenContainer = styled.div`
@@ -275,38 +275,41 @@ const MakingPage = () => {
         const user = userInfo.principalDetails.principal.user;
         setUsername(user.username);
 
-        // Fetch images and categories for the user
-        const imagesDB = await fetchImages(user.id);
-        console.log("Images API response data:", imagesDB);
+        // Fetch user categories
+        const userCategoriesResponse = await fetchUserCategories(user.id);
+        const userCategories = userCategoriesResponse.subjects;
+        console.log("User Categories API response data:", userCategories);
 
-        // 유저가 추가한 카테고리 가져오기
-        const userCategories = [];
-        if (user.food) userCategories.push("food");
-        if (user.place) userCategories.push("place");
-        if (user.animal) userCategories.push("animal");
-        if (user.charac) userCategories.push("charac");
-        if (user.flower) userCategories.push("flower");
-        if (user.season) userCategories.push("season");
-        if (user.color) userCategories.push("color");
-        if (user.hobby) userCategories.push("hobby");
-        if (user.job) userCategories.push("job");
+        if (userCategories) {
+          // true인 카테고리만 필터링
+          const activeCategories = Object.keys(userCategories).filter((key) => userCategories[key]);
+          console.log("true인 카테고리", activeCategories);
 
-        const combinedData = userCategories.map((categoryKey) => {
-          const categoryData = imagesDB
-            .filter((item) => item.category === categoryKey)
-            .map((item) => ({
-              id: item.id,
-              filePath: item.filePath,
-            }));
-          return {
-            name: categoryNameMap[categoryKey],
-            categoryKey,
-            images: categoryData,
-          };
-        });
+          // Fetch images and categories for the user
+          const imagesDB = await fetchImages(user.id);
+          console.log("Images API response data:", imagesDB);
 
-        setCategories(combinedData);
-        console.log("합쳐진 데이터", categories);
+          const combinedData = activeCategories.map((categoryKey) => {
+            const categoryData = imagesDB
+              .filter((item) => item.category === categoryKey)
+              .map((item) => ({
+                id: item.id,
+                imageName: item.imageName,
+                imageDetail: item.imageDetail,
+                filePath: item.filePath,
+              }));
+            return {
+              name: categoryNameMap[categoryKey],
+              categoryKey,
+              images: categoryData,
+            };
+          });
+
+          setCategories(combinedData);
+          console.log("합쳐진 데이터", categories);
+        } else {
+          console.error("User categories are not defined");
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -432,8 +435,8 @@ const MakingPage = () => {
 
       console.log("FormData as JSON:", JSON.stringify(formDataObj, null, 2));
 
-      // const response = await submitImageUrls(formData);
-      // console.log("Image URLs submission response data:", response);
+      const response = await submitImage(formData);
+      console.log("Image URLs submission response data:", response);
     } catch (error) {
       console.error("Error submitting image URLs:", error);
     }
@@ -458,7 +461,9 @@ const MakingPage = () => {
       {!showWriting ? (
         <>
           <PictureContainer>
-            <PictureText>토마토</PictureText>
+            <PictureText>
+              {categories[currentCategory]?.images[currentImage]?.imageName}
+            </PictureText>
             <ArrowWrapper>
               <LeftArrow onClick={prevImage} />
               <Image
@@ -467,7 +472,9 @@ const MakingPage = () => {
               />
               <RightArrow onClick={nextImage} />
             </ArrowWrapper>
-            <PictureText>동글동글 달짝지근, 여름을 닮은 토마토</PictureText>
+            <PictureText>
+              {categories[currentCategory]?.images[currentImage]?.imageDetail}
+            </PictureText>
           </PictureContainer>
           <RowWrapper>
             <UploadText>원하는 이미지가 없다면 직접 올려봐!</UploadText>
