@@ -1,6 +1,6 @@
 import Masonry from 'react-masonry-css';
 import DiaryFrame from '../src/assets/DiaryPage/diary.svg';
-import { dummyData } from '../src/api/diary/diaryDummy';
+import { dummyData } from '../api/diary/diaryDummy';
 
 import styled from 'styled-components';
 

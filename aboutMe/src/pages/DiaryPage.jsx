@@ -1,4 +1,4 @@
-import Diary from '../../components/Diary';
+import Diary from '../components/Diary';
 import styled from 'styled-components';
 import folderIcon  from '../assets/DiaryPage/folderIcon.svg';
 import { useParams } from 'react-router-dom';
