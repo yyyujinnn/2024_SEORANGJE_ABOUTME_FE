@@ -156,8 +156,7 @@ const ThemePage = () => {
     if (activeThemes.length === 5) {
       signUp(values)
         .then((response) => {
-          alert('회원가입 성공');
-          console.log('회원가입 완료:', values);
+          alert(response.message);
           navigate(`/sign-in`);
         })
         .catch((error) => {

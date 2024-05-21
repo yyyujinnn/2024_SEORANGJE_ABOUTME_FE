@@ -112,13 +112,40 @@ const SignupPage = () => {
             [e.target.id]: e.target.value,
         });
     }
+    
+    // email 유효성 검사
+    const isValidEmail = (email) => {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return emailRegex.test(email);
+    };
+
+    // username 유효성 검사
+    const isValidUsername = (username) => {
+      const koreanCount = (username.match(/[ㄱ-ㅎ가-힣]/g) || []).length;
+      const englishCount = (username.match(/[a-zA-Z]/g) || []).length;
+
+      return koreanCount <= 3 && englishCount <= 5;
+    };
 
     const handleSubmit = (e) => {
       e.preventDefault(); // 폼 제출 방지
+      
+      // 유효성 검사
       if (values.email && values.password && values.username) {
-        console.log('Submitted:', values);
-        // alert('주제 선택 페이지로 이동합니다.')
-        navigate(`/theme`, { state: { ...values } });
+
+        if (isValidEmail(values.email)) {
+
+          if (isValidUsername (values.username)) {
+            
+            console.log('Submitted:', values);
+            navigate(`/theme`, { state: { ...values } });
+          } else {
+            alert('사용자 이름은 한글 3글자 또는 영어 5글자 이내여야 합니다.');
+          } 
+
+        }else {
+          alert('올바른 이메일 형식을 입력해주세요.');
+        }
       } else {
         console.log("모두 입력해주세요.");
       }
