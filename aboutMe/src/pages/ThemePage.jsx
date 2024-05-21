@@ -156,12 +156,11 @@ const ThemePage = () => {
     if (activeThemes.length === 5) {
       signUp(values)
         .then((response) => {
-          alert('회원가입 성공');
-          console.log('회원가입 완료:', values);
+          alert(response.message);
           navigate(`/sign-in`);
         })
         .catch((error) => {
-          console.log(error);
+          alert(error.response.data.message);
         });
     } else {
       alert("5개의 주제를 선택하세요.");
