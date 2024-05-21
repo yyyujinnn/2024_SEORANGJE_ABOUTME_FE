@@ -107,7 +107,7 @@ const SigninPage = () => {
 
 const handleSignin = async () => {
   if (!values.email || !values.password) {
-    alert('이메일 또는 비밀번호를 틀립니다.');
+    alert('이메일 또는 비밀번호가 틀립니다.');
     return;
 
   }

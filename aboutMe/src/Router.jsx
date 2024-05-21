@@ -7,6 +7,7 @@ import {
   ThemePage,
   MakingPage,
   HomePage,
+  GuestPage
 } from './pages';
 
 
@@ -54,6 +55,12 @@ const Router = () => {
           path='/home'
           element={
               <HomePage />
+          }
+        />
+        <Route
+          path='/:uuid'
+          element={
+              <GuestPage />
           }
         />
       </Routes>
