@@ -23,6 +23,7 @@ const GridContainer = styled.div`
   gap: 10px;
   align-items: center;
   justify-content: center;
+  margin-bott0m: 10px;
 `;
 
 const Container = styled.div`

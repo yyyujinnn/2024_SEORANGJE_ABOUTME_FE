@@ -12,6 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   font-family: Arial, sans-serif;
+  margin-bottom: 10px;
 `;
 
 const Frame = styled.img`
