@@ -41,6 +41,8 @@ const DiaryPage = () => {
   const { index } = useParams();
   const iconIndex = parseInt(index) + 1;
 
+  const { id } = useParams();
+
   const [name, setName] = useState('');
 
   useEffect(() => {
@@ -65,7 +67,7 @@ const DiaryPage = () => {
         <Title>{name}의 {iconIndex}번째 아이콘</Title>
         <img src={folderIcon} alt='folderIcon'/>
       </GridContainer>
-      <Diary />
+      <Diary myimage_id={id}/>
       </Container>
     </main>
     
