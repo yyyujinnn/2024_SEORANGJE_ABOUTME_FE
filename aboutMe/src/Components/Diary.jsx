@@ -85,7 +85,7 @@ const Diary = ({ myimage_id }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getMyImage(5);
+        const data = await getMyImage(myimage_id);
         console.log('imageData:', data);
         setImageData(data);
       } catch (error) {
