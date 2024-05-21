@@ -160,7 +160,7 @@ const ThemePage = () => {
           navigate(`/sign-in`);
         })
         .catch((error) => {
-          console.log(error);
+          alert(error.response.data.message);
         });
     } else {
       alert("5개의 주제를 선택하세요.");
