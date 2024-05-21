@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import AboutMeLogo from '../assets/AboutMeLogo.svg';
@@ -109,13 +109,14 @@ const handleSignin = async () => {
   if (!values.email || !values.password) {
     alert('이메일 또는 비밀번호를 틀립니다.');
     return;
+
   }
 
   login(values)
     .then((response) => {
       console.log('Submitted:', values);
       alert('로그인 성공');
-      navigate(`/`);
+      navigate(`/home`);
       localStorage.clear();
       localStorage.setItem('token', response.token);
     })
