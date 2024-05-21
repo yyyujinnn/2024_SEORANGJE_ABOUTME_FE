@@ -55,38 +55,6 @@ export const signUp = async ({
 export const logout = () => {
   localStorage.removeItem("token");
 };
-export const signUp = async ({
-  email,
-  password,
-  username,
-  // theme
-  flower,
-  animal,
-  season,
-  color,
-  charac,
-  place,
-  food,
-  hobby,
-  job,
-}) => {
-  const data = {
-    email,
-    password,
-    username,
-    flower,
-    animal,
-    season,
-    color,
-    charac,
-    place,
-    food,
-    hobby,
-    job,
-  };
-  const response = await AuthApi.post(`/api/join`, data);
-  return response.data;
-};
 
 AuthApi.interceptors.request.use(
   (config) => {
