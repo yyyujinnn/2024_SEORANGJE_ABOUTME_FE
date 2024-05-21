@@ -65,8 +65,8 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
     const fetchFolderItems = async () => {
       try {
         const data = await MyImage(userId);
-        console.log('UserId', userId);
-        console.log('Data:', data);
+        // console.log('UserId', userId);
+        // console.log('Data:', data);
 
         if (!data || data.length === 0) {
           console.log('데이터가 없습니다.');
@@ -79,7 +79,7 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
           img: getRandomImage(),
         }));
 
-        console.log('MyImageData:', MyImageData);
+        // console.log('MyImageData:', MyImageData);
         setFolderItems(MyImageData);
       } catch (error) {
         console.error('데이터 가져오기 오류:', error);
