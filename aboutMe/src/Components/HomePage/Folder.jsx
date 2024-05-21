@@ -10,7 +10,6 @@ import Letter from '../../assets/Folder/Letter.svg';
 import Default from '../../assets/Folder/Default.svg';
 import Music from '../../assets/Folder/Music.svg';
 import MyImage from '../../api/home/MyImage';
-import UserUnfo from '../../api/home/UserInfo';
 
 const FolderGrid = styled.div`
   position: absolute;
@@ -22,7 +21,7 @@ const FolderGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  z-index : 2;
+  z-index: 2;
 `;
 
 const FolderItem = styled.div`
@@ -39,7 +38,7 @@ const Visitor = styled.text`
   font-size: 14px;
   font-weight: 500;
   margin-top: 15px;
-`
+`;
 
 const imageMap = {
   HardDisk,
@@ -57,52 +56,39 @@ const getRandomImage = () => {
   return imageMap[imageKeys[randomIndex]];
 };
 
-export const Folder = ({ currentPage, itemsPerPage }) => {
-
+export const Folder = ({ userId, currentPage, itemsPerPage }) => {
   const navigate = useNavigate();
-
   const [folderItems, setFolderItems] = useState([]);
-
-  const [userId, setUserId] = useState(null);
-
-  useEffect(() => {
-    const fetchUserId = async () => {
-      try {
-        const userData = await UserUnfo();
-        const userId = userData?.principalDetails?.principal?.user?.id;
-        setUserId(userId);
-        console.log('userData', userData);
-        console.log('userId', userId);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-  
-    fetchUserId();
-  }, []);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchFolderItems = async () => {
       try {
         const data = await MyImage(userId);
-        if (!data) {
+        console.log('UserId', userId);
+        console.log('Data:', data);
+
+        if (!data || data.length === 0) {
           console.log('데이터가 없습니다.');
-          return;
+          setError('데이터가 없습니다.');
+          return error;
         }
-        const itemsWithRandomImages = data.map(item => ({
-          ...item,
+
+        const MyImageData = data.map(item => ({
+          guestNickname: item.guestNickname,
           img: getRandomImage(),
         }));
-        setFolderItems(itemsWithRandomImages);
+
+        console.log('MyImageData:', MyImageData);
+        setFolderItems(MyImageData);
       } catch (error) {
         console.error('데이터 가져오기 오류:', error);
+        setError('데이터 가져오기 오류: ' + error.message);
       }
     };
 
     fetchFolderItems();
   }, [userId]);
-
-
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = folderItems.slice(startIndex, startIndex + itemsPerPage);
@@ -111,21 +97,20 @@ export const Folder = ({ currentPage, itemsPerPage }) => {
     navigate(`/diary/${name}`);
   };
 
-    return(    
-        <FolderGrid>
-
-          {currentItems.map((item) => (
-            <FolderItem key={item.id} onClick={handleIconClick(item.guestNickname)}>
-              <img src={item.img} alt={item.guestNickname} />
-              <Visitor>{item.guestNickname}</Visitor>
-            </FolderItem>
-          ))}
-
-        </FolderGrid>
-    )
-}
+  return (
+    <FolderGrid>
+      {currentItems.map((item) => (
+        <FolderItem key={item.guestNickname} onClick={() => handleIconClick(item.guestNickname)}>
+          <img src={item.img} alt={item.guestNickname} />
+          <Visitor>{item.guestNickname}</Visitor>
+        </FolderItem>
+      ))}
+    </FolderGrid>
+  );
+};
 
 Folder.propTypes = {
-  currentPage: PropTypes.number.isRequired, 
+  currentPage: PropTypes.number.isRequired,
   itemsPerPage: PropTypes.number.isRequired,
+  userId: PropTypes.number.isRequired,
 };

@@ -209,9 +209,11 @@ const HomePage = () => {
 
   const [username, setUsername] = useState();
   const [url, setUrl] = useState();
+  const [userId, setUserId] = useState();
 
   // 로그인한 사용자와 토큰 비교
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const token = localStorage.getItem('token');
   
 
   useEffect(() => {
@@ -232,11 +234,13 @@ const HomePage = () => {
     .then(response => {
       setUsername(response.data.principalDetails.principal.user.username);
       setUrl(response.data.principalDetails.principal.user.url);
-      console.log(url);
+      setUserId(response.data.principalDetails.principal.user.id);
+      // console.log(url);
     })
     .catch(error => console.error('Error:', error));
 
   }, [url])
+  
 
   //페이지네이션
   const [currentPage, setCurrentPage] = useState(1);
@@ -290,7 +294,7 @@ const HomePage = () => {
         <Img src={IntWin} alt='InternetWindow'/>
         <BtnPre onClick={handlePrevPage}> <img src={pre}/> </BtnPre>
         <BtnNext onClick={handleNextPage}> <img src={next}/> </BtnNext>
-        <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} />
+        <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} userId={userId}/>
       </FolderContainer>
 
       {isAuthenticated ? (
