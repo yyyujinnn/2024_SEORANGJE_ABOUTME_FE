@@ -287,9 +287,9 @@ const MakingPage = () => {
         console.log("Images and Categories API response data:", imagesData);
 
         // imagesData가 존재하는지 확인
-        if (imagesData && imagesData.length > 0) {
+        if (imagesData) {
           const combinedData = activeCategories.map((categoryKey) => {
-            const categoryData = imagesData
+            const categoryData = imagesData.defaultImages
               .filter((item) => item.category === categoryKey)
               .map((item) => ({
                 id: item.id,
@@ -446,7 +446,7 @@ const MakingPage = () => {
       console.error("Error submitting image URLs:", error.message);
       console.error(error.stack);
     }
-    navigate(`/`);
+    navigate(`/home`);
   };
 
   return (
