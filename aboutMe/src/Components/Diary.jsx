@@ -1,6 +1,6 @@
 import Masonry from 'react-masonry-css';
 import DiaryFrame from '../assets/DiaryPage/diary.svg';
-import { dummyData } from '../api/diary/diaryDummy';
+//import { dummyData } from '../api/diary/diaryDummy';
 import styled from 'styled-components';
 import getMyImage from '../api/diary/getMyImage';
 import { useEffect, useState } from 'react';
@@ -30,6 +30,7 @@ const StyledImage = styled.img`
   object-fit: cover;
   display: block;
   width: 150px;
+  height: 150px;
 `;
 
 const Title = styled.p`
@@ -50,7 +51,7 @@ const breakpointColumnsObj = {
   default: 2,
 };
 
-const Letter =styled.p`
+const Letter = styled.p`
   color: #000;
   text-align: center;
   font-family: "PFStardust 1.4";
@@ -59,7 +60,7 @@ const Letter =styled.p`
   font-weight: 500;
   line-height: 20px;
   width: 118px;
-`
+`;
 
 const getImageCardStyle = (index) => {
   switch (index) {
@@ -69,9 +70,9 @@ const getImageCardStyle = (index) => {
       return { ...ImageCardBaseStyle, width: '150px' }; 
     case 2:
       return { ...ImageCardBaseStyle, width: '150px' }; 
-      case 3:
+    case 3:
       return { ...ImageCardBaseStyle, width: '157px' }; 
-      case 4:
+    case 4:
       return { ...ImageCardBaseStyle, width: '136px' }; 
     default:
       return { ...ImageCardBaseStyle, width: '150px' }; 
@@ -79,23 +80,25 @@ const getImageCardStyle = (index) => {
 };
 
 const Diary = ({ myimage_id }) => {
-
   const [imageData, setImageData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-    try {
-    const data = await getMyImage(myimage_id);
-    console.log('imageData:', data);
-    setImageData(data);
-    } catch (error) {
-    console.error('데이터 가져오기 오류:', error);
-    }
+      try {
+        const data = await getMyImage(5);
+        console.log('imageData:', data);
+        setImageData(data);
+      } catch (error) {
+        console.error('데이터 가져오기 오류:', error);
+      }
     };
-    
-    fetchData();
-    }, [myimage_id]);
 
+    fetchData();
+  }, [myimage_id]);
+
+  if (!imageData) {
+    return <Container><div style={{height: '700px', alignContent: 'center'}}>Loading...</div></Container>;
+  }
 
   return (
     <Container>
@@ -105,27 +108,24 @@ const Diary = ({ myimage_id }) => {
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
       >
-      {Object.entries(dummyData.imageFileName).map(([key, title], index) => (
-  <div key={index} className={`my-masonry-grid_item arry${index}`} style={getImageCardStyle(index)}>
-    <StyledImage 
-      src={dummyData.imageFilePaths[key]} 
-      alt={title} 
-      style={index === 2 ? { width: '160px' } : index === 4 ? { width: '136px' } : {}} // 3번째와 5번째 이미지에 대한 스타일 조정
-    />
-    <Title>{title}</Title>
-  </div>
-))}
-    <Letter className={`my-masonry-grid_item arry${5}`}>
-      <div>
-        <p>{dummyData.imageComment}</p>
-        <p>from. {dummyData.guestNickname}</p>
-      </div>
-      
-      </Letter>
-
-
+        {Object.entries(imageData.imageFileName).map(([key, title], index) => (
+          <div key={index} className={`my-masonry-grid_item arry${index}`} style={getImageCardStyle(index)}>
+            <StyledImage 
+              src={imageData.imageFilePaths[key]} 
+              alt={title} 
+              style={index === 2 ? { width: '160px' ,height: '160px'} : index === 4 ? { width: '136px', height: '136px' } : {}} 
+            />
+            <Title>{title}</Title>
+          </div>
+        ))}
+        <Letter className={`my-masonry-grid_item arry${5}`}>
+          <div>
+            <p>{imageData.imageComment}</p>
+            <p>from. {imageData.guestNickname}</p>
+          </div>
+        </Letter>
       </Masonry>
-      </Container>
+    </Container>
   );
 };
 
