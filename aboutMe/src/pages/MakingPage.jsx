@@ -5,7 +5,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoCameraOutline } from "react-icons/io5";
 import HeartFolder from "../assets/MakingPage/HeartFolder.svg";
 import { fetchUserInfo, fetchImages, fetchUserCategories, submitImage } from "./Auth/AuthAPI";
-import Modal from "../Components/Modal";
+import Modal from "../components/Modal";
 
 const ScreenContainer = styled.div`
   overflow-x: hidden;
