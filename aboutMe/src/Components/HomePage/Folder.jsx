@@ -64,15 +64,16 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
   useEffect(() => {
     const fetchFolderItems = async () => {
       try {
-        const data = await MyImage(userId);
-        // console.log('UserId', userId);
-        // console.log('Data:', data);
+        const data = await MyImage(7);
+        console.log('UserId', userId);
+        console.log('Data:', data);
 
-        if (!data || data.length === 0) {
+        if (!data || data.length === 0 || data[0].id === null) {
           console.log('데이터가 없습니다.');
           setError('데이터가 없습니다.');
           return error;
         }
+        
 
         const MyImageData = data.map(item => ({
           guestNickname: item.guestNickname,
