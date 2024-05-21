@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoCameraOutline } from "react-icons/io5";
 import HeartFolder from "../assets/MakingPage/HeartFolder.svg";
-import axios from "axios";
 import { fetchUserInfo, fetchImages, fetchUserCategories, submitImage } from "./Auth/AuthAPI";
 import Modal from "../Components/Modal";
 
@@ -280,17 +279,17 @@ const MakingPage = () => {
         const userCategories = userCategoriesResponse.subjects;
         console.log("User Categories API response data:", userCategories);
 
-        if (userCategories) {
-          // true인 카테고리만 필터링
-          const activeCategories = Object.keys(userCategories).filter((key) => userCategories[key]);
-          console.log("true인 카테고리", activeCategories);
+        // true인 카테고리만 필터링
+        const activeCategories = Object.keys(userCategories).filter((key) => userCategories[key]);
 
-          // Fetch images and categories for the user
-          const imagesDB = await fetchImages(user.id);
-          console.log("Images API response data:", imagesDB);
+        // Fetch images and categories for the user
+        const imagesData = await fetchImages(user.id);
+        console.log("Images and Categories API response data:", imagesData);
 
+        // imagesData가 존재하는지 확인
+        if (imagesData && imagesData.length > 0) {
           const combinedData = activeCategories.map((categoryKey) => {
-            const categoryData = imagesDB
+            const categoryData = imagesData
               .filter((item) => item.category === categoryKey)
               .map((item) => ({
                 id: item.id,
@@ -305,10 +304,8 @@ const MakingPage = () => {
             };
           });
 
+          console.log("Combined Data:", combinedData); // combinedData 확인
           setCategories(combinedData);
-          console.log("합쳐진 데이터", categories);
-        } else {
-          console.error("User categories are not defined");
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -437,8 +434,17 @@ const MakingPage = () => {
 
       const response = await submitImage(formData);
       console.log("Image URLs submission response data:", response);
+
+      // 요청이 성공적으로 처리되었는지 확인
+      if (response.status === 200) {
+        console.log("Image URLs submitted successfully.");
+      } else {
+        console.error("Error submitting image URLs:", response.statusText);
+      }
     } catch (error) {
-      console.error("Error submitting image URLs:", error);
+      // 에러 메시지 및 스택 트레이스 출력
+      console.error("Error submitting image URLs:", error.message);
+      console.error(error.stack);
     }
     navigate(`/`);
   };
