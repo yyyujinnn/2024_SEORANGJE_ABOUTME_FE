@@ -1,5 +1,5 @@
 import Masonry from 'react-masonry-css';
-import DiaryFrame from '../src/assets/DiaryPage/diary.svg';
+import DiaryFrame from '../assets/DiaryPage/diary.svg';
 import { dummyData } from '../api/diary/diaryDummy';
 
 import styled from 'styled-components';
@@ -28,9 +28,17 @@ const StyledImage = styled.img`
 `;
 
 const Title = styled.p`
-  margin: 10px 0;
+  margin-top: 18px;
   padding: 0 8px;
-  font-size: 15px;
+  color: #FFC700;
+  text-align: center;
+  -webkit-text-stroke-width: 0.3px;
+  -webkit-text-stroke-color: #000;
+  font-family: "S-CoreDreams";
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
 `;
 
 const breakpointColumnsObj = {
