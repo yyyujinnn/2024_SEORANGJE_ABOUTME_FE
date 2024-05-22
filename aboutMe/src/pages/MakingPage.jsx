@@ -555,7 +555,13 @@ const MakingPage = () => {
         <ModalText>전송 준비가{"\n"} 완료되었습니다!</ModalText>
         <RowWrapper>
           <ModalBtn onClick={closeModal}>수정</ModalBtn>
-          <ModalUploadBtn onClick={handleHomeClick}>업로드</ModalUploadBtn>
+          <ModalUploadBtn
+            onClick={handleHomeClick}
+            onTouchStart={handleHomeClick}
+            disabled={isSubmitting}
+          >
+            업로드
+          </ModalUploadBtn>
         </RowWrapper>
       </Modal>
     </ScreenContainer>
