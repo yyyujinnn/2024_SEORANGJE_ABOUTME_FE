@@ -236,23 +236,35 @@ const HomePage = () => {
       })
       .then((response) => {
         setUsername(response.data.principalDetails.principal.user.username);
-        setUrl(response.data.principalDetails.principal.user.url);
         setUserId(response.data.principalDetails.principal.user.id);
       })
       .catch((error) => console.error("Error:", error));
-  }, [url]);
+  }, []);
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}/api/MyImage/List/${userId}`, {
+      .get(`${baseUrl}/api/url`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setUrl(response.data.url);
+      })
+      .catch((error) => console.error("Error:", error));
+  }, []);
+
+ useEffect(() => {
+  if (userId) {
+    axios
+      .get(`${baseUrl}/api/MyImage/List/${userId}`, {
+        method: "GET"
       })
       .then((response) => {
         setDataLength(response.data.length);
       })
       .catch((error) => console.error("Error:", error));
-  }, [url]);
+  }
+}, [userId]);
 
   const handlePrevPage = () => {
     if (currentPage > 1) {

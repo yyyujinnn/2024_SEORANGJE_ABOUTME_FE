@@ -74,7 +74,7 @@ const QuestionContainer = styled.div`
   white-space: pre-wrap;
   word-wrap: break-word;
   word-break: break-all;
-  //text-align: center;
+  text-align: center;
 `;
 const PictureContainer = styled.div`
   display: flex;
@@ -276,6 +276,10 @@ const MakingPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const processImagesData = (imagesData, activeCategories) => {
+    // activeCategories가 정확히 5개만 되도록 수정
+    if (activeCategories.length > 5) {
+      activeCategories = activeCategories.slice(0, 5);
+    }
     return activeCategories.map((categoryKey) => {
       const categoryData = imagesData.defaultImages
         .filter((item) => item.category === categoryKey)
@@ -443,6 +447,7 @@ const MakingPage = () => {
   const navigate = useNavigate();
   const handleHomeClick = async () => {
     try {
+      if (isSubmitting) return; // 이미 제출 중이면 함수 종료
       setIsSubmitting(true);
       const formData = new FormData();
       for (const key in imageFiles) {
@@ -461,7 +466,7 @@ const MakingPage = () => {
         formData.append(`imageUrls[${key}]`, imageUrls[key]);
       }
       formData.append("imageComment", inputValue);
-      formData.append("guestNickname", inputValue2);
+      formData.append("guestNickname", inputValue2 || "익명");
 
       // FormData를 JSON 형식으로 변환 (디버깅 용도)
       const formDataObj = {};
@@ -474,18 +479,19 @@ const MakingPage = () => {
       if (userId) {
         const response = await submitImage(formData, userId);
         console.log("Image URLs submission response data:", response);
+
+        setIsSubmitting(false); // 요청 완료 후 버튼 활성화
+        if (uuid) {
+          navigate(`/${uuid}`);
+        } else {
+          navigate(`/home`);
+        }
       } else {
         console.error("User ID is null");
       }
     } catch (error) {
       console.error("Error submitting image URLs:", error);
-    } finally {
-      setIsSubmitting(false); // 요청 완료 후 버튼 활성화
-      if (uuid) {
-        navigate(`/${uuid}`);
-      } else {
-        navigate(`/home`);
-      }
+      setIsSubmitting(false); // 에러 발생 시에도 버튼 활성화
     }
   };
 
@@ -501,7 +507,7 @@ const MakingPage = () => {
       <QuestionContainer>
         Q{!showWriting ? currentCategory + 1 : "6"}. {"\n"}
         {!showWriting
-          ? `${username}에게 어울리는 ${categories[currentCategory]?.name} 골라줘!`
+          ? <div>{`${username}에게 어울리는`} <br/> {categories[currentCategory]?.name} 골라줘!</div>
           : "마지막으로 한마디를 남겨줘!"}
       </QuestionContainer>
       {!showWriting ? (
@@ -571,14 +577,12 @@ const MakingPage = () => {
       </ProgressContainer>
       <Modal show={modalVisible} handleClose={closeModal}>
         <ModalImg src={HeartFolder} />
-        <ModalText>전송 준비가{"\n"} 완료되었습니다!</ModalText>
+        <ModalText>
+          {isSubmitting ? "전송 중....." : `전송 준비가 ${"\n"} 완료되었습니다!`}
+        </ModalText>
         <RowWrapper>
           <ModalBtn onClick={closeModal}>수정</ModalBtn>
-          <ModalUploadBtn
-            onClick={handleHomeClick}
-            onTouchStart={handleHomeClick}
-            disabled={isSubmitting}
-          >
+          <ModalUploadBtn onClick={handleHomeClick} disabled={isSubmitting}>
             업로드
           </ModalUploadBtn>
         </RowWrapper>

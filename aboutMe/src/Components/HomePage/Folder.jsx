@@ -27,11 +27,11 @@ const FolderItem = styled.div`
   align-items: center;
 `;
 
-const Visitor = styled.text`
+const Visitor = styled.p`
   text-align: center;
   font-size: 14px;
   font-weight: 500;
-  margin-top: 15px;
+  margin: 15px 0 0 0;
 `;
 
 
@@ -45,7 +45,6 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
       try {
         const data = await MyImage(userId);
         console.log('UserId', userId);
-        console.log('Data:', data);
 
         if (!data || data.length === 0 || data[0].id === null) {
           console.log('데이터가 없습니다.');
@@ -83,7 +82,7 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
   return (
     <FolderGrid>
       {currentItems.map((item) => (
-        <FolderItem key={item.guestNickname} onClick={() => handleIconClick(item.originalIndex, item.id)}>
+        <FolderItem key={item.id} onClick={() => handleIconClick(item.originalIndex, item.id)}>
           <img src={item.folderImageUrl} alt={item.folderImageUrl} />
           <Visitor>{item.guestNickname}</Visitor>
         </FolderItem>
