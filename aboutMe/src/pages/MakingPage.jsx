@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoCameraOutline } from "react-icons/io5";
 import HeartFolder from "../assets/MakingPage/HeartFolder.svg";
-import { fetchUserInfo, fetchImages, fetchUserCategories, submitImage } from "./Auth/AuthAPI";
+import {
+  fetchUserInfo,
+  fetchImages,
+  fetchUserCategories,
+  fetchGuestCategories,
+  submitImage,
+} from "./Auth/AuthAPI";
 import Modal from "../Components/Modal";
 
 const ScreenContainer = styled.div`
@@ -68,6 +74,7 @@ const QuestionContainer = styled.div`
   white-space: pre-wrap;
   word-wrap: break-word;
   word-break: break-all;
+  //text-align: center;
 `;
 const PictureContainer = styled.div`
   display: flex;
@@ -133,7 +140,7 @@ const UploadButton = styled.label`
   color: black;
 `;
 const ProgressContainer = styled(RowWrapper)`
-  margin: 40px 10px 0 10px;
+  margin: 40px 10px 15px 10px;
 `;
 const Text = styled.div`
   color: #000;
@@ -255,13 +262,16 @@ const categoryNameMap = {
 };
 
 const MakingPage = () => {
+  const location = useLocation();
+  //const { userId, username } = location.state || {};
+  const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState(null);
+
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
   const [showWriting, setWriting] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [username, setUsername] = useState("");
-  const [userId, setUserId] = useState(null);
   const [imageFiles, setImageFiles] = useState({});
   const [imageUrls, setImageUrls] = useState({});
 
@@ -275,9 +285,10 @@ const MakingPage = () => {
         const user = userInfo.principalDetails.principal.user;
         setUsername(user.username);
         setUserId(user.id);
+        console.log("유저아이디", userId);
 
         // Fetch user categories
-        const userCategoriesResponse = await fetchUserCategories(user.id);
+        const userCategoriesResponse = await fetchUserCategories(userId);
         const userCategories = userCategoriesResponse.subjects;
         console.log("User Categories API response data:", userCategories);
 
@@ -285,7 +296,7 @@ const MakingPage = () => {
         const activeCategories = Object.keys(userCategories).filter((key) => userCategories[key]);
 
         // Fetch images and categories for the user
-        const imagesData = await fetchImages(user.id);
+        const imagesData = await fetchImages(userId);
         console.log("Images and Categories API response data:", imagesData);
 
         // imagesData가 존재하는지 확인
@@ -310,12 +321,12 @@ const MakingPage = () => {
           setCategories(combinedData);
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("사용자 카테고리 정보 불러오는 에러:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [userId]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -458,7 +469,7 @@ const MakingPage = () => {
       <QuestionContainer>
         Q{!showWriting ? currentCategory + 1 : "6"}. {"\n"}
         {!showWriting
-          ? `${username}와 어울리는 ${categories[currentCategory]?.name} 골라줘!`
+          ? `${username}에게 어울리는 ${categories[currentCategory]?.name} 골라줘!`
           : "마지막으로 한마디를 남겨줘!"}
       </QuestionContainer>
       {!showWriting ? (
