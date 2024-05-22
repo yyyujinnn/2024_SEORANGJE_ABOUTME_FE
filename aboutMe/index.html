@@ -65,7 +65,7 @@
         };
     
         var useragt = navigator.userAgent.toLowerCase();
-var target_url; // 클릭한 링크의 URL을 저장할 변수
+var target_url = null; // 클릭한 링크의 URL을 저장할 변수, 초기값은 null로 설정
 
 // 클릭 이벤트 핸들러
 document.addEventListener('click', function(event) {
