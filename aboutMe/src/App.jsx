@@ -7,24 +7,16 @@ function App() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   }
-  // useEffect(() => {
-  //   setScreenSize();
-  // });
   useEffect(() => {
     setScreenSize();
-    window.addEventListener('resize', setScreenSize);
-    return () => {
-      window.removeEventListener('resize', setScreenSize);
-    };
-  }, []);
+  });
 
   return (
     <>
     <Helmet>
       <meta property="og:title" content="AboutMe" />  
       <meta property="og:image" content="/icons/AboutMeTmb.png" />
-      {/* <meta property="og:url" content="https://aboutme.d1pt3wqvnh1bfv.amplifyapp.com/" /> */}
-      <meta property="og:url" content="https://fix-inapp.dxpjcplfcmdfo.amplifyapp.com/" />
+      <meta property="og:url" content="https://aboutme.d1pt3wqvnh1bfv.amplifyapp.com/" />
       <meta property="og:description" content="네フГ 생각ṑト는 ∟ト를 알㈃ㅕ줘! (੭•̀ᴗ•̀)੭" />
     
       <meta name="twitter:title" content="AboutMe" />
