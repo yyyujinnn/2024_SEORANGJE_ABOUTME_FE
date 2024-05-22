@@ -461,7 +461,7 @@ const MakingPage = () => {
         formData.append(`imageUrls[${key}]`, imageUrls[key]);
       }
       formData.append("imageComment", inputValue);
-      formData.append("guestNickname", inputValue2);
+      formData.append("guestNickname", inputValue2 || "익명");
 
       // FormData를 JSON 형식으로 변환 (디버깅 용도)
       const formDataObj = {};
