@@ -163,7 +163,6 @@ const Block = styled.div`
 const GuestPage = () => {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState();
   const [dataLength, setDataLength] = useState(0);
 
   const { uuid } = useParams();
