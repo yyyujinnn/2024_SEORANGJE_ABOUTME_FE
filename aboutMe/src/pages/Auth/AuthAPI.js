@@ -91,11 +91,10 @@ export const fetchUserCategories = async (userId) => {
   const response = await AuthApi.get(`/api/MyImageSubject/${userId}`);
   return response.data;
 };
-
 /** GUEST USER CATEGORY API */
 export const fetchGuestCategories = async (uuid) => {
   const response = await axios.get(
-    `https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app/api/MyImageSubject/${uuid}`,
+    `https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app/${uuid}`,
   );
   return response.data;
 };

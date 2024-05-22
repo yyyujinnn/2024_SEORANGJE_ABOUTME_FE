@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoCameraOutline } from "react-icons/io5";
@@ -262,8 +262,7 @@ const categoryNameMap = {
 };
 
 const MakingPage = () => {
-  const location = useLocation();
-  //const { userId, username } = location.state || {};
+  const { uuid } = useParams();
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState(null);
 
@@ -276,58 +275,74 @@ const MakingPage = () => {
   const [imageUrls, setImageUrls] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const processImagesData = (imagesData, activeCategories) => {
+    return activeCategories.map((categoryKey) => {
+      const categoryData = imagesData.defaultImages
+        .filter((item) => item.category === categoryKey)
+        .map((item) => ({
+          id: item.id,
+          imageName: item.imageName,
+          imageDetail: item.imageDetail,
+          filePath: item.filePath,
+        }));
+      return {
+        name: categoryNameMap[categoryKey],
+        categoryKey,
+        images: categoryData,
+      };
+    });
+  };
+
+  const fetchUserData = useCallback(async (uuid) => {
+    if (uuid) {
+      // 게스트로 접근
+      const guestData = await fetchGuestCategories(uuid);
+      console.log("Guest Data:", guestData);
+      setUserId(guestData.userId);
+      setUsername(guestData.username);
+
+      const userCategoriesResponse = await fetchUserCategories(guestData.userId);
+      console.log("User Categories Response:", userCategoriesResponse);
+      const userCategories = userCategoriesResponse.subjects;
+      const activeCategories = Object.keys(userCategories).filter((key) => userCategories[key]);
+      const imagesData = await fetchImages(guestData.userId);
+      console.log("Images Data (Guest):", imagesData);
+
+      return processImagesData(imagesData, activeCategories);
+    } else {
+      // 로그인한 사용자
+      const userInfo = await fetchUserInfo();
+      console.log("User Info:", userInfo);
+      const user = userInfo.principalDetails.principal.user;
+      setUserId(user.id);
+      setUsername(user.username);
+
+      const userCategoriesResponse = await fetchUserCategories(user.id);
+      console.log("User Categories Response:", userCategoriesResponse);
+      const userCategories = userCategoriesResponse.subjects;
+      const activeCategories = Object.keys(userCategories).filter((key) => userCategories[key]);
+      const imagesData = await fetchImages(user.id);
+      console.log("Images Data (User):", imagesData);
+
+      return processImagesData(imagesData, activeCategories);
+    }
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch user info
-        const userInfo = await fetchUserInfo();
-        console.log("User Info API response data:", userInfo);
-
-        const user = userInfo.principalDetails.principal.user;
-        setUsername(user.username);
-        setUserId(user.id);
-        console.log("유저아이디", userId);
-
-        // Fetch user categories
-        const userCategoriesResponse = await fetchUserCategories(userId);
-        const userCategories = userCategoriesResponse.subjects;
-        console.log("User Categories API response data:", userCategories);
-
-        // true인 카테고리만 필터링
-        const activeCategories = Object.keys(userCategories).filter((key) => userCategories[key]);
-
-        // Fetch images and categories for the user
-        const imagesData = await fetchImages(userId);
-        console.log("Images and Categories API response data:", imagesData);
-
-        // imagesData가 존재하는지 확인
-        if (imagesData) {
-          const combinedData = activeCategories.map((categoryKey) => {
-            const categoryData = imagesData.defaultImages
-              .filter((item) => item.category === categoryKey)
-              .map((item) => ({
-                id: item.id,
-                imageName: item.imageName,
-                imageDetail: item.imageDetail,
-                filePath: item.filePath,
-              }));
-            return {
-              name: categoryNameMap[categoryKey],
-              categoryKey,
-              images: categoryData,
-            };
-          });
-
-          console.log("Combined Data:", combinedData); // combinedData 확인
+        const combinedData = await fetchUserData(uuid);
+        if (combinedData) {
           setCategories(combinedData);
         }
+        console.log("Combined Data:", combinedData);
       } catch (error) {
-        console.error("사용자 카테고리 정보 불러오는 에러:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [userId]);
+  }, [fetchUserData, uuid]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -466,7 +481,11 @@ const MakingPage = () => {
       console.error("Error submitting image URLs:", error);
     } finally {
       setIsSubmitting(false); // 요청 완료 후 버튼 활성화
-      navigate(`/home`);
+      if (uuid) {
+        navigate(`/${uuid}`);
+      } else {
+        navigate(`/home`);
+      }
     }
   };
 
