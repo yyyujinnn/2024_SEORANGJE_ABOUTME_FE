@@ -20,7 +20,7 @@ const Title = styled.div`
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: 40px 20px 170px 20px 40px;
+  grid-template-columns: 30px 20px 190px 20px 30px;
   gap: 10px;
   align-items: center;
   justify-content: center;
