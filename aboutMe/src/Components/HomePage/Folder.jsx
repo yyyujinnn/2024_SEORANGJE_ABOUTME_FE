@@ -85,7 +85,6 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
         <FolderItem key={item.id} onClick={() => handleIconClick(item.originalIndex, item.id)}>
           <img src={item.folderImageUrl} alt={item.folderImageUrl} />
           <Visitor>{item.guestNickname}</Visitor>
-          <Visitor>{item.originalIndex}</Visitor>
         </FolderItem>
       ))}
     </FolderGrid>

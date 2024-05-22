@@ -253,17 +253,18 @@ const HomePage = () => {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-  useEffect(() => {
+ useEffect(() => {
+  if (userId) {
     axios
       .get(`${baseUrl}/api/MyImage/List/${userId}`, {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
+        method: "GET"
       })
       .then((response) => {
         setDataLength(response.data.length);
       })
       .catch((error) => console.error("Error:", error));
-  }, []);
+  }
+}, [userId]);
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
