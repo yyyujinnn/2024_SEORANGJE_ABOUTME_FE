@@ -30,7 +30,7 @@ function App() {
       <meta name="twitter:title" content="AboutMe" />
       <meta name="twitter:image" content="/icons/AboutMeTmb.png" />    
       <meta name="twitter:description" content="네フГ 생각ṑト는 ∟ト를 알㈃ㅕ줘! (੭•̀ᴗ•̀)੭" />
-      </Helmet>
+    </Helmet>
       <Router />
     </>
   );
