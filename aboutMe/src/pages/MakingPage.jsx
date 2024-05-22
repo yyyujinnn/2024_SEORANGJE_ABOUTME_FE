@@ -571,7 +571,9 @@ const MakingPage = () => {
       </ProgressContainer>
       <Modal show={modalVisible} handleClose={closeModal}>
         <ModalImg src={HeartFolder} />
-        <ModalText>전송 준비가{"\n"} 완료되었습니다!</ModalText>
+        <ModalText>
+          {isSubmitting ? "전송 중....." : `전송 준비가 ${"\n"} 완료되었습니다!`}
+        </ModalText>
         <RowWrapper>
           <ModalBtn onClick={closeModal}>수정</ModalBtn>
           <ModalUploadBtn
