@@ -10,6 +10,13 @@ export const AuthApi = axios.create({
   },
 });
 
+export const MakeApi = axios.create({
+  baseURL: "https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app",
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+});
+
 /** LOGIN API */
 export const login = async ({ email, password }) => {
   const data = { email, password };
@@ -84,10 +91,18 @@ export const fetchUserCategories = async (userId) => {
   const response = await AuthApi.get(`/api/MyImageSubject/${userId}`);
   return response.data;
 };
+
+/** GUEST USER CATEGORY API */
+export const fetchGuestCategories = async (uuid) => {
+  const response = await axios.get(
+    `https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app/api/MyImageSubject/${uuid}`,
+  );
+  return response.data;
+};
 //생성된 다이어리
 export const submitImage = async (formData, userId) => {
   try {
-    const response = await AuthApi.post(`/api/MyImage/${userId}`, formData);
+    const response = await MakeApi.post(`/api/MyImage/${userId}`, formData);
     return response.data;
   } catch (error) {
     console.error("Axios 에러:", error);
