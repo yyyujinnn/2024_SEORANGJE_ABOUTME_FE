@@ -274,6 +274,7 @@ const MakingPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [imageFiles, setImageFiles] = useState({});
   const [imageUrls, setImageUrls] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -427,9 +428,19 @@ const MakingPage = () => {
   const navigate = useNavigate();
   const handleHomeClick = async () => {
     try {
+      setIsSubmitting(true);
       const formData = new FormData();
       for (const key in imageFiles) {
-        formData.append(`imageFiles[${key}]`, imageFiles[key]);
+        // base64 데이터에서 파일로 변환
+        const byteString = atob(imageFiles[key].split(",")[1]);
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ia], { type: "image/png" });
+        const file = new File([blob], `${key}.png`);
+        formData.append(`imageFiles[${key}]`, file);
       }
       for (const key in imageUrls) {
         formData.append(`imageUrls[${key}]`, imageUrls[key]);
@@ -453,8 +464,10 @@ const MakingPage = () => {
       }
     } catch (error) {
       console.error("Error submitting image URLs:", error);
+    } finally {
+      setIsSubmitting(false); // 요청 완료 후 버튼 활성화
+      navigate(`/home`);
     }
-    navigate(`/home`);
   };
 
   return (
