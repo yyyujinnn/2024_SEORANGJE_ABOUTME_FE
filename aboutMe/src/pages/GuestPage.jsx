@@ -197,7 +197,7 @@ const GuestPage = () => {
   };
 
   const handleMakingClick = () => {
-    navigate(`/making`, { state: { userId: hostId, username: hostname } });
+    navigate(`/${uuid}/making`);
   };
 
   return (
