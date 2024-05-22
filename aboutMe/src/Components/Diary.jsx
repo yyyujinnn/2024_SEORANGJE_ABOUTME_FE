@@ -1,11 +1,10 @@
-import Masonry from 'react-masonry-css';
-import DiaryFrame from '../assets/DiaryPage/diary.svg';
+import Masonry from "react-masonry-css";
+import DiaryFrame from "../assets/DiaryPage/diary.svg";
 //import { dummyData } from '../api/diary/diaryDummy';
-import styled from 'styled-components';
-import getMyImage from '../api/diary/getMyImage';
-import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-
+import styled from "styled-components";
+import getMyImage from "../api/diary/getMyImage";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 const Container = styled.div`
   display: flex;
@@ -21,9 +20,9 @@ const Frame = styled.img`
 `;
 
 const ImageCardBaseStyle = {
-  marginBottom: '16px',
-  overflow: 'hidden',
-  textAlign: 'center',
+  marginBottom: "16px",
+  overflow: "hidden",
+  textAlign: "center",
 };
 
 const StyledImage = styled.img`
@@ -36,7 +35,7 @@ const StyledImage = styled.img`
 const Title = styled.p`
   margin-top: 18px;
   padding: 0 8px;
-  color: #FFC700;
+  color: #ffc700;
   text-align: center;
   -webkit-text-stroke-width: 0.3px;
   -webkit-text-stroke-color: #000;
@@ -54,7 +53,7 @@ const breakpointColumnsObj = {
 const Letter = styled.p`
   color: #000;
   text-align: center;
-  font-family: "PFStardust 1.4";
+  font-family: "PFStardust";
   font-size: 13px;
   font-style: normal;
   font-weight: 500;
@@ -65,17 +64,17 @@ const Letter = styled.p`
 const getImageCardStyle = (index) => {
   switch (index) {
     case 0:
-      return { ...ImageCardBaseStyle, width: '150px' }; 
+      return { ...ImageCardBaseStyle, width: "150px" };
     case 1:
-      return { ...ImageCardBaseStyle, width: '150px' }; 
+      return { ...ImageCardBaseStyle, width: "150px" };
     case 2:
-      return { ...ImageCardBaseStyle, width: '150px' }; 
+      return { ...ImageCardBaseStyle, width: "150px" };
     case 3:
-      return { ...ImageCardBaseStyle, width: '157px' }; 
+      return { ...ImageCardBaseStyle, width: "157px" };
     case 4:
-      return { ...ImageCardBaseStyle, width: '136px' }; 
+      return { ...ImageCardBaseStyle, width: "136px" };
     default:
-      return { ...ImageCardBaseStyle, width: '150px' }; 
+      return { ...ImageCardBaseStyle, width: "150px" };
   }
 };
 
@@ -86,10 +85,10 @@ const Diary = ({ myimage_id }) => {
     const fetchData = async () => {
       try {
         const data = await getMyImage(myimage_id);
-        console.log('imageData:', data);
+        console.log("imageData:", data);
         setImageData(data);
       } catch (error) {
-        console.error('데이터 가져오기 오류:', error);
+        console.error("데이터 가져오기 오류:", error);
       }
     };
 
@@ -97,7 +96,11 @@ const Diary = ({ myimage_id }) => {
   }, [myimage_id]);
 
   if (!imageData) {
-    return <Container><div style={{height: '700px', alignContent: 'center'}}>Loading...</div></Container>;
+    return (
+      <Container>
+        <div style={{ height: "700px", alignContent: "center" }}>Loading...</div>
+      </Container>
+    );
   }
 
   return (
@@ -109,11 +112,21 @@ const Diary = ({ myimage_id }) => {
         columnClassName="my-masonry-grid_column"
       >
         {Object.entries(imageData.imageFileName).map(([key, title], index) => (
-          <div key={index} className={`my-masonry-grid_item arry${index}`} style={getImageCardStyle(index)}>
-            <StyledImage 
-              src={imageData.imageFilePaths[key]} 
-              alt={title} 
-              style={index === 2 ? { width: '160px' ,height: '160px'} : index === 4 ? { width: '136px', height: '136px' } : {}} 
+          <div
+            key={index}
+            className={`my-masonry-grid_item arry${index}`}
+            style={getImageCardStyle(index)}
+          >
+            <StyledImage
+              src={imageData.imageFilePaths[key]}
+              alt={title}
+              style={
+                index === 2
+                  ? { width: "160px", height: "160px" }
+                  : index === 4
+                  ? { width: "136px", height: "136px" }
+                  : {}
+              }
             />
             <Title>{title}</Title>
           </div>
