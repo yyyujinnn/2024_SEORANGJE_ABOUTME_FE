@@ -237,8 +237,7 @@ const ThemePage = () => {
       </ThemeContainer>
 
       <ButtonContainer>
-        {/* <Button onClick={handleHomeClick} active={activeThemes.length === 5}> 홈으로 이동 </Button> */}
-        <Button onClick={handleSubmit} active={activeThemes.length === 5}> 홈으로 이동 </Button>
+        <Button onClick={handleSubmit} active={activeThemes.length === 5}> 서비스 이용하기 </Button>
       </ButtonContainer>
 
       </Version>
