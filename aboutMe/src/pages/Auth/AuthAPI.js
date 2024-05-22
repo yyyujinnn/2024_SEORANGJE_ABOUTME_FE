@@ -74,14 +74,29 @@ export const fetchUserInfo = async () => {
   const response = await AuthApi.get(`/api/info`);
   return response.data;
 };
+// /** FETCH DEFAULT IMAGE API */
+// export const fetchImages = async (userId) => {
+//   const response = await AuthApi.get(`/api/DefaultImage/${userId}`);
+//   return response.data;
+// };
+// /** FETCH USER CATEGORY API */
+// export const fetchUserCategories = async (userId) => {
+//   const response = await axios.get(`/api/MyImageSubject/${userId}`);
+//   return response.data;
+// };
+
 /** FETCH DEFAULT IMAGE API */
 export const fetchImages = async (userId) => {
-  const response = await AuthApi.get(`/api/DefaultImage/${userId}`);
+  const response = await axios.get(
+    `https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app/api/DefaultImage/${userId}`,
+  );
   return response.data;
 };
 /** FETCH USER CATEGORY API */
 export const fetchUserCategories = async (userId) => {
-  const response = await AuthApi.get(`/api/MyImageSubject/${userId}`);
+  const response = await axios.get(
+    `https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app/api/MyImageSubject/${userId}`,
+  );
   return response.data;
 };
 //생성된 다이어리

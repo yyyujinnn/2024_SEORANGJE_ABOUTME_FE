@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoCameraOutline } from "react-icons/io5";
@@ -255,29 +255,31 @@ const categoryNameMap = {
 };
 
 const MakingPage = () => {
+  const location = useLocation();
+  const { userId, username } = location.state || {};
+
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
   const [showWriting, setWriting] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [username, setUsername] = useState("");
-  const [userId, setUserId] = useState(null);
   const [imageFiles, setImageFiles] = useState({});
   const [imageUrls, setImageUrls] = useState({});
 
   useEffect(() => {
+    console.log("유저아이디", userId);
     const fetchData = async () => {
       try {
-        // Fetch user info
-        const userInfo = await fetchUserInfo();
-        console.log("User Info API response data:", userInfo);
+        // // Fetch user info
+        // const userInfo = await fetchUserInfo();
+        // console.log("User Info API response data:", userInfo);
 
-        const user = userInfo.principalDetails.principal.user;
-        setUsername(user.username);
-        setUserId(user.id);
+        // const user = userInfo.principalDetails.principal.user;
+        // setUsername(user.username);
+        // setUserId(user.id);
 
         // Fetch user categories
-        const userCategoriesResponse = await fetchUserCategories(user.id);
+        const userCategoriesResponse = await fetchUserCategories(userId);
         const userCategories = userCategoriesResponse.subjects;
         console.log("User Categories API response data:", userCategories);
 
@@ -285,7 +287,7 @@ const MakingPage = () => {
         const activeCategories = Object.keys(userCategories).filter((key) => userCategories[key]);
 
         // Fetch images and categories for the user
-        const imagesData = await fetchImages(user.id);
+        const imagesData = await fetchImages(userId);
         console.log("Images and Categories API response data:", imagesData);
 
         // imagesData가 존재하는지 확인
@@ -310,7 +312,7 @@ const MakingPage = () => {
           setCategories(combinedData);
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("사용자 카테고리 정보 불러오는 에러:", error);
       }
     };
 

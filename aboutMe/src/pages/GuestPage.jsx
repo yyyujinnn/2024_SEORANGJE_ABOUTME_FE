@@ -160,8 +160,8 @@ const GuestPage = () => {
   const [dataLength, setDataLength] = useState(0);
 
   const { uuid } = useParams();
-  const [hostId, setHostId] = useState();
-  const [hostname, setHostName] = useState();
+  const [hostId, setHostId] = useState(null);
+  const [hostname, setHostName] = useState("");
 
   const baseUrl = `https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app`;
 
@@ -197,7 +197,7 @@ const GuestPage = () => {
   };
 
   const handleMakingClick = () => {
-    navigate(`/making`);
+    navigate(`/making`, { state: { userId: hostId, username: hostname } });
   };
 
   return (
