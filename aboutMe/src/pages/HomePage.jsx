@@ -200,6 +200,8 @@ const BtnIcon2 = styled.div`
   font-family: "DungGeunMo";
 `;
 
+
+
 const HomePage = () => {
   const navigate = useNavigate();
   const baseUrl = `https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app`;
@@ -303,7 +305,7 @@ const HomePage = () => {
             {" "}
             <img src={next} />{" "}
           </BtnNext>
-          <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} userId={userId} />
+            <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} userId={userId} />
         </FolderContainer>
 
         {isAuthenticated ? (
