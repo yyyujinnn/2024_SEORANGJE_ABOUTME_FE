@@ -153,10 +153,16 @@ const BtnIcon2 = styled.div`
   font-family: "DungGeunMo";
 `;
 
+const Block = styled.div`
+  position: absolute;
+  z-index: 10;
+  width: 300px;
+  height: 90%;
+`;
+
 const GuestPage = () => {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState();
   const [dataLength, setDataLength] = useState(0);
 
   const { uuid } = useParams();
@@ -171,6 +177,7 @@ const GuestPage = () => {
       .then((response) => {
         setHostId(response.data.userId);
         setHostName(response.data.username);
+        setDataLength(response.data.images.length);
       })
       .catch((error) => console.error("Error:", error));
   }, [uuid]);
@@ -219,7 +226,8 @@ const GuestPage = () => {
             {" "}
             <img src={next} />{" "}
           </BtnNext>
-          <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} userId={hostId} />
+            <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} userId={hostId} />
+            <Block />
         </FolderContainer>
 
         {/* 게스트.ver */}

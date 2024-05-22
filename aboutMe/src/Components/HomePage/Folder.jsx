@@ -54,10 +54,11 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
         }
         
 
-        const MyImageData = data.map(item => ({
+        const MyImageData = data.map((item, index)  => ({
           guestNickname: item.guestNickname,
           folderImageUrl: item.folderImageUrl,
           id: item.id,
+          originalIndex: index,
         }));
 
         console.log('MyImageData:', MyImageData);
@@ -81,8 +82,8 @@ export const Folder = ({ userId, currentPage, itemsPerPage }) => {
 
   return (
     <FolderGrid>
-      {currentItems.map((item,index) => (
-        <FolderItem key={item.guestNickname} onClick={() => handleIconClick(index, item.id)}>
+      {currentItems.map((item) => (
+        <FolderItem key={item.guestNickname} onClick={() => handleIconClick(item.originalIndex, item.id)}>
           <img src={item.folderImageUrl} alt={item.folderImageUrl} />
           <Visitor>{item.guestNickname}</Visitor>
         </FolderItem>
