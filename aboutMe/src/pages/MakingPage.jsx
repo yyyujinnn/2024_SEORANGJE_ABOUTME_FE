@@ -276,6 +276,10 @@ const MakingPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const processImagesData = (imagesData, activeCategories) => {
+    // activeCategories가 정확히 5개만 되도록 수정
+    if (activeCategories.length > 5) {
+      activeCategories = activeCategories.slice(0, 5);
+    }
     return activeCategories.map((categoryKey) => {
       const categoryData = imagesData.defaultImages
         .filter((item) => item.category === categoryKey)
@@ -443,6 +447,7 @@ const MakingPage = () => {
   const navigate = useNavigate();
   const handleHomeClick = async () => {
     try {
+      if (isSubmitting) return; // 이미 제출 중이면 함수 종료
       setIsSubmitting(true);
       const formData = new FormData();
       for (const key in imageFiles) {
@@ -474,18 +479,19 @@ const MakingPage = () => {
       if (userId) {
         const response = await submitImage(formData, userId);
         console.log("Image URLs submission response data:", response);
+
+        setIsSubmitting(false); // 요청 완료 후 버튼 활성화
+        if (uuid) {
+          navigate(`/${uuid}`);
+        } else {
+          navigate(`/home`);
+        }
       } else {
         console.error("User ID is null");
       }
     } catch (error) {
       console.error("Error submitting image URLs:", error);
-    } finally {
-      setIsSubmitting(false); // 요청 완료 후 버튼 활성화
-      if (uuid) {
-        navigate(`/${uuid}`);
-      } else {
-        navigate(`/home`);
-      }
+      setIsSubmitting(false); // 에러 발생 시에도 버튼 활성화
     }
   };
 
@@ -576,11 +582,7 @@ const MakingPage = () => {
         </ModalText>
         <RowWrapper>
           <ModalBtn onClick={closeModal}>수정</ModalBtn>
-          <ModalUploadBtn
-            onClick={handleHomeClick}
-            onTouchStart={handleHomeClick}
-            disabled={isSubmitting}
-          >
+          <ModalUploadBtn onClick={handleHomeClick} disabled={isSubmitting}>
             업로드
           </ModalUploadBtn>
         </RowWrapper>
