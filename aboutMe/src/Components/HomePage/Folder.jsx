@@ -31,7 +31,7 @@ const Visitor = styled.p`
   text-align: center;
   font-size: 14px;
   font-weight: 500;
-  margin-top: 15px;
+  margin: 15px 0 0 0;
 `;
 
 
