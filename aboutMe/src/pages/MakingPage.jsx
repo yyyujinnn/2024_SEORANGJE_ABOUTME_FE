@@ -74,7 +74,7 @@ const QuestionContainer = styled.div`
   white-space: pre-wrap;
   word-wrap: break-word;
   word-break: break-all;
-  //text-align: center;
+  text-align: center;
 `;
 const PictureContainer = styled.div`
   display: flex;
@@ -507,7 +507,7 @@ const MakingPage = () => {
       <QuestionContainer>
         Q{!showWriting ? currentCategory + 1 : "6"}. {"\n"}
         {!showWriting
-          ? `${username}에게 어울리는 ${categories[currentCategory]?.name} 골라줘!`
+          ? <div>{`${username}에게 어울리는`} <br/> {categories[currentCategory]?.name} 골라줘!</div>
           : "마지막으로 한마디를 남겨줘!"}
       </QuestionContainer>
       {!showWriting ? (
