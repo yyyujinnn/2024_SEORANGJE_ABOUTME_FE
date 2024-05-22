@@ -74,6 +74,7 @@ const QuestionContainer = styled.div`
   white-space: pre-wrap;
   word-wrap: break-word;
   word-break: break-all;
+  //text-align: center;
 `;
 const PictureContainer = styled.div`
   display: flex;
@@ -139,7 +140,7 @@ const UploadButton = styled.label`
   color: black;
 `;
 const ProgressContainer = styled(RowWrapper)`
-  margin: 40px 10px 0 10px;
+  margin: 40px 10px 15px 10px;
 `;
 const Text = styled.div`
   color: #000;
@@ -468,7 +469,7 @@ const MakingPage = () => {
       <QuestionContainer>
         Q{!showWriting ? currentCategory + 1 : "6"}. {"\n"}
         {!showWriting
-          ? `${username}와 어울리는 ${categories[currentCategory]?.name} 골라줘!`
+          ? `${username}에게 어울리는 ${categories[currentCategory]?.name} 골라줘!`
           : "마지막으로 한마디를 남겨줘!"}
       </QuestionContainer>
       {!showWriting ? (
