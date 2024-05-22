@@ -4,7 +4,13 @@ import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IoCameraOutline } from "react-icons/io5";
 import HeartFolder from "../assets/MakingPage/HeartFolder.svg";
-import { fetchUserInfo, fetchImages, fetchUserCategories, submitImage } from "./Auth/AuthAPI";
+import {
+  fetchUserInfo,
+  fetchImages,
+  fetchUserCategories,
+  fetchGuestCategories,
+  submitImage,
+} from "./Auth/AuthAPI";
 import Modal from "../Components/Modal";
 
 const ScreenContainer = styled.div`
@@ -256,7 +262,9 @@ const categoryNameMap = {
 
 const MakingPage = () => {
   const location = useLocation();
-  const { userId, username } = location.state || {};
+  //const { userId, username } = location.state || {};
+  const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState(null);
 
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState(0);
@@ -267,16 +275,16 @@ const MakingPage = () => {
   const [imageUrls, setImageUrls] = useState({});
 
   useEffect(() => {
-    console.log("유저아이디", userId);
     const fetchData = async () => {
       try {
-        // // Fetch user info
-        // const userInfo = await fetchUserInfo();
-        // console.log("User Info API response data:", userInfo);
+        // Fetch user info
+        const userInfo = await fetchUserInfo();
+        console.log("User Info API response data:", userInfo);
 
-        // const user = userInfo.principalDetails.principal.user;
-        // setUsername(user.username);
-        // setUserId(user.id);
+        const user = userInfo.principalDetails.principal.user;
+        setUsername(user.username);
+        setUserId(user.id);
+        console.log("유저아이디", userId);
 
         // Fetch user categories
         const userCategoriesResponse = await fetchUserCategories(userId);
