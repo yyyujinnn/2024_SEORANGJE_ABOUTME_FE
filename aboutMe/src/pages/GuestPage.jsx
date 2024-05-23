@@ -200,11 +200,14 @@ const GuestPage = () => {
   };
 
   const handleSignupClick = () => {
-    navigate(`/sign-up`);
+    navigate(`/sign-in`);
   };
 
   const handleMakingClick = () => {
     navigate(`/${uuid}/making`);
+  };
+  const blockAlert = () => {
+    alert("친구가 남긴 아이콘을 확인하려면, 로그인해주세요!");
   };
 
   return (
@@ -226,13 +229,13 @@ const GuestPage = () => {
             {" "}
             <img src={next} />{" "}
           </BtnNext>
-            <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} userId={hostId} />
-            <Block />
+          <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} userId={hostId} />
+          <Block onClick={blockAlert}></Block>
         </FolderContainer>
 
         {/* 게스트.ver */}
         <ButtonContainer>
-          <BtnDiary onClick={handleSignupClick}> 내 미니홈피 만들러 가기</BtnDiary>
+          <BtnDiary onClick={handleSignupClick}> 로그인 & 회원가입</BtnDiary>
           <BtnIcon2 onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon2>
         </ButtonContainer>
       </Version>
