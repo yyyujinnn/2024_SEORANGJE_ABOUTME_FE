@@ -232,7 +232,7 @@ const GuestPage = () => {
 
         {/* 게스트.ver */}
         <ButtonContainer>
-          <BtnDiary onClick={handleSignupClick}> 내 미니홈피 만들러 가기</BtnDiary>
+          <BtnDiary onClick={handleSignupClick}> 로그인 & 회원가입</BtnDiary>
           <BtnIcon2 onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon2>
         </ButtonContainer>
       </Version>
