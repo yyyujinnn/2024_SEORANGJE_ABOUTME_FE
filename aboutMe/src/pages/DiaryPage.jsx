@@ -11,7 +11,7 @@ const Title = styled.div`
   margin: 23px 0;
   color: #000;
   text-align: center;
-  font-family: NeoDunggeunmo;
+  font-family: "NeoDunggeunmo";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
