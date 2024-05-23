@@ -200,8 +200,6 @@ const BtnIcon2 = styled.div`
   font-family: "DungGeunMo";
 `;
 
-
-
 const HomePage = () => {
   const navigate = useNavigate();
   const baseUrl = `https://port-0-seorangje-aboutme-be-2024-1ru12mlwc1mxvw.sel5.cloudtype.app`;
@@ -253,18 +251,18 @@ const HomePage = () => {
       .catch((error) => console.error("Error:", error));
   }, []);
 
- useEffect(() => {
-  if (userId) {
-    axios
-      .get(`${baseUrl}/api/MyImage/List/${userId}`, {
-        method: "GET"
-      })
-      .then((response) => {
-        setDataLength(response.data.length);
-      })
-      .catch((error) => console.error("Error:", error));
-  }
-}, [userId]);
+  useEffect(() => {
+    if (userId) {
+      axios
+        .get(`${baseUrl}/api/MyImage/List/${userId}`, {
+          method: "GET",
+        })
+        .then((response) => {
+          setDataLength(response.data.length);
+        })
+        .catch((error) => console.error("Error:", error));
+    }
+  }, [userId]);
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -291,7 +289,7 @@ const HomePage = () => {
   };
 
   const handleSignupClick = () => {
-    navigate(`/sign-up`);
+    navigate(`/sign-in`);
   };
 
   const handleMakingClick = () => {
@@ -317,7 +315,7 @@ const HomePage = () => {
             {" "}
             <img src={next} />{" "}
           </BtnNext>
-            <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} userId={userId} />
+          <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} userId={userId} />
         </FolderContainer>
 
         {isAuthenticated ? (
@@ -334,7 +332,7 @@ const HomePage = () => {
         ) : (
           // 게스트.ver
           <ButtonContainer>
-            <BtnDiary onClick={handleSignupClick}> 내 미니홈피 만들러 가기</BtnDiary>
+            <BtnDiary onClick={handleSignupClick}> 로그인 & 회원가입</BtnDiary>
             <BtnIcon2 onClick={handleMakingClick}> 아이콘 남기기 </BtnIcon2>
           </ButtonContainer>
         )}
