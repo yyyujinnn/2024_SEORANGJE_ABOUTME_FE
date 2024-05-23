@@ -200,7 +200,7 @@ const GuestPage = () => {
   };
 
   const handleSignupClick = () => {
-    navigate(`/sign-up`);
+    navigate(`/sign-in`);
   };
 
   const handleMakingClick = () => {
