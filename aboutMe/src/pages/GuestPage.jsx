@@ -206,6 +206,9 @@ const GuestPage = () => {
   const handleMakingClick = () => {
     navigate(`/${uuid}/making`);
   };
+  const blockAlert = () => {
+    alert("친구가 남긴 아이콘을 확인하려면, 로그인해주세요!");
+  };
 
   return (
     <MainBody>
@@ -226,8 +229,8 @@ const GuestPage = () => {
             {" "}
             <img src={next} />{" "}
           </BtnNext>
-            <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} userId={hostId} />
-            <Block />
+          <Folder currentPage={currentPage} itemsPerPage={itemsPerPage} userId={hostId} />
+          <Block onClick={blockAlert}></Block>
         </FolderContainer>
 
         {/* 게스트.ver */}
