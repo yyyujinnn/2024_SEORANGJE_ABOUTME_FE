@@ -5,15 +5,11 @@
 🔗 서비스 링크 : https://aboutme.d1pt3wqvnh1bfv.amplifyapp.com
 <br/>
 <br/>
-![image](https://github.com/Sohyunnnn/2024_SEORANGJE_ABOUTME_FE/assets/108279922/dddd8a1f-6105-46aa-841e-da25ba9362db)
-
+<img src="https://github.com/Sohyunnnn/2024_SEORANGJE_ABOUTME_FE/assets/108279922/dddd8a1f-6105-46aa-841e-da25ba9362db.png" width="600" height="600"/>
 
 ## 프로젝트 소개
 서울여자대학교 서랑제를 겨냥해서 단기적으로 출시한 서비스로, 선후배 및 동기들이 생각하는 '나'를 알아볼 수 있다.
 최근 sns에서 화두가 되었던 9분할 이미지 채워주기에서 발전한 서비스이다.
-<br/>
-<br/>
-![image](https://github.com/user-attachments/assets/9517817a-3f8b-4b13-9b3b-aa3dbfb77be9)
 <br/>
 
 
